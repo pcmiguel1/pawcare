@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PawCare</string>
+
+    <string name="location_permission">Location Permission</string>
+    <string name="permission_needed">The app needs location permission to work properly.</string>
+
 </resources>

@@ -5,16 +5,27 @@ plugins {
 
 android {
     namespace 'com.pawcare.pawcare'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.pawcare.pawcare"
         minSdk 27
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        buildConfigField "String", "SERVICE_URL", "\"http://192.168.1.72:3000/api/\""
+        buildConfigField "String", "SecretJWT", "\"da8d46abb41d0f9fa714820d69d342d5f845ad8d9d9fb96f10552fd151a9f0d4\""
+        buildConfigField "String", "KeyJWT", "\"46d4b6d04ea7e85b75d5d9392f5867c8fd600fa2bad32d047d47334e70ea587a\""
+        buildConfigField "String", "IssuerJWT", "\"com.pcmiguel.pawcare\""
+
+        buildConfigField "String", "FIREBASE_API_KEY", "\"AIzaSyChy_GsP4O188tCxRQE9a347n40srSHpoU\""
+        buildConfigField "String", "FIREBASE_APP_ID", "\"1:323366653250:android:a65c392b7826e546ad4cdb\""
+        buildConfigField "String", "PROJECT_ID", "\"pawcare-c3b05\""
+
     }
 
     buildTypes {
@@ -30,6 +41,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -37,7 +52,33 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    implementation 'com.airbnb.android:lottie:5.2.0'
+
+    implementation 'com.google.firebase:firebase-core:18.0.2'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    implementation "com.google.firebase:firebase-iid:21.1.0"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
+    implementation 'com.hbb20:ccp:2.6.0'
+
+    implementation 'com.auth0:java-jwt:4.3.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
 }
