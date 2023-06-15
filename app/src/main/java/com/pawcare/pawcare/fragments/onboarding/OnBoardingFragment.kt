@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
@@ -45,6 +46,14 @@ class OnBoardingFragment : Fragment() {
 
         val indicator = binding!!.indicator
         indicator.setViewPager(binding!!.viewPager2)
+
+
+        binding!!.signupBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_onBoardingFragment_to_registerFragment)
+
+        }
+
 
     }
 
