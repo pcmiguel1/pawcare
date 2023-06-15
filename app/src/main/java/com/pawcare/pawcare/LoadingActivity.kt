@@ -40,7 +40,10 @@ class LoadingActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             thread {
-                runOnUiThread { performBackOfficeRequests() }
+                runOnUiThread {
+                    //performBackOfficeRequests()
+                    startMainActivity()
+                }
             }
         }, 3000)
 

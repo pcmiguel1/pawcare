@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pcmiguel.pawcare.MainActivity">
+
+    <item android:title="@string/explore"
+        android:id="@+id/exploreFragment"
+        android:icon="@drawable/explore" />
+
+    <item android:title="@string/bookings"
+        android:id="@+id/bookingsFragment"
+        android:icon="@drawable/bookings"/>
+
+    <item android:title="@string/inbox"
+        android:id="@+id/inboxFragment"
+        android:icon="@drawable/inbox"/>
+
+    <item android:title="@string/profile"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile"/>
+
+</menu>

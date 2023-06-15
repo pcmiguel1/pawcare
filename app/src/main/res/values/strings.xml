@@ -4,4 +4,25 @@
     <string name="location_permission">Location Permission</string>
     <string name="permission_needed">The app needs location permission to work properly.</string>
 
+    <string name="explore">Explore</string>
+    <string name="bookings">Bookings</string>
+    <string name="inbox">Inbox</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="onboarding_1_title">Welcome to Paw Care</string>
+    <string name="onboarding_1_desc">The best app to find the right persons to take care of your pet.</string>
+
+    <string name="onboarding_2_title">Find Professionals</string>
+    <string name="onboarding_2_desc">Paw care will help you with easy steps to find professionals near you to care for your pets.</string>
+
+    <string name="onboarding_3_title">Multiple Services</string>
+    <string name="onboarding_3_desc">Find the service your pets need most.</string>
+
+    <string name="onboarding_4_title">Reliable Reviews</string>
+    <string name="onboarding_4_desc">A review can be left only by a user who used the service.</string>
+
+    <string name="signup">Sign up</string>
+
 </resources>

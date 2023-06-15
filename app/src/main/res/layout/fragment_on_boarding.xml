@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.onboarding.OnBoardingFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/indicator" />
+
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_above="@id/bottom_buttons"
+            app:ci_width="6dp"
+            app:ci_height="6dp"
+            app:ci_margin="15dp"
+            app:ci_drawable="@drawable/boarding_indicator_selected"
+            app:ci_drawable_unselected="@drawable/boarding_indicator_unselected"/>
+
+        <LinearLayout
+            android:id="@+id/bottom_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_margin="10dp"
+                android:clipToPadding="false"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="10dp">
+                
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/facebook_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="55dp"
+                    app:cardCornerRadius="16dp"
+                    android:background="@color/white"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="5dp">
+                    
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/facebook"/>
+                    
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/google_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="55dp"
+                    app:cardCornerRadius="16dp"
+                    android:background="@color/white"
+                    android:layout_marginStart="10dp"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/google"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_btn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="15dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/primaryColor"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="16sp"
+                android:text="@string/signup"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
