@@ -36,6 +36,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.exploreFragment -> navController.navigate(R.id.exploreFragment2)
 
+                R.id.bookingsFragment -> navController.navigate(R.id.bookingsFragment2)
+
+                R.id.profileFragment -> navController.navigate(R.id.profileFragment2)
+
             }
             true
 

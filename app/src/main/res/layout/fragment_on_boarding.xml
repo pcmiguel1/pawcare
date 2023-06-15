@@ -85,6 +85,20 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="15dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/custom_button"
+                android:backgroundTint="@color/primaryLight2Color"
+                android:fontFamily="@font/urbanist_bold"
+                android:textSize="16sp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryColor"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signup_btn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"

@@ -49,9 +49,11 @@ class OnBoardingFragment : Fragment() {
 
 
         binding!!.signupBtn.setOnClickListener {
-
             findNavController().navigate(R.id.action_onBoardingFragment_to_registerFragment)
+        }
 
+        binding!!.loginBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
         }
 
 

@@ -23,9 +23,27 @@
     <string name="onboarding_4_title">Reliable Reviews</string>
     <string name="onboarding_4_desc">A review can be left only by a user who used the service.</string>
 
+    <string name="login">Login</string>
     <string name="signup">Sign up</string>
 
     <string name="take_photo">Take a picture</string>
     <string name="choose_from_gallery">Choose from gallery</string>
+
+    <string name="editprofile">Edit Profile</string>
+    <string name="mypets">My Pets</string>
+    <string name="notification">Notification</string>
+    <string name="aboutpawcare">About PawCare</string>
+    <string name="logout">Logout</string>
+    <string name="deleteaccount">Delete Account</string>
+
+    <string name="active">Active</string>
+    <string name="completed">Completed</string>
+
+    <string name="no_bookings_title">You don\'t have a booking yet</string>
+    <string name="no_bookings">You don\'t have an ongoing booking at this time</string>
+
+    <string name="special_offers">Special Offers</string>
+    <string name="nearby_services">Nearby Services</string>
+    <string name="see_all">See All</string>
 
 </resources>
