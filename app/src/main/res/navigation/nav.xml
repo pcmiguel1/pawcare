@@ -15,6 +15,15 @@
         <action
             android:id="@+id/action_exploreFragment2_to_bookingsFragment2"
             app:destination="@id/bookingsFragment2" />
+        <action
+            android:id="@+id/action_exploreFragment2_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_exploreFragment2_to_likedServicesFragment"
+            app:destination="@id/likedServicesFragment" />
+        <action
+            android:id="@+id/action_exploreFragment2_to_inboxFragment2"
+            app:destination="@id/inboxFragment2" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -58,4 +67,19 @@
         android:name="com.pawcare.pawcare.fragments.bookings.BookingsFragment"
         android:label="fragment_bookings"
         tools:layout="@layout/fragment_bookings" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.pawcare.pawcare.fragments.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/likedServicesFragment"
+        android:name="com.pawcare.pawcare.fragments.likedservices.LikedServicesFragment"
+        android:label="fragment_liked_services"
+        tools:layout="@layout/fragment_liked_services" />
+    <fragment
+        android:id="@+id/inboxFragment2"
+        android:name="com.pawcare.pawcare.fragments.inbox.InboxFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_inbox" />
 </navigation>

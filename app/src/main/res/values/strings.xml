@@ -46,4 +46,7 @@
     <string name="nearby_services">Nearby Services</string>
     <string name="see_all">See All</string>
 
+    <string name="notifications">Notifications</string>
+    <string name="liked_services">Liked Services</string>
+
 </resources>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,18 @@ class ExploreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding!!.notificationsBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_exploreFragment2_to_notificationsFragment)
+
+        }
+
+        binding!!.likes.setOnClickListener {
+
+            findNavController().navigate(R.id.action_exploreFragment2_to_likedServicesFragment)
+
+        }
+
         val imageSlider = binding!!.slider
 
         val slideModels = arrayListOf<SlideModel>()
@@ -78,7 +91,7 @@ class ExploreFragment : Fragment() {
         recyclerViewServices = binding!!.services
         recyclerViewServices.setHasFixedSize(true)
         recyclerViewServices.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        snapHelper.attachToRecyclerView(recyclerViewServices)
+        //snapHelper.attachToRecyclerView(recyclerViewServices)
 
         addServicesToList()
 
@@ -92,6 +105,10 @@ class ExploreFragment : Fragment() {
         categories.add(Category("Sitting", R.drawable.sitting_icon))
         categories.add(Category("Walking", R.drawable.walking_icon))
         categories.add(Category("Washing", R.drawable.washing_icon))
+        categories.add(Category("More", R.drawable.more_icon))
+        categories.add(Category("Training", R.drawable.sitting_icon))
+        categories.add(Category("Grooming", R.drawable.walking_icon))
+        categories.add(Category("Veterinary", R.drawable.washing_icon))
         categories.add(Category("More", R.drawable.more_icon))
 
     }
