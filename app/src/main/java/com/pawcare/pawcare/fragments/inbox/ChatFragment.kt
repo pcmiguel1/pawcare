@@ -1,0 +1,47 @@
+package com.pawcare.pawcare.fragments.inbox
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.pawcare.pawcare.App
+import com.pawcare.pawcare.R
+import com.pawcare.pawcare.Utils
+import com.pawcare.pawcare.databinding.FragmentChatBinding
+
+class ChatFragment : Fragment() {
+
+    private var binding: FragmentChatBinding? = null
+
+    private lateinit var name : String
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        val fragmentBinding = FragmentChatBinding.inflate(inflater, container, false)
+        binding = fragmentBinding
+
+        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+
+        val args = requireArguments()
+        name = args.getString("SITTER_NAME") ?: ""
+
+        return fragmentBinding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Utils.navigationBar(view, name, requireActivity())
+
+
+    }
+
+}

@@ -21,8 +21,10 @@
 
     <color name="text_color">#212121</color>
     <color name="text_color2">#616161</color>
+    <color name="text_color3">#35383F</color>
     <color name="error">#ED6D4E</color>
 
+    <color name="redligth">#F2947D</color>
     <color name="red">#F75555</color>
     <color name="redLight">#FFF2F3</color>
 

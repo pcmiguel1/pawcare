@@ -36,7 +36,7 @@ class BookingsFragment : Fragment() {
         val tabLayout = binding!!.tabLayout
         val viewPager2 = binding!!.viewPager2
 
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         viewPager2.adapter = adapter
 

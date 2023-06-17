@@ -66,7 +66,11 @@
         android:id="@+id/bookingsFragment2"
         android:name="com.pawcare.pawcare.fragments.bookings.BookingsFragment"
         android:label="fragment_bookings"
-        tools:layout="@layout/fragment_bookings" />
+        tools:layout="@layout/fragment_bookings" >
+        <action
+            android:id="@+id/action_bookingsFragment2_to_chatFragment2"
+            app:destination="@id/chatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.pawcare.pawcare.fragments.notifications.NotificationsFragment"
@@ -81,5 +85,18 @@
         android:id="@+id/inboxFragment2"
         android:name="com.pawcare.pawcare.fragments.inbox.InboxFragment"
         android:label="fragment_inbox"
-        tools:layout="@layout/fragment_inbox" />
+        tools:layout="@layout/fragment_inbox" >
+        <action
+            android:id="@+id/action_inboxFragment2_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.pawcare.pawcare.fragments.inbox.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_inboxFragment22"
+            app:destination="@id/inboxFragment2" />
+    </fragment>
 </navigation>
