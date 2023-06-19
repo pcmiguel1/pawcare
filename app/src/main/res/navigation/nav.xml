@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_exploreFragment2_to_inboxFragment2"
             app:destination="@id/inboxFragment2" />
+        <action
+            android:id="@+id/action_exploreFragment2_to_sitterInfoFragment2"
+            app:destination="@id/sitterInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -80,7 +83,11 @@
         android:id="@+id/likedServicesFragment"
         android:name="com.pawcare.pawcare.fragments.likedservices.LikedServicesFragment"
         android:label="fragment_liked_services"
-        tools:layout="@layout/fragment_liked_services" />
+        tools:layout="@layout/fragment_liked_services" >
+        <action
+            android:id="@+id/action_likedServicesFragment_to_sitterInfoFragment"
+            app:destination="@id/sitterInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inboxFragment2"
         android:name="com.pawcare.pawcare.fragments.inbox.InboxFragment"
@@ -99,4 +106,9 @@
             android:id="@+id/action_chatFragment_to_inboxFragment22"
             app:destination="@id/inboxFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/sitterInfoFragment"
+        android:name="com.pawcare.pawcare.fragments.sitterinfo.SitterInfoFragment"
+        android:label="fragment_sitter_info"
+        tools:layout="@layout/fragment_sitter_info" />
 </navigation>

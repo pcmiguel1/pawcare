@@ -98,6 +98,21 @@ class ExploreFragment : Fragment() {
         serviceAdapter = ServiceAdapter(services)
         recyclerViewServices.adapter = serviceAdapter
 
+        serviceAdapter.setOnItemClickListener(object : ServiceAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+
+                val item = serviceAdapter.getItem(position)
+
+                val bundle = Bundle()
+                bundle.putString("SITTER_NAME", item.name)
+
+                findNavController().navigate(R.id.action_exploreFragment2_to_sitterInfoFragment2)
+
+
+            }
+
+        })
+
     }
 
     private fun addCategoriesToList() {

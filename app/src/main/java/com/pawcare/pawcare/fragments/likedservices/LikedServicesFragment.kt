@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pawcare.pawcare.App
@@ -54,9 +55,26 @@ class LikedServicesFragment : Fragment() {
         serviceAdapter = ServiceAdapter(services)
         recyclerViewServices.adapter = serviceAdapter
 
+        serviceAdapter.setOnItemClickListener(object : ServiceAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+
+                val item = serviceAdapter.getItem(position)
+
+                val bundle = Bundle()
+                bundle.putString("SITTER_NAME", item.name)
+
+                findNavController().navigate(R.id.action_likedServicesFragment_to_sitterInfoFragment)
+
+
+            }
+
+        })
+
     }
 
     private fun addServicesToList() {
+
+        services.clear()
 
         services.add(Service("Steven Segal", 4.8f, 10.0))
         services.add(Service("Steven Segal", 4.8f, 10.0))
