@@ -295,7 +295,7 @@
                 android:weightSum="1">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/cancel_btn"
+                    android:id="@+id/message_btn"
                     android:layout_marginTop="20dp"
                     android:layout_width="0dp"
                     android:layout_weight="0.5"
@@ -312,7 +312,7 @@
                     android:layout_marginEnd="10dp"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/submit_btn"
+                    android:id="@+id/booknow_btn"
                     android:layout_marginTop="20dp"
                     android:layout_width="0dp"
                     android:layout_weight="0.5"

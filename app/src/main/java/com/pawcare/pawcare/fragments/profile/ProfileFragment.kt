@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentProfileBinding
@@ -31,7 +32,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding!!.mypets.setOnClickListener {
 
+            findNavController().navigate(R.id.action_profileFragment2_to_myPetsFragment)
+
+        }
 
     }
 

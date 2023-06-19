@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -66,6 +67,22 @@ class SitterInfoFragment : Fragment() {
 
         reviewAdapter = ReviewAdapter(reviews)
         recyclerViewReviews.adapter = reviewAdapter
+
+
+        binding!!.booknowBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_sitterInfoFragment_to_bookingDetailsFragment)
+
+        }
+
+        binding!!.messageBtn.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putString("SITTER_NAME", "sddd")
+
+            findNavController().navigate(R.id.action_sitterInfoFragment_to_chatFragment, bundle)
+
+        }
 
     }
 

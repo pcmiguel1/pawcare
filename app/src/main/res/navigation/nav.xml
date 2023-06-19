@@ -64,7 +64,11 @@
         android:id="@+id/profileFragment2"
         android:name="com.pawcare.pawcare.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment2_to_myPetsFragment"
+            app:destination="@id/myPetsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookingsFragment2"
         android:name="com.pawcare.pawcare.fragments.bookings.BookingsFragment"
@@ -110,5 +114,22 @@
         android:id="@+id/sitterInfoFragment"
         android:name="com.pawcare.pawcare.fragments.sitterinfo.SitterInfoFragment"
         android:label="fragment_sitter_info"
-        tools:layout="@layout/fragment_sitter_info" />
+        tools:layout="@layout/fragment_sitter_info" >
+        <action
+            android:id="@+id/action_sitterInfoFragment_to_bookingDetailsFragment"
+            app:destination="@id/bookingDetailsFragment" />
+        <action
+            android:id="@+id/action_sitterInfoFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingDetailsFragment"
+        android:name="com.pawcare.pawcare.fragments.bookingsdetails.BookingDetailsFragment"
+        android:label="fragment_booking_details"
+        tools:layout="@layout/fragment_booking_details" />
+    <fragment
+        android:id="@+id/myPetsFragment"
+        android:name="com.pawcare.pawcare.fragments.mypets.MyPetsFragment"
+        android:label="fragment_my_pets"
+        tools:layout="@layout/fragment_my_pets" />
 </navigation>
