@@ -73,6 +73,8 @@ class ActiveBookingsFragment : Fragment() {
 
     private fun addBookingsToList(empty: View) {
 
+        bookings.clear()
+
         bookings.add(Bookings("Steven Segal", "Pet Walking"))
         bookings.add(Bookings("Steven Segal", "Training"))
 

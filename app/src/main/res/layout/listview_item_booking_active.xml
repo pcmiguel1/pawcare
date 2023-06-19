@@ -105,7 +105,205 @@
         android:layout_height="1dp"
         android:background="@color/cinza"/>
 
+    <LinearLayout
+        android:id="@+id/status"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/status1"/>
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your pet picket up"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32 Manchester Ave. Ringgold, GA 30736"
+                    android:textColor="@color/text_color2"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_regular" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:20 PM"
+                android:textColor="@color/text_color2"
+                android:textSize="15sp"
+                android:fontFamily="@font/urbanist_regular"
+                android:gravity="top"
+                android:layout_gravity="top"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/status2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/status1"
+                app:tint="@color/grey" />
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="The walk is in progress"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32 Manchester Ave. Ringgold, GA 30736"
+                    android:textColor="@color/text_color2"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_regular" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:20 PM"
+                android:textColor="@color/text_color2"
+                android:textSize="15sp"
+                android:fontFamily="@font/urbanist_regular"
+                android:gravity="top"
+                android:layout_gravity="top"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/status2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="1"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/status1"
+                app:tint="@color/grey"/>
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Walker is returning"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_bold" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32 Manchester Ave. Ringgold, GA 30736"
+                    android:textColor="@color/text_color2"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_regular" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:20 PM"
+                android:textColor="@color/text_color2"
+                android:textSize="15sp"
+                android:fontFamily="@font/urbanist_regular"
+                android:gravity="top"
+                android:layout_gravity="top"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="20dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="16sp"
+            android:text="View in map"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
     <ImageView
+        android:id="@+id/more_details"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="20dp"

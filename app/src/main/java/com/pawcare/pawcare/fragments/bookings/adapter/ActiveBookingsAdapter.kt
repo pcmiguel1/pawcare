@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,10 +33,24 @@ class ActiveBookingsAdapter(
         val name : TextView = itemView.findViewById(R.id.name)
         val service : TextView = itemView.findViewById(R.id.service)
         val chat: View = itemView.findViewById(R.id.chat)
+        val moreDetails: ImageView = itemView.findViewById(R.id.more_details)
+        val status: View = itemView.findViewById(R.id.status)
 
         init {
             chat.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
+            }
+            moreDetails.setOnClickListener {
+
+                if (status.visibility == View.VISIBLE) {
+                    moreDetails.setImageResource(R.drawable.arrow_down)
+                    status.visibility = View.GONE
+                }
+                else {
+                    moreDetails.setImageResource(R.drawable.arrow_up)
+                    status.visibility = View.VISIBLE
+                }
+
             }
         }
 

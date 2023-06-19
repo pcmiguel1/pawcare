@@ -69,7 +69,7 @@ class CompletedBookingsFragment : Fragment() {
                 dialog.setContentView(view)
                 dialog.setCancelable(false)
 
-                /*val cancelBtn = dialog.findViewById<View>(R.id.cancel_btn)
+                val cancelBtn = dialog.findViewById<View>(R.id.cancel_btn)
                 val submitBtn = dialog.findViewById<View>(R.id.submit_btn)
 
                 cancelBtn!!.setOnClickListener {
@@ -79,7 +79,7 @@ class CompletedBookingsFragment : Fragment() {
                 submitBtn!!.setOnClickListener {
 
 
-                }*/
+                }
 
                 dialog.show()
 
@@ -90,6 +90,8 @@ class CompletedBookingsFragment : Fragment() {
     }
 
     private fun addBookingsToList(empty: View) {
+
+        bookings.clear()
 
         bookings.add(Bookings("Steven Segal", "Pet Walking"))
         bookings.add(Bookings("Steven Segal", "Training"))
