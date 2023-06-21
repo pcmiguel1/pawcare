@@ -1,8 +1,10 @@
 package com.pawcare.pawcare
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.navigation.NavController
@@ -37,16 +39,35 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setupWithNavController(navController)
 
+
+        if (App.instance.preferences.getBoolean("SITTER", false)) {
+
+            bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.dashboard)
+            bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.dashboard)
+            bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+
+            bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.calendar)
+            bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.calendar)
+
+        }
+
+
         bottomNavigationView.setOnItemSelectedListener {
 
             when (it.itemId) {
 
                 R.id.exploreFragment -> {
-                    navController.navigate(R.id.exploreFragment2)
+
+                    if (App.instance.preferences.getBoolean("SITTER", false)) navController.navigate(R.id.dashboardFragment)
+                    else navController.navigate(R.id.exploreFragment2)
+
                 }
 
                 R.id.bookingsFragment -> {
-                    navController.navigate(R.id.bookingsFragment2)
+
+                    if (App.instance.preferences.getBoolean("SITTER", false)) navController.navigate(R.id.bookingsFragment2)
+                    else navController.navigate(R.id.bookingsFragment2)
+
                 }
 
                 R.id.inboxFragment -> {
@@ -64,24 +85,19 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener {_, destination, _ ->
 
-            Log.d("destination", destination.id.toString())
             when (destination.id) {
 
                 R.id.exploreFragment2 -> {
                     bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
-                    Log.d("destination1", destination.id.toString())
                 }
                 R.id.bookingsFragment2 -> {
                     bottomNavigationView.menu.findItem(R.id.bookingsFragment).isChecked = true
-                    Log.d("destination2", destination.id.toString())
                 }
                 R.id.inboxFragment2 -> {
                     bottomNavigationView.menu.findItem(R.id.inboxFragment).isChecked = true
-                    Log.d("destination3", destination.id.toString())
                 }
                 R.id.profileFragment2 -> {
                     bottomNavigationView.menu.findItem(R.id.profileFragment).isChecked = true
-                    Log.d("destination4", destination.id.toString())
                 }
 
             }

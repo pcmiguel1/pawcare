@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
@@ -51,6 +53,12 @@ class MyPetsFragment : Fragment() {
 
         petAdapter = PetAdapter(pets)
         recyclerViewPets.adapter = petAdapter
+
+        binding!!.addPetBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_myPetsFragment_to_addPetFragment)
+
+        }
 
     }
 

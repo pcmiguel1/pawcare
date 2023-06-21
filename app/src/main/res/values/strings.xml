@@ -4,6 +4,8 @@
     <string name="location_permission">Location Permission</string>
     <string name="permission_needed">The app needs location permission to work properly.</string>
 
+    <string name="dashboard">Dashboard</string>
+    <string name="calendar">Calendar</string>
     <string name="explore">Explore</string>
     <string name="bookings">Bookings</string>
     <string name="inbox">Inbox</string>
@@ -48,5 +50,8 @@
 
     <string name="notifications">Notifications</string>
     <string name="liked_services">Liked Services</string>
+
+    <string name="switchsitter">Switch to Sitter</string>
+    <string name="income_per_service">Income Per Service</string>
 
 </resources>

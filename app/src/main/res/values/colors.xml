@@ -28,4 +28,7 @@
     <color name="red">#F75555</color>
     <color name="redLight">#FFF2F3</color>
 
+    <color name="redLight3">#FFF7EB</color>
+    <color name="blue">#4558CE</color>
+
 </resources>

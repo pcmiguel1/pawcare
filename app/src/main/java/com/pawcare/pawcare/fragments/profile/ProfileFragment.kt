@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentProfileBinding
@@ -32,9 +33,50 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (App.instance.preferences.getBoolean("SITTER", false))
+            binding!!.switchsittertext.text = "Switch to Pet Owner"
+        else binding!!.switchsittertext.text = "Switch to Sitter"
+
         binding!!.mypets.setOnClickListener {
 
             findNavController().navigate(R.id.action_profileFragment2_to_myPetsFragment)
+
+        }
+
+        binding!!.switchsitter.setOnClickListener {
+
+            val bottomNavigationView = App.instance.mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+
+            if (App.instance.preferences.getBoolean("SITTER", false)) {
+
+                App.instance.preferences.edit().putBoolean("SITTER", false).apply()
+
+                findNavController().navigate(R.id.action_profileFragment2_to_dashboardFragment)
+
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.explore)
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.explore)
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+
+                bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.bookings)
+                bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.bookings)
+
+            }
+            else {
+
+                App.instance.preferences.edit().putBoolean("SITTER", true).apply()
+
+                findNavController().navigate(R.id.action_profileFragment2_to_dashboardFragment)
+
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.dashboard)
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.dashboard)
+                bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+
+                bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.calendar)
+                bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.calendar)
+
+
+
+            }
 
         }
 
