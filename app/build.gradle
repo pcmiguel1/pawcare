@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        buildConfigField "String", "SERVICE_URL", "\"http://192.168.1.72:3000/api/\""
+        buildConfigField "String", "SERVICE_URL", "\"http://pawcare.app/api/\""
         buildConfigField "String", "SecretJWT", "\"da8d46abb41d0f9fa714820d69d342d5f845ad8d9d9fb96f10552fd151a9f0d4\""
         buildConfigField "String", "KeyJWT", "\"46d4b6d04ea7e85b75d5d9392f5867c8fd600fa2bad32d047d47334e70ea587a\""
         buildConfigField "String", "IssuerJWT", "\"com.pcmiguel.pawcare\""
@@ -84,5 +84,7 @@ dependencies {
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 }

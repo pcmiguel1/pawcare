@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
 
                 App.instance.preferences.edit().putBoolean("SITTER", false).apply()
 
-                findNavController().navigate(R.id.action_profileFragment2_to_dashboardFragment)
+                findNavController().navigate(R.id.action_profileFragment2_to_exploreFragment2)
 
                 bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.explore)
                 bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.explore)

@@ -7,17 +7,62 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.auth0.jwt.JWT
 import java.util.ArrayList
+import java.util.regex.Pattern
 
 object Utils {
+
+    fun isOnline(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            //Android 10+
+            cm.getNetworkCapabilities(cm.activeNetwork)?.let { networkCapabilities ->
+                return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            }
+        }
+        else {
+            return cm.activeNetworkInfo?.isConnectedOrConnecting == true
+        }
+        return false
+
+    }
+
+    fun validEmail(email: String): Boolean {
+        val VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
+
+        val matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email)
+        return matcher.find()
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun getExpirationDateToken(token: String): Long {
+        val decodedToken = JWT.decode(token)
+        return decodedToken.expiresAt.time
+    }
 
     fun navigationBar(v: View, theme: String, activity: Activity) {
 

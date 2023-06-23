@@ -21,6 +21,9 @@ import com.pawcare.pawcare.fragments.explore.adapter.ServiceAdapter
 import com.pawcare.pawcare.fragments.explore.model.Category
 import com.pawcare.pawcare.fragments.explore.model.Service
 import com.pawcare.pawcare.libraries.LoadingDialog
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ExploreFragment : Fragment() {
 
@@ -50,6 +53,32 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding!!.username.text = App.instance.preferences.getString("fullname", "")
+
+        val userPhoto = binding!!.userPhoto
+        val photoUrl = App.instance.preferences.getString("image", "")
+
+        if (photoUrl != "") {
+
+            Picasso.get()
+                .load(photoUrl)
+                .placeholder(R.drawable.profile_template)
+                .error(R.drawable.profile_template)
+                .into(userPhoto, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+
+                })
+
+        }
+
+
 
         binding!!.notificationsBtn.setOnClickListener {
 

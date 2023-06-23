@@ -7,6 +7,10 @@ import android.os.CountDownTimer
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -104,6 +108,65 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun popupError(error: String) {
+
+        if (isTimerRunning) {
+            countDownTimer?.cancel()
+        }
+
+        val alert = this.findViewById<LinearLayout>(R.id.popup_error)
+        val alertText = this.findViewById<TextView>(R.id.popup_error_text)
+        alertText.text = error
+        this@MainActivity.runOnUiThread {
+            slideDown(alert)
+        }
+        countDownTimer = object : CountDownTimer(3000, 3000) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                this@MainActivity.runOnUiThread { slideUp(alert) }
+                isTimerRunning = false
+            }
+
+        }
+        countDownTimer?.start()
+        isTimerRunning = true
+
+    }
+
+    private fun slideDown(view: View) {
+        view.visibility = View.VISIBLE
+        val animate = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF, //fromXType
+            0f,  //fromXValue
+            Animation.RELATIVE_TO_SELF,  //toXType
+            0f, //toXValue
+            Animation.RELATIVE_TO_SELF, //fromYType
+            -1f, //fromYValue
+            Animation.RELATIVE_TO_SELF, //toYType
+            0f //toYValue
+        )
+        animate.duration = 500
+        animate.fillAfter = true
+        view.startAnimation(animate)
+    }
+
+    private fun slideUp(view: View) {
+        val animate = TranslateAnimation(
+            Animation.RELATIVE_TO_SELF, //fromXType
+            0f,  //fromXValue
+            Animation.RELATIVE_TO_SELF,  //toXType
+            0f, //toXValue
+            Animation.RELATIVE_TO_SELF, //fromYType
+            0f, //fromYValue
+            Animation.RELATIVE_TO_SELF, //toYType
+            -1f //toYValue
+        )
+        animate.duration = 500
+        animate.fillAfter = true
+        view.startAnimation(animate)
     }
 
 }

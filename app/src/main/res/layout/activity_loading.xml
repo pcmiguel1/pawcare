@@ -28,6 +28,6 @@
         android:textSize="18sp"
         android:fontFamily="@font/urbanist_bold"
         android:text="0%"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 </LinearLayout>

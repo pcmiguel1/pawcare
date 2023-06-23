@@ -41,8 +41,8 @@ class LoadingActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             thread {
                 runOnUiThread {
-                    //performBackOfficeRequests()
-                    startMainActivity()
+                    performBackOfficeRequests()
+                    //startMainActivity()
                 }
             }
         }, 3000)
@@ -145,7 +145,7 @@ class LoadingActivity : AppCompatActivity() {
 
     fun performUpdates(listener: Listener<Any>) {
 
-
+        App.instance.backOffice.getServices(listener)
 
     }
 

@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_above="@id/bottom_buttons"
-            app:ci_width="6dp"
+            app:ci_drawable="@drawable/boarding_indicator_selected"
+            app:ci_drawable_unselected="@drawable/boarding_indicator_unselected"
             app:ci_height="6dp"
             app:ci_margin="15dp"
-            app:ci_drawable="@drawable/boarding_indicator_selected"
-            app:ci_drawable_unselected="@drawable/boarding_indicator_unselected"/>
+            app:ci_width="6dp" />
 
         <LinearLayout
             android:id="@+id/bottom_buttons"
@@ -102,7 +102,6 @@
                 android:id="@+id/signup_btn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginBottom="15dp"
                 style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/custom_button"
                 android:backgroundTint="@color/primaryColor"

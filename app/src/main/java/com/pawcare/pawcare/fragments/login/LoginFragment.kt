@@ -9,11 +9,16 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.gson.JsonObject
+import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentLoginBinding
 import com.pawcare.pawcare.libraries.LoadingDialog
+import com.pawcare.pawcare.services.Listener
+import org.json.JSONException
 
 class LoginFragment : Fragment() {
 
@@ -60,6 +65,10 @@ class LoginFragment : Fragment() {
             }
         }
 
+        binding!!.signupBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         binding!!.checkRemember.setOnCheckedChangeListener { buttonView, isChecked ->
             rememberUser = isChecked
         }
@@ -73,7 +82,68 @@ class LoginFragment : Fragment() {
 
     private fun login() {
 
-        findNavController().navigate(R.id.action_loginFragment_to_exploreFragment2)
+        Utils.hideKeyboard(requireActivity())
+
+        val email = binding!!.emailForm.text.toString()
+        val password = binding!!.passwordForm.text.toString()
+
+        val loginBtn = binding!!.loginBtn
+        val rlProgressLogin = binding!!.rlprogresslogin
+        val checkboxRemember = binding!!.checkRemember
+
+
+        val validEmail = Utils.validEmail(email)
+
+        if (Utils.isOnline(requireContext()) && validEmail) {
+
+            val user = JsonObject()
+
+            try {
+
+                user.addProperty("email", email)
+                user.addProperty("password", password)
+
+                loginBtn.visibility = View.GONE
+                rlProgressLogin.visibility = View.VISIBLE
+                checkboxRemember.isEnabled = false
+
+                App.instance.backOffice.loginUser(object : Listener<Any> {
+
+                    override fun onResponse(response: Any?) {
+
+                        loginBtn.visibility = View.VISIBLE
+                        rlProgressLogin.visibility = View.GONE
+                        checkboxRemember.isEnabled = true
+
+                        if (response != null && response is JsonObject && response.getAsJsonObject("user") != null) {
+
+                            App.instance.preferences.edit().putBoolean("stayLoggedIn", checkboxRemember.isChecked).apply()
+
+                            findNavController().navigate(R.id.action_loginFragment_to_exploreFragment2)
+
+                        }
+                        else {
+                            App.instance.mainActivity.popupError(response.toString())
+                        }
+
+                    }
+
+                }, user)
+
+            }
+            catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+        }
+        else {
+            var erro = ""
+            if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
+            else if (!validEmail) erro = getString(R.string.invalid_email)
+
+            App.instance.mainActivity.popupError(erro)
+
+        }
 
     }
 

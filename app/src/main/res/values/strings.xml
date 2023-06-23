@@ -54,4 +54,13 @@
     <string name="switchsitter">Switch to Sitter</string>
     <string name="income_per_service">Income Per Service</string>
 
+    <string name="no_internet">Could not connect to the internet..</string>
+    <string name="name_minimum">Enter a name longer than 5 characters.</string>
+    <string name="invalid_phone">Invalid phone number.</string>
+    <string name="invalid_email">Invalid email.</string>
+    <string name="invalid_code">Invalid code.</string>
+    <string name="data_nascimento_erro">Insert your date of birth.</string>
+    <string name="password_minimum">The password must be at least 8 characters long and must include lowercase letters (a…z), uppercase letters (A…Z), numbers (0…9) and special characters.</string>
+    <string name="password_not_equal">Passwords do not match!</string>
+
 </resources>
