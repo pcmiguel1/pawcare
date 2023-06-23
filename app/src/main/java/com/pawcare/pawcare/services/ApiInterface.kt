@@ -2,24 +2,35 @@ package com.pawcare.pawcare.services
 
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
 
     @GET("auth/services")
     fun getServices() : Call<Void>
 
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("auth/register")
-    fun registerUser(@Body jsonObject: JsonObject) : Call<User>
+    fun registerUser(@Part("user") user: RequestBody, @Part file: MultipartBody.Part?) : Call<User>
 
     @Headers("Content-Type: application/json")
     @POST("auth/login")
     fun loginUser(@Body jsonObject: JsonObject) : Call<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @POST("auth/sendVerificationEmailForgotPassword")
+    fun sendVerificationEmailForgotPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @GET("auth/verifyForgotPasswordCode/{userId}/{code}")
+    fun verifyForgotPasswordCode(@Path("userId") userId: String, @Path("code") code: String): Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("auth/resetPassword")
+    fun resetPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
 
     class User {
 

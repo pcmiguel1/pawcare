@@ -7,14 +7,17 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.google.gson.JsonObject
 import com.pawcare.pawcare.BuildConfig
 import com.pawcare.pawcare.Utils
-import okhttp3.ConnectionPool
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import com.pawcare.pawcare.services.Callback
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.io.IOException
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -156,8 +159,17 @@ class BackOffice(
         })
     }
 
-    fun registerUser(listener: Listener<Any>?, user: JsonObject) {
-        apiInterface.registerUser(user).enqueue(object : Callback<ApiInterface.User>() {
+    fun registerUser(listener: Listener<Any>?, user: JsonObject, file: File?) {
+
+        val userRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), user.toString())
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.registerUser(userRequestBody, filePart).enqueue(object : Callback<ApiInterface.User>() {
             override fun onResponse(
                 call: Call<ApiInterface.User>,
                 response: Response<ApiInterface.User>
@@ -187,6 +199,108 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<ApiInterface.User>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun sendVerificationEmailForgotPassword(listener: Listener<Any>?, user: JsonObject) {
+        apiInterface.sendVerificationEmailForgotPassword(user).enqueue(object : Callback<JsonObject>() {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        Log.d("Forgot Password code BO", "successful")
+
+                        //val userId = response.body()!!.asJsonObject.get("userId").asString
+                        listener?.onResponse(response.body()!!.asJsonObject)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun verifyForgotPasswordCode(listener: Listener<Any>?, userId: String, code: String) {
+
+        apiInterface.verifyForgotPasswordCode(userId, code).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun resetPassword(listener: Listener<Any>?, user: JsonObject) {
+        apiInterface.resetPassword(user).enqueue(object : Callback<JsonObject>() {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        Log.d("Reset Password code BO", "successful")
+
+                        //val userId = response.body()!!.asJsonObject.get("userId").asString
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 clientError(t, null)
             }
 

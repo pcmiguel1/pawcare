@@ -12,6 +12,7 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -23,6 +24,26 @@ import java.util.ArrayList
 import java.util.regex.Pattern
 
 object Utils {
+
+    fun validCode(code: String): Boolean {
+        val codePattern = Pattern.compile("^[0-9]{4}$")
+        return code.matches(codePattern.toRegex())
+    }
+
+    fun isKeyCodeNumber(keycode: Int): Boolean {
+        return when (keycode) {
+            KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_2,
+            KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_5,
+            KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_8,
+            KeyEvent.KEYCODE_9 -> true
+            else -> false
+        }
+    }
+
+    fun isValidPassword(password: String): Boolean {
+        val passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#\$%^&*()_+|`–=\\\\{}\\[\\]:\\\";'<>?,./]).{8,}$"
+        return password.matches(passwordPattern.toRegex())
+    }
 
     fun isOnline(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -46,6 +67,11 @@ object Utils {
 
         val matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email)
         return matcher.find()
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     fun hideKeyboard(activity: Activity) {

@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_profileFragment2_to_exploreFragment2"
             app:destination="@id/exploreFragment2" />
+        <action
+            android:id="@+id/action_profileFragment2_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingsFragment2"

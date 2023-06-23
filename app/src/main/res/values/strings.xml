@@ -63,4 +63,21 @@
     <string name="password_minimum">The password must be at least 8 characters long and must include lowercase letters (a…z), uppercase letters (A…Z), numbers (0…9) and special characters.</string>
     <string name="password_not_equal">Passwords do not match!</string>
 
+    <string name="dialog_forgot_password">Forgot the password?</string>
+    <string name="dialog_forgot_password_desc">Enter your email for the verification proccess, we will send 4 digits code to your email.</string>
+
+    <string name="dialog_verify_email">Verify your Email</string>
+    <string name="dialog_verify_email_desc">Enter the 4 digits code that you received on your email.</string>
+
+    <string name="dialog_verify_code">Enter 4 Digits Code</string>
+    <string name="dialog_verify_code_desc">Enter the 4 digits code that you received on your email.</string>
+
+    <string name="dialog_reset_password">Reset Password</string>
+    <string name="dialog_reset_password_desc">Set the new password for your account so you can login and access all the features.</string>
+    <string name="reset_password">Reset Password</string>
+
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_reset_success">Password has been reset successfully!</string>
+
 </resources>

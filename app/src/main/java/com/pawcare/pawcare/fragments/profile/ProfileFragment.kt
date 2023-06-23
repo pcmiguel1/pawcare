@@ -33,6 +33,32 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding!!.logoutBtn.setOnClickListener {
+
+            with(App.instance.preferences.edit()) {
+                remove("phoneNumber")
+                remove("stayLoggedIn")
+                remove("TOKEN_DATE")
+                remove("dateOfBirth")
+                remove("fullname")
+                remove("phoneNumber")
+                remove("TOKEN")
+                remove("SITTER")
+                remove("userId")
+                remove("email")
+                apply()
+            }
+
+            App.instance.backOffice.getToken(null)
+
+            // Remove the back stack and navigate to the specified destination
+            findNavController().apply {
+                popBackStack(R.id.onBoardingFragment, true)
+                navigate(R.id.onBoardingFragment)
+            }
+
+        }
+
         if (App.instance.preferences.getBoolean("SITTER", false))
             binding!!.switchsittertext.text = "Switch to Pet Owner"
         else binding!!.switchsittertext.text = "Switch to Sitter"

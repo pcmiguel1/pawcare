@@ -22,15 +22,19 @@ import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.JsonObject
 import com.hbb20.CountryCodePicker
+import com.pawcare.pawcare.App
 import com.pawcare.pawcare.BuildConfig
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentRegisterBinding
 import com.pawcare.pawcare.libraries.LoadingDialog
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.InputStream
+import com.pawcare.pawcare.services.ApiInterface
+import com.pawcare.pawcare.services.Listener
+import org.json.JSONException
+import java.io.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterFragment : Fragment() {
@@ -112,6 +116,91 @@ class RegisterFragment : Fragment() {
     }
 
     private fun register() {
+
+        Utils.hideKeyboard(requireActivity())
+
+        val fullName = binding!!.fullnameForm.text.toString()
+        val dateBirth = binding!!.dateForm.text.toString()
+        val email = binding!!.emailForm.text.toString()
+        val password = binding!!.passwordForm.text.toString()
+
+        val validFullName = fullName.length >= 5
+        val validPhoneNumber = ccp.isValidFullNumber
+        val validEmail = Utils.validEmail(email)
+        val validPassword = Utils.isValidPassword(password)
+
+        if (Utils.isOnline(requireContext()) && validFullName && dateBirth.isNotEmpty() && validEmail && validPassword) {
+
+            val user = JsonObject()
+
+            try {
+
+                var formattedDate = ""
+                if (dateBirth.isNotEmpty()) {
+                    val parser = SimpleDateFormat("dd-MM-yyyy")
+                    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    formattedDate = formatter.format(parser.parse(dateBirth))
+                }
+
+                user.addProperty("fullname", fullName)
+                user.addProperty("dateOfBirth", formattedDate)
+                if (validPhoneNumber) user.addProperty("phoneNumber", ccp.fullNumber)
+                user.addProperty("email", email)
+                user.addProperty("password", password)
+
+                var temporaryFile : File? = null
+
+                if (updatePhoto) {
+                    temporaryFile = saveBitmapAsTemporaryFile(fotoUser)
+                }
+
+                val signupbtn = binding!!.signupBtn
+                val rlprogresssignup = binding!!.rlprogresssignup
+
+                signupbtn.visibility = View.GONE
+                rlprogresssignup.visibility = View.VISIBLE
+
+                App.instance.backOffice.registerUser(object : Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        if (isAdded) {
+
+                            signupbtn.visibility = View.VISIBLE
+                            rlprogresssignup.visibility = View.GONE
+
+                            if (response != null && response is ApiInterface.User) {
+
+                            }
+                            else {
+
+                                App.instance.mainActivity.popupError(response.toString())
+
+                            }
+
+                        }
+
+                    }
+
+                }, user, temporaryFile)
+
+            }
+            catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+        }
+        else {
+            var erro = ""
+            if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
+            else if (!validFullName) erro = getString(R.string.name_minimum)
+            else if (dateBirth.isEmpty()) erro = getString(R.string.data_nascimento_erro)
+            //else if (!validPhoneNumber) erro = getString(R.string.invalid_phone)
+            else if (!validEmail) erro = getString(R.string.invalid_email)
+            else if (!validPassword) erro = getString(R.string.password_minimum)
+
+            App.instance.mainActivity.popupError(erro)
+
+        }
 
     }
 
@@ -242,6 +331,20 @@ class RegisterFragment : Fragment() {
         dpd.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.primaryColor))
         dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.primaryColor))
 
+    }
+
+    fun saveBitmapAsTemporaryFile(bitmap: Bitmap): File? {
+        var tempFile: File? = null
+        try {
+            tempFile = File.createTempFile("temp_image_", ".jpg")
+            val outputStream = FileOutputStream(tempFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return tempFile
     }
 
 }
