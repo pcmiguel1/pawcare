@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_profileFragment2_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingsFragment2"
@@ -155,4 +158,9 @@
         android:name="com.pawcare.pawcare.fragments.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.pawcare.pawcare.fragments.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

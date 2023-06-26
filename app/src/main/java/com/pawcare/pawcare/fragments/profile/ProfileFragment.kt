@@ -69,6 +69,12 @@ class ProfileFragment : Fragment() {
 
         }
 
+        binding!!.aboutPawcare.setOnClickListener {
+
+            findNavController().navigate(R.id.action_profileFragment2_to_aboutFragment)
+
+        }
+
         binding!!.switchsitter.setOnClickListener {
 
             val bottomNavigationView = App.instance.mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)

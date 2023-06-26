@@ -336,6 +336,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/about_pawcare"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
