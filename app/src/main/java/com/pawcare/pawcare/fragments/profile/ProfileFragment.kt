@@ -1,10 +1,14 @@
 package com.pawcare.pawcare.fragments.profile
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -69,9 +73,27 @@ class ProfileFragment : Fragment() {
 
         }
 
+        binding!!.editProfileBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_profileFragment2_to_editProfileFragment)
+
+        }
+
+        binding!!.editProfile.setOnClickListener {
+
+            findNavController().navigate(R.id.action_profileFragment2_to_editProfileFragment)
+
+        }
+
         binding!!.aboutPawcare.setOnClickListener {
 
             findNavController().navigate(R.id.action_profileFragment2_to_aboutFragment)
+
+        }
+
+        binding!!.notifications.setOnClickListener {
+
+            findNavController().navigate(R.id.action_profileFragment2_to_notificationFragment)
 
         }
 
@@ -109,6 +131,36 @@ class ProfileFragment : Fragment() {
 
 
             }
+
+        }
+
+        binding!!.deleteAccount.setOnClickListener {
+
+            val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_delete_account, null)
+
+            val builder = AlertDialog.Builder(requireContext())
+                .setView(mDialogView)
+                .setCancelable(false)
+
+            val dialog = builder.create()
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val cancelBtn = mDialogView.findViewById<Button>(R.id.cancel_btn)
+            val sendBtn = mDialogView.findViewById<Button>(R.id.continue_btn)
+
+            cancelBtn.setOnClickListener {
+
+                dialog.dismiss()
+
+            }
+
+            sendBtn.setOnClickListener {
+
+
+            }
+
+            dialog.show()
+
 
         }
 

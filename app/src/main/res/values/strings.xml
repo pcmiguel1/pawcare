@@ -80,4 +80,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password_reset_success">Password has been reset successfully!</string>
 
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_desc">Do you want to delete your account? This action is not reversible.</string>
+
 </resources>

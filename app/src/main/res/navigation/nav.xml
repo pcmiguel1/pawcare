@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_exploreFragment2_to_sitterInfoFragment2"
             app:destination="@id/sitterInfoFragment" />
+        <action
+            android:id="@+id/action_exploreFragment2_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -80,6 +83,12 @@
         <action
             android:id="@+id/action_profileFragment2_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingsFragment2"
@@ -163,4 +172,19 @@
         android:name="com.pawcare.pawcare.fragments.about.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.pawcare.pawcare.fragments.editprofile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.pawcare.pawcare.fragments.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.pawcare.pawcare.fragments.services.ServicesFragment"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" />
 </navigation>

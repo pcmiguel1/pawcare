@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.pawcare.pawcare.App
@@ -96,13 +97,13 @@ class ExploreFragment : Fragment() {
 
         val slideModels = arrayListOf<SlideModel>()
 
-        slideModels.add(SlideModel(R.drawable.back1))
-        slideModels.add(SlideModel("https://picsum.photos/seed/picsum/200/300"))
-        slideModels.add(SlideModel("https://picsum.photos/200/300?grayscale"))
-        slideModels.add(SlideModel("https://picsum.photos/200/300/?blur"))
+        slideModels.add(SlideModel(R.drawable.banner1))
+        slideModels.add(SlideModel(R.drawable.banner2))
+        //slideModels.add(SlideModel("https://picsum.photos/200/300?grayscale"))
+        //slideModels.add(SlideModel("https://picsum.photos/200/300/?blur"))
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT)
-
+        imageSlider.setSlideAnimation(AnimationTypes.FOREGROUND_TO_BACKGROUND)
 
         //Categories
         recyclerViewCategories = binding!!.categories
@@ -141,6 +142,12 @@ class ExploreFragment : Fragment() {
             }
 
         })
+
+        binding!!.allServicesBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.action_exploreFragment2_to_servicesFragment)
+
+        }
 
     }
 
