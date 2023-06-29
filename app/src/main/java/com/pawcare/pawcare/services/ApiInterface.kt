@@ -32,6 +32,50 @@ interface ApiInterface {
     @POST("auth/resetPassword")
     fun resetPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
 
+    @Headers("Content-Type: application/json")
+    @GET("{dogurl}/breeds")
+    fun dogBreeds(
+        @Path(value = "dogurl", encoded = true) dogurl : String,
+        @Query("api_key") apiKey: String
+    ) : Call<List<DogBreed>>
+
+    @Headers("Content-Type: application/json")
+    @GET("{caturl}/breeds")
+    fun catBreeds(
+        @Path(value = "caturl", encoded = true) caturl : String,
+        @Query("api_key") apiKey: String
+    ) : Call<List<CatBreed>>
+
+
+
+    class DogBreed {
+
+        @SerializedName("id")
+        var id: Int = 0
+
+        @SerializedName("name")
+        var name: String? = null
+
+        override fun toString(): String {
+            return name ?: ""
+        }
+
+    }
+
+    class CatBreed {
+
+        @SerializedName("id")
+        var id: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+        override fun toString(): String {
+            return name ?: ""
+        }
+
+    }
+
     class User {
 
         @SerializedName("_id")

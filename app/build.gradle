@@ -17,6 +17,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
+        buildConfigField "String", "DOG_API_URL", "\"https://api.thedogapi.com/v1\""
+        buildConfigField "String", "DOG_API_KEY", "\"live_hcT4zMgfPTYuWibA0BBuNcXNxJ5Qj4cDSU4l7dgFumpxSsF3U8KLfmyZGRMfqv0i\""
+
+        buildConfigField "String", "CAT_API_URL", "\"https://api.thecatapi.com/v1\""
+        buildConfigField "String", "CAT_API_KEY", "\"live_HUtNaFc8TKqON7aRuuNHPmtzQMXfdCTy6T81MbWZtYSSRZjx3v0RZCv0F9pYPmrL\""
+
         buildConfigField "String", "SERVICE_URL", "\"http://pawcare.app/api/\""
         buildConfigField "String", "SecretJWT", "\"da8d46abb41d0f9fa714820d69d342d5f845ad8d9d9fb96f10552fd151a9f0d4\""
         buildConfigField "String", "KeyJWT", "\"46d4b6d04ea7e85b75d5d9392f5867c8fd600fa2bad32d047d47334e70ea587a\""

@@ -327,6 +327,52 @@ class BackOffice(
 
     }
 
+    fun getDogBreeds(listener: Listener<Any>?) {
+
+        apiInterface.dogBreeds(BuildConfig.DOG_API_URL, BuildConfig.DOG_API_KEY).enqueue(object : retrofit2.Callback<List<ApiInterface.DogBreed>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.DogBreed>>,
+                response: Response<List<ApiInterface.DogBreed>>
+            ) {
+                if (response.isSuccessful) {
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.DogBreed>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getCatBreeds(listener: Listener<Any>?) {
+
+        apiInterface.catBreeds(BuildConfig.CAT_API_URL, BuildConfig.CAT_API_KEY).enqueue(object : retrofit2.Callback<List<ApiInterface.CatBreed>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.CatBreed>>,
+                response: Response<List<ApiInterface.CatBreed>>
+            ) {
+                if (response.isSuccessful) {
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.CatBreed>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     private fun serverError(call: Call<*>, response: retrofit2.Response<*>, listener: Listener<Any>?) {
         try {
             if (response.code() == 401)

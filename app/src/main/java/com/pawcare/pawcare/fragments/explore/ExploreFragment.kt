@@ -109,8 +109,8 @@ class ExploreFragment : Fragment() {
         recyclerViewCategories = binding!!.categories
         recyclerViewCategories.setHasFixedSize(true)
         recyclerViewCategories.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        val snapHelper: SnapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(recyclerViewCategories)
+        //val snapHelper: SnapHelper = LinearSnapHelper()
+        //snapHelper.attachToRecyclerView(recyclerViewCategories)
 
         addCategoriesToList()
 
