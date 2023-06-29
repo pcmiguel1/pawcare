@@ -41,8 +41,19 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view)
 
-        bottomNavigationView.setupWithNavController(navController)
+        val inflater = navHostFragment.navController.navInflater
+        val graph = inflater.inflate(R.navigation.nav)
 
+        if (App.instance.preferences.getBoolean("stayLoggedIn", false)) {
+            graph.setStartDestination(R.id.exploreFragment2)
+        }
+        else {
+            graph.setStartDestination(R.id.onBoardingFragment)
+        }
+
+        navController.graph = graph
+
+        bottomNavigationView.setupWithNavController(navController)
 
         if (App.instance.preferences.getBoolean("SITTER", false)) {
 

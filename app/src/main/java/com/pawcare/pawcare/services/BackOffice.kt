@@ -205,6 +205,44 @@ class BackOffice(
         })
     }
 
+    fun addPet(listener: Listener<Any>?, pet: JsonObject) {
+
+        apiInterface.addPet(pet).enqueue(object : Callback<JsonObject>() {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        Log.d("add Pet BO", "successful")
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun sendVerificationEmailForgotPassword(listener: Listener<Any>?, user: JsonObject) {
         apiInterface.sendVerificationEmailForgotPassword(user).enqueue(object : Callback<JsonObject>() {
             override fun onResponse(
@@ -320,6 +358,30 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getPets(listener: Listener<Any>?) {
+
+        apiInterface.getPets().enqueue(object : retrofit2.Callback<List<ApiInterface.Pet>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Pet>>,
+                response: Response<List<ApiInterface.Pet>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Pet>>, t: Throwable) {
                 clientError(t, null)
             }
 

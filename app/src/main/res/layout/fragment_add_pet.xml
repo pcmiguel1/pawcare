@@ -128,7 +128,7 @@
                             android:layout_marginBottom="20dp">
 
                             <EditText
-                                android:id="@+id/fullname_form"
+                                android:id="@+id/name_form"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:inputType="text"
@@ -350,6 +350,7 @@
                                 android:textColor="@color/text_color"/>
 
                             <Switch
+                                android:id="@+id/vaccinated"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -377,6 +378,7 @@
                                 android:textColor="@color/text_color"/>
 
                             <Switch
+                                android:id="@+id/friendly"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -404,6 +406,7 @@
                                 android:textColor="@color/text_color"/>
 
                             <Switch
+                                android:id="@+id/microchip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -415,7 +418,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/save_btn"
+                            android:id="@+id/add_btn"
                             android:layout_marginTop="30dp"
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
@@ -424,9 +427,26 @@
                             android:backgroundTint="@color/primaryColor"
                             android:fontFamily="@font/urbanist_bold"
                             android:textSize="16sp"
-                            android:text="Save"
+                            android:text="Add"
                             android:textAllCaps="false"
                             android:textColor="@color/white"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlprogressaddpet"
+                            android:layout_marginTop="30dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@drawable/custom_button"
+                            android:backgroundTint="@color/primaryColor"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:id="@+id/progress_login"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
 
                     </LinearLayout>
 

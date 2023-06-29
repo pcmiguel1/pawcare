@@ -33,6 +33,14 @@ interface ApiInterface {
     fun resetPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
 
     @Headers("Content-Type: application/json")
+    @POST("user/pet/add")
+    fun addPet(@Body jsonObject: JsonObject) : Call<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/pets")
+    fun getPets() : Call<List<Pet>>
+
+    @Headers("Content-Type: application/json")
     @GET("{dogurl}/breeds")
     fun dogBreeds(
         @Path(value = "dogurl", encoded = true) dogurl : String,
@@ -47,6 +55,40 @@ interface ApiInterface {
     ) : Call<List<CatBreed>>
 
 
+
+    class Pet {
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+        @SerializedName("specie")
+        var specie: String? = null
+
+        @SerializedName("breed")
+        var breed: String? = null
+
+        @SerializedName("gender")
+        var gender: String? = null
+
+        @SerializedName("dateOfBirth")
+        var dateOfBirth: String? = null
+
+        @SerializedName("photo")
+        var photo: String? = null
+
+        @SerializedName("vaccinated")
+        var vaccinated: Boolean = false
+
+        @SerializedName("friendly")
+        var friendly: Boolean = false
+
+        @SerializedName("microchip")
+        var microchip: Boolean = false
+
+    }
 
     class DogBreed {
 
