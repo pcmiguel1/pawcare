@@ -37,6 +37,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding!!.name.text = App.instance.preferences.getString("fullname", "")
+        binding!!.email.text = App.instance.preferences.getString("email", "")
+
         binding!!.logoutBtn.setOnClickListener {
 
             with(App.instance.preferences.edit()) {

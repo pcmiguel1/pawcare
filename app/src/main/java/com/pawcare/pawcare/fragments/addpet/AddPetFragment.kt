@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
@@ -31,6 +32,8 @@ class AddPetFragment : Fragment() {
 
     private lateinit var loadingDialog : LoadingDialog
 
+    private var petItem : ApiInterface.Pet? = null
+
     private val itemsSpecie = listOf("Dog", "Cat", "Bird", "Fish", "Reptile", "Amphibian", "Small mammal")
     private val itemsGender = listOf("Male", "Female")
 
@@ -48,6 +51,11 @@ class AddPetFragment : Fragment() {
 
         App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
+        val bundle = arguments
+        if (bundle != null) {
+            petItem = bundle.getParcelable("PET")!!
+        }
+
         return fragmentBinding.root
 
     }
@@ -57,7 +65,28 @@ class AddPetFragment : Fragment() {
 
         loadingDialog = LoadingDialog(requireContext())
 
-        Utils.navigationBar(view, "Add Pet Details", requireActivity())
+        if (petItem != null) {
+            Utils.navigationBar(view, petItem!!.name!!, requireActivity())
+
+            binding!!.nameForm.setText(petItem!!.name!!)
+
+            val inputDateString = petItem!!.dateOfBirth!!
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd-M-yyyy", Locale.getDefault())
+
+            val inputDate = inputFormat.parse(inputDateString)
+            val outputDateString = outputFormat.format(inputDate)
+
+            binding!!.dateForm.setText(outputDateString)
+
+            binding!!.vaccinated.isChecked = petItem!!.vaccinated
+            binding!!.friendly.isChecked = petItem!!.friendly
+            binding!!.microchip.isChecked = petItem!!.microchip
+
+            binding!!.addBtn.text = "Save"
+
+        }
+        else Utils.navigationBar(view, "Add Pet Details", requireActivity())
 
 
         //Spinner Specie
@@ -66,6 +95,8 @@ class AddPetFragment : Fragment() {
         adapterSpecie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding!!.specieForm.adapter = adapterSpecie
+
+        if (petItem != null) binding!!.specieForm.setSelection(itemsSpecie.indexOf(petItem!!.specie!!))
 
         binding!!.specieForm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -100,6 +131,19 @@ class AddPetFragment : Fragment() {
                                         adapterBreeds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
                                         binding!!.breedForm.adapter = adapterBreeds
+
+                                        if (petItem != null) {
+
+                                            val breedNameToSelect = petItem?.breed
+
+                                            if (breedNameToSelect != null) {
+                                                val selectedIndex = list.indexOfFirst { it.name == breedNameToSelect }
+                                                if (selectedIndex != -1) {
+                                                    binding!!.breedForm.setSelection(selectedIndex)
+                                                }
+                                            }
+
+                                        }
 
                                         binding!!.breedForm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                                             override fun onItemSelected(
@@ -148,6 +192,19 @@ class AddPetFragment : Fragment() {
                                         adapterBreeds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
                                         binding!!.breedForm.adapter = adapterBreeds
+
+                                        if (petItem != null) {
+
+                                            val breedNameToSelect = petItem?.breed
+
+                                            if (breedNameToSelect != null) {
+                                                val selectedIndex = list.indexOfFirst { it.name == breedNameToSelect }
+                                                if (selectedIndex != -1) {
+                                                    binding!!.breedForm.setSelection(selectedIndex)
+                                                }
+                                            }
+
+                                        }
 
                                         binding!!.breedForm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                                             override fun onItemSelected(
@@ -202,6 +259,8 @@ class AddPetFragment : Fragment() {
 
         binding!!.generoForm.adapter = adapterGender
 
+        if (petItem != null) binding!!.generoForm.setSelection(itemsGender.indexOf(petItem!!.gender!!))
+
         binding!!.generoForm.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long
@@ -232,14 +291,99 @@ class AddPetFragment : Fragment() {
 
         binding!!.addBtn.setOnClickListener {
 
-            addPet()
+
+            if (petItem != null) {
+                updatePet()
+            }
+            else {
+                addPet(view)
+            }
 
         }
 
 
     }
 
-    private fun addPet() {
+    private fun updatePet() {
+
+        Utils.hideKeyboard(requireActivity())
+
+        val name = binding!!.nameForm.text.toString()
+        val dateOfBirth = binding!!.dateForm.text.toString()
+
+        val vaccinated = binding!!.vaccinated.isChecked
+        val friendly = binding!!.friendly.isChecked
+        val microchip = binding!!.microchip.isChecked
+
+        if (Utils.isOnline(requireContext())) {
+
+            val pet = JsonObject()
+
+            try {
+
+                var formattedDate = ""
+                if (dateOfBirth.isNotEmpty()) {
+                    val parser = SimpleDateFormat("dd-MM-yyyy")
+                    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    formattedDate = formatter.format(parser.parse(dateOfBirth))
+                }
+
+                pet.addProperty("name", name)
+                pet.addProperty("specie", specieSelected)
+                pet.addProperty("breed", breedSelected)
+                pet.addProperty("gender", genderSelected)
+                pet.addProperty("dateOfBirth", formattedDate)
+                pet.addProperty("vaccinated", vaccinated)
+                pet.addProperty("friendly", friendly)
+                pet.addProperty("microchip", microchip)
+
+                val addbtn = binding!!.addBtn
+                val rlprogressaddpet = binding!!.rlprogressaddpet
+
+                addbtn.visibility = View.GONE
+                rlprogressaddpet.visibility = View.VISIBLE
+
+                App.instance.backOffice.updatePet(object : Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        if (isAdded) {
+
+                            addbtn.visibility = View.VISIBLE
+                            rlprogressaddpet.visibility = View.GONE
+
+                            if (response == null) {
+
+                                findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
+
+                            }
+                            else {
+                                App.instance.mainActivity.popupError(response.toString())
+                            }
+
+                        }
+
+                    }
+                }, petItem!!.id!!, pet)
+
+            }
+            catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+        }
+        else {
+
+            var erro = ""
+            if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
+
+            App.instance.mainActivity.popupError(erro)
+
+        }
+
+
+    }
+
+    private fun addPet(v: View) {
 
         Utils.hideKeyboard(requireActivity())
 
@@ -300,9 +444,9 @@ class AddPetFragment : Fragment() {
 
                             if (response == null) {
 
-                                val fragmentManager = requireActivity().supportFragmentManager
-                                fragmentManager.popBackStack()
-
+                                //val fragmentManager = requireActivity().supportFragmentManager
+                                //fragmentManager.popBackStack()
+                                findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
                             }
                             else {
                                 App.instance.mainActivity.popupError(response.toString())

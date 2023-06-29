@@ -389,6 +389,54 @@ class BackOffice(
 
     }
 
+    fun updatePet(listener: Listener<Any>?, id: String, pet: JsonObject) {
+
+        apiInterface.updatePet(id, pet).enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun updateProfile(listener: Listener<Any>?, user: JsonObject) {
+
+        apiInterface.updateProfile(user).enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getDogBreeds(listener: Listener<Any>?) {
 
         apiInterface.dogBreeds(BuildConfig.DOG_API_URL, BuildConfig.DOG_API_KEY).enqueue(object : retrofit2.Callback<List<ApiInterface.DogBreed>> {

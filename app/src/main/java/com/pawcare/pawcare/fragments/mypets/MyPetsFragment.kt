@@ -66,7 +66,10 @@ class MyPetsFragment : Fragment() {
 
                 val item = petAdapter.getItem(position)
 
-                findNavController().navigate(R.id.action_myPetsFragment_to_addPetFragment)
+                val bundle = Bundle()
+                bundle.putParcelable("PET", item)
+
+                findNavController().navigate(R.id.action_myPetsFragment_to_addPetFragment, bundle)
 
             }
 

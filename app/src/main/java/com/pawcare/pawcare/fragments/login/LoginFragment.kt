@@ -511,6 +511,8 @@ class LoginFragment : Fragment() {
 
                             //findNavController().navigate(R.id.action_loginFragment_to_exploreFragment2)
 
+                            App.instance.preferences.edit().putString("currentPassword", password).apply()
+
                             // Remove the back stack and navigate to the specified destination
                             findNavController().apply {
                                 popBackStack(R.id.onBoardingFragment, true)

@@ -145,52 +145,8 @@
                         android:layout_height="55dp"
                         android:background="@drawable/custom_button"
                         android:backgroundTint="@color/input_background"
-                        android:paddingHorizontal="15dp">
-
-                        <com.hbb20.CountryCodePicker
-                            android:id="@+id/ccp"
-                            app:ccp_showFullName="false"
-                            app:ccp_showPhoneCode="true"
-                            app:ccp_showNameCode="false"
-                            app:ccp_showFlag="true"
-                            app:ccp_autoFormatNumber="true"
-                            app:ccp_showArrow="true"
-                            android:textSize="16sp"
-                            app:ccp_arrowSize="16sp"
-                            app:ccp_arrowColor="@color/placeholder"
-                            app:ccpDialog_keyboardAutoPopup="false"
-                            app:ccp_autoDetectCountry="true"
-                            app:ccpDialog_cornerRadius="16dp"
-                            app:ccpDialog_textColor="@color/text_color"
-                            style="@style/font"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start|center"/>
-
-                        <EditText
-                            android:id="@+id/phone_form"
-                            android:layout_marginStart="100dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="phone"
-                            android:maxLines="1"
-                            android:textColor="@color/text_color"
-                            android:hint="Phone Number"
-                            android:textColorHint="@color/placeholder"
-                            android:backgroundTint="@android:color/transparent"
-                            android:textCursorDrawable="@null"
-                            android:fontFamily="@font/urbanist_regular"
-                            android:textSize="16sp"/>
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:background="@drawable/custom_button"
-                        android:backgroundTint="@color/input_background"
-                        android:paddingHorizontal="15dp">
+                        android:paddingHorizontal="15dp"
+                        android:layout_marginBottom="20dp">
 
                         <EditText
                             android:id="@+id/email_form"
@@ -204,9 +160,15 @@
                             android:backgroundTint="@android:color/transparent"
                             android:textCursorDrawable="@null"
                             android:fontFamily="@font/urbanist_regular"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:enabled="false"/>
 
                     </FrameLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/cinza"/>
 
                     <FrameLayout
                         android:layout_marginTop="20dp"
@@ -224,7 +186,7 @@
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:textColor="@color/text_color"
-                            android:hint="Password"
+                            android:hint="Current Password"
                             android:textColorHint="@color/placeholder"
                             android:backgroundTint="@android:color/transparent"
                             android:textCursorDrawable="@null"
@@ -242,6 +204,40 @@
 
                     </FrameLayout>
 
+                    <FrameLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/custom_button"
+                        android:backgroundTint="@color/input_background"
+                        android:paddingHorizontal="15dp">
+
+                        <EditText
+                            android:id="@+id/new_password_form"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="30dp"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:textColor="@color/text_color"
+                            android:hint="New Password"
+                            android:textColorHint="@color/placeholder"
+                            android:backgroundTint="@android:color/transparent"
+                            android:textCursorDrawable="@null"
+                            android:fontFamily="@font/urbanist_regular"
+                            android:textSize="16sp"/>
+
+                        <ImageView
+                            android:id="@+id/showHidenewPw"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/password_hide"
+                            app:tint="@color/primaryColor"/>
+
+                    </FrameLayout>
+
                 </LinearLayout>
 
                 <RelativeLayout
@@ -250,7 +246,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/signup_btn"
+                        android:id="@+id/save_btn"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="20dp"
                         android:layout_width="match_parent"
@@ -266,7 +262,7 @@
                         android:textColor="@color/white"/>
 
                     <RelativeLayout
-                        android:id="@+id/rlprogresssignup"
+                        android:id="@+id/rlprogressave"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="15dp"

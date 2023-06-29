@@ -1,5 +1,7 @@
 package com.pawcare.pawcare.services
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
@@ -41,6 +43,19 @@ interface ApiInterface {
     fun getPets() : Call<List<Pet>>
 
     @Headers("Content-Type: application/json")
+    @POST("user/pet/update/{id}")
+    fun updatePet(
+        @Path(value = "id", encoded = true) id : String,
+        @Body jsonObject: JsonObject
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/update")
+    fun updateProfile(
+        @Body jsonObject: JsonObject
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
     @GET("{dogurl}/breeds")
     fun dogBreeds(
         @Path(value = "dogurl", encoded = true) dogurl : String,
@@ -56,7 +71,10 @@ interface ApiInterface {
 
 
 
-    class Pet {
+    class Pet() : Parcelable {
+
+        @SerializedName("_id")
+        var id: String? = null
 
         @SerializedName("user_id")
         var userId: String? = null
@@ -87,6 +105,46 @@ interface ApiInterface {
 
         @SerializedName("microchip")
         var microchip: Boolean = false
+
+        constructor(parcel: Parcel) : this() {
+            userId = parcel.readString()
+            name = parcel.readString()
+            specie = parcel.readString()
+            breed = parcel.readString()
+            gender = parcel.readString()
+            dateOfBirth = parcel.readString()
+            photo = parcel.readString()
+            vaccinated = parcel.readByte() != 0.toByte()
+            friendly = parcel.readByte() != 0.toByte()
+            microchip = parcel.readByte() != 0.toByte()
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(userId)
+            parcel.writeString(name)
+            parcel.writeString(specie)
+            parcel.writeString(breed)
+            parcel.writeString(gender)
+            parcel.writeString(dateOfBirth)
+            parcel.writeString(photo)
+            parcel.writeByte(if (vaccinated) 1 else 0)
+            parcel.writeByte(if (friendly) 1 else 0)
+            parcel.writeByte(if (microchip) 1 else 0)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Pet> {
+            override fun createFromParcel(parcel: Parcel): Pet {
+                return Pet(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Pet?> {
+                return arrayOfNulls(size)
+            }
+        }
 
     }
 
