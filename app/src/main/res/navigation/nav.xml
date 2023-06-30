@@ -89,6 +89,12 @@
         <action
             android:id="@+id/action_profileFragment2_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_sitterApplicationFragment"
+            app:destination="@id/sitterApplicationFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_progressApplicationFragment"
+            app:destination="@id/progressApplicationFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingsFragment2"
@@ -195,4 +201,27 @@
         android:name="com.pawcare.pawcare.fragments.services.ServicesFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services" />
+    <fragment
+        android:id="@+id/sitterApplicationFragment"
+        android:name="com.pawcare.pawcare.fragments.sitterapplication.SitterApplicationFragment"
+        android:label="fragment_sitter_application"
+        tools:layout="@layout/fragment_sitter_application" >
+        <action
+            android:id="@+id/action_sitterApplicationFragment_to_progressApplicationFragment"
+            app:destination="@id/progressApplicationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/progressApplicationFragment"
+        android:name="com.pawcare.pawcare.fragments.sitterapplication.ProgressApplicationFragment"
+        android:label="fragment_progress_application"
+        tools:layout="@layout/fragment_progress_application" >
+        <action
+            android:id="@+id/action_progressApplicationFragment_to_applicationAnswerFragment"
+            app:destination="@id/applicationAnswerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicationAnswerFragment"
+        android:name="com.pawcare.pawcare.fragments.sitterapplication.ApplicationAnswerFragment"
+        android:label="fragment_application_answer"
+        tools:layout="@layout/fragment_application_answer" />
 </navigation>

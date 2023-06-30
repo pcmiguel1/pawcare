@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentProfileBinding
+import com.pawcare.pawcare.services.ApiInterface
+import com.pawcare.pawcare.services.Listener
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ProfileFragment : Fragment() {
 
     private var binding: FragmentProfileBinding? = null
+
+    private var isSitter : Boolean = false
+    private var verifiedSitter : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +48,66 @@ class ProfileFragment : Fragment() {
 
         binding!!.name.text = App.instance.preferences.getString("fullname", "")
         binding!!.email.text = App.instance.preferences.getString("email", "")
+
+        val userPhoto = binding!!.profileIcon
+        val photoUrl = App.instance.preferences.getString("image", "")
+
+        if (photoUrl != "") {
+
+            Picasso.get()
+                .load(photoUrl)
+                .placeholder(R.drawable.profile_template)
+                .error(R.drawable.profile_template)
+                .into(userPhoto, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+
+                })
+
+        }
+
+        App.instance.backOffice.getSitter(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
+
+                if (isAdded) {
+
+                    if (response != null && response is ApiInterface.Sitter) {
+
+                        //Is a sitter
+                        if (response.verified!!) {
+                            isSitter = true
+                            verifiedSitter = true
+                            if (App.instance.preferences.getBoolean("SITTER", false))
+                                binding!!.switchsittertext.text = "Switch to Pet Owner"
+                            else binding!!.switchsittertext.text = "Switch to Sitter"
+                        }
+                        else {
+
+                            isSitter = true
+                            verifiedSitter = false
+                            binding!!.switchsittertext.text = "Become a Sitter"
+
+                        }
+
+                    } else {
+
+                        //is not a sitter
+                        binding!!.switchsittertext.text = "Become a Sitter"
+                        isSitter = false
+                        verifiedSitter = false
+
+                    }
+
+                }
+
+            }
+
+        })
 
         binding!!.logoutBtn.setOnClickListener {
 
@@ -65,10 +134,6 @@ class ProfileFragment : Fragment() {
             }
 
         }
-
-        if (App.instance.preferences.getBoolean("SITTER", false))
-            binding!!.switchsittertext.text = "Switch to Pet Owner"
-        else binding!!.switchsittertext.text = "Switch to Sitter"
 
         binding!!.mypets.setOnClickListener {
 
@@ -102,36 +167,52 @@ class ProfileFragment : Fragment() {
 
         binding!!.switchsitter.setOnClickListener {
 
-            val bottomNavigationView = App.instance.mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+            if (isSitter) { //is a sitter
 
-            if (App.instance.preferences.getBoolean("SITTER", false)) {
+                if (verifiedSitter) { // already approved and submited the application
 
-                App.instance.preferences.edit().putBoolean("SITTER", false).apply()
+                    val bottomNavigationView = App.instance.mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
 
-                findNavController().navigate(R.id.action_profileFragment2_to_exploreFragment2)
+                    if (App.instance.preferences.getBoolean("SITTER", false)) {
 
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.explore)
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.explore)
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+                        App.instance.preferences.edit().putBoolean("SITTER", false).apply()
 
-                bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.bookings)
-                bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.bookings)
+                        findNavController().navigate(R.id.action_profileFragment2_to_exploreFragment2)
 
-            }
-            else {
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.explore)
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.explore)
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
 
-                App.instance.preferences.edit().putBoolean("SITTER", true).apply()
+                        bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.bookings)
+                        bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.bookings)
 
-                findNavController().navigate(R.id.action_profileFragment2_to_dashboardFragment)
+                    }
+                    else {
 
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.dashboard)
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.dashboard)
-                bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+                        App.instance.preferences.edit().putBoolean("SITTER", true).apply()
 
-                bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.calendar)
-                bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.calendar)
+                        findNavController().navigate(R.id.action_profileFragment2_to_dashboardFragment)
+
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).title = getString(R.string.dashboard)
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).icon = resources.getDrawable(R.drawable.dashboard)
+                        bottomNavigationView.menu.findItem(R.id.exploreFragment).isChecked = true
+
+                        bottomNavigationView.menu.findItem(R.id.bookingsFragment).title = getString(R.string.calendar)
+                        bottomNavigationView.menu.findItem(R.id.bookingsFragment).icon = resources.getDrawable(R.drawable.calendar)
 
 
+
+                    }
+
+                } else { //navigate to the progress application
+
+                    findNavController().navigate(R.id.action_profileFragment2_to_progressApplicationFragment)
+
+                }
+
+            } else { //if not option to become a sitter
+
+                findNavController().navigate(R.id.action_profileFragment2_to_sitterApplicationFragment)
 
             }
 

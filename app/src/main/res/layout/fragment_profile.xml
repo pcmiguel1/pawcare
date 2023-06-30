@@ -324,7 +324,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="15dp"
                             android:fontFamily="@font/urbanist_bold"
-                            android:text="@string/switchsitter"
+                            android:text="Become a Sitter"
                             android:textColor="@color/text_color"
                             android:textSize="20sp" />
 

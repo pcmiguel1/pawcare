@@ -34,13 +34,26 @@ interface ApiInterface {
     @POST("auth/resetPassword")
     fun resetPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
 
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("user/pet/add")
-    fun addPet(@Body jsonObject: JsonObject) : Call<JsonObject>
+    fun addPet(
+        @Part("pet") user: RequestBody,
+        @Part file: MultipartBody.Part?
+    ) : Call<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @POST("sitter/application/start")
+    fun startApplication() : Call<Void>
 
     @Headers("Content-Type: application/json")
     @GET("user/pets")
     fun getPets() : Call<List<Pet>>
+
+    @Headers("Content-Type: application/json")
+    @GET("sitter/{id}")
+    fun getSitter(
+        @Path(value = "id", encoded = true) id : String,
+    ) : Call<Sitter>
 
     @Headers("Content-Type: application/json")
     @POST("user/pet/update/{id}")
@@ -49,11 +62,12 @@ interface ApiInterface {
         @Body jsonObject: JsonObject
     ) : Call<Void>
 
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("user/update")
     fun updateProfile(
-        @Body jsonObject: JsonObject
-    ) : Call<Void>
+        @Part("user") user: RequestBody,
+        @Part file: MultipartBody.Part?
+    ) : Call<User>
 
     @Headers("Content-Type: application/json")
     @GET("{dogurl}/breeds")
@@ -70,6 +84,18 @@ interface ApiInterface {
     ) : Call<List<CatBreed>>
 
 
+    class Sitter {
+
+        @SerializedName("_id")
+        var sitterId: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("verified")
+        var verified: Boolean? = false
+
+    }
 
     class Pet() : Parcelable {
 

@@ -5,6 +5,7 @@ import android.util.Log
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.google.gson.JsonObject
+import com.pawcare.pawcare.App
 import com.pawcare.pawcare.BuildConfig
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.services.Callback
@@ -19,7 +20,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class BackOffice(
@@ -205,9 +207,17 @@ class BackOffice(
         })
     }
 
-    fun addPet(listener: Listener<Any>?, pet: JsonObject) {
+    fun addPet(listener: Listener<Any>?, pet: JsonObject, file: File?) {
 
-        apiInterface.addPet(pet).enqueue(object : Callback<JsonObject>() {
+        val petRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), pet.toString())
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.addPet(petRequestBody, filePart).enqueue(object : Callback<JsonObject>() {
             override fun onResponse(
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
@@ -237,6 +247,30 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun startApplication(listener: Listener<Any>?) {
+
+        apiInterface.startApplication().enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 clientError(t, null)
             }
 
@@ -389,6 +423,30 @@ class BackOffice(
 
     }
 
+    fun getSitter(listener: Listener<Any>?) {
+
+        apiInterface.getSitter(App.instance.preferences.getString("userId", "")!!).enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
+            override fun onResponse(
+                call: Call<ApiInterface.Sitter>,
+                response: Response<ApiInterface.Sitter>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Sitter>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun updatePet(listener: Listener<Any>?, id: String, pet: JsonObject) {
 
         apiInterface.updatePet(id, pet).enqueue(object : retrofit2.Callback<Void> {
@@ -413,14 +471,41 @@ class BackOffice(
 
     }
 
-    fun updateProfile(listener: Listener<Any>?, user: JsonObject) {
+    fun updateProfile(listener: Listener<Any>?, user: JsonObject, file: File?) {
 
-        apiInterface.updateProfile(user).enqueue(object : retrofit2.Callback<Void> {
+        val userRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), user.toString())
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.updateProfile(userRequestBody, filePart).enqueue(object : Callback<ApiInterface.User>() {
             override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
+                call: Call<ApiInterface.User>,
+                response: Response<ApiInterface.User>
             ) {
                 if (response.isSuccessful) {
+
+                    try {
+
+                        val userObject = response.body()!!
+
+                        val editor = App.instance.preferences.edit()
+
+                        if (userObject.fullname != null)
+                            editor.putString("fullname", userObject.fullname)
+                        if (userObject.dateOfBirth != null)
+                            editor.putString("dateOfBirth", userObject.dateOfBirth)
+                        if (userObject.image != null)
+                            editor.putString("image", userObject.image)
+
+                        editor.apply()
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
                     listener?.onResponse(null)
                 }
@@ -429,7 +514,7 @@ class BackOffice(
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<ApiInterface.User>, t: Throwable) {
                 clientError(t, null)
             }
 
