@@ -55,11 +55,12 @@ interface ApiInterface {
         @Path(value = "id", encoded = true) id : String,
     ) : Call<Sitter>
 
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("user/pet/update/{id}")
     fun updatePet(
         @Path(value = "id", encoded = true) id : String,
-        @Body jsonObject: JsonObject
+        @Part("pet") user: RequestBody,
+        @Part file: MultipartBody.Part?
     ) : Call<Void>
 
     @Multipart
@@ -83,8 +84,38 @@ interface ApiInterface {
         @Query("api_key") apiKey: String
     ) : Call<List<CatBreed>>
 
+    @Headers("Content-Type: application/json")
+    @GET("sitter/pictures")
+    fun getPictures() : Call<List<Picture>>
 
-    class Sitter {
+    @Headers("Content-Type: application/json")
+    @POST("sitter/picture/delete/{filename}")
+    fun deletePicture(@Path(value = "filename", encoded = true) filename : String) : Call<Void>
+
+    @Multipart
+    @POST("sitter/picture/add")
+    fun addPicture(
+        @Part file: MultipartBody.Part?
+    ) : Call<Picture>
+
+
+    class Picture {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("filename")
+        var filename: String? = null
+
+        @SerializedName("url")
+        var url: String? = null
+
+    }
+
+    class Sitter() : Parcelable {
 
         @SerializedName("_id")
         var sitterId: String? = null
@@ -94,6 +125,52 @@ interface ApiInterface {
 
         @SerializedName("verified")
         var verified: Boolean? = false
+
+        @SerializedName("headline")
+        var headline: String? = null
+
+        @SerializedName("description")
+        var description: String? = null
+
+        @SerializedName("lat")
+        var lat: String? = null
+
+        @SerializedName("long")
+        var long: String? = null
+
+        constructor(parcel: Parcel) : this() {
+            sitterId = parcel.readString()
+            userId = parcel.readString()
+            verified = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            headline = parcel.readString()
+            description = parcel.readString()
+            lat = parcel.readString()
+            long = parcel.readString()
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(sitterId)
+            parcel.writeString(userId)
+            parcel.writeValue(verified)
+            parcel.writeString(headline)
+            parcel.writeString(description)
+            parcel.writeString(lat)
+            parcel.writeString(long)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Sitter> {
+            override fun createFromParcel(parcel: Parcel): Sitter {
+                return Sitter(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Sitter?> {
+                return arrayOfNulls(size)
+            }
+        }
 
     }
 

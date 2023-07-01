@@ -85,14 +85,6 @@ class ProgressApplicationFragment : Fragment() {
 
         }
 
-        binding!!.step7.setOnClickListener {
-
-            val bundle = Bundle()
-            bundle.putInt("STEP", 7)
-            findNavController().navigate(R.id.action_progressApplicationFragment_to_applicationAnswerFragment, bundle)
-
-        }
-
     }
 
 }

@@ -380,6 +380,12 @@ class AddPetFragment : Fragment() {
                 pet.addProperty("friendly", friendly)
                 pet.addProperty("microchip", microchip)
 
+                var temporaryFile : File? = null
+
+                if (updatePhoto) {
+                    temporaryFile = saveBitmapAsTemporaryFile(fotoUser)
+                }
+
                 val addbtn = binding!!.addBtn
                 val rlprogressaddpet = binding!!.rlprogressaddpet
 
@@ -407,7 +413,7 @@ class AddPetFragment : Fragment() {
                         }
 
                     }
-                }, petItem!!.id!!, pet)
+                }, petItem!!.id!!, pet, temporaryFile)
 
             }
             catch (e: JSONException) {

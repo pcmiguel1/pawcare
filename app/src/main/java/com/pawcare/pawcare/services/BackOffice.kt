@@ -253,6 +253,50 @@ class BackOffice(
         })
     }
 
+    fun addPicture(listener: Listener<Any>?, file: File?) {
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.addPicture(filePart).enqueue(object : Callback<ApiInterface.Picture>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Picture>,
+                response: Response<ApiInterface.Picture>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        Log.d("Add Picture BO", "successful")
+
+                        listener?.onResponse(response.body())
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Picture>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun startApplication(listener: Listener<Any>?) {
 
         apiInterface.startApplication().enqueue(object : Callback<Void>() {
@@ -423,6 +467,54 @@ class BackOffice(
 
     }
 
+    fun getPictures(listener: Listener<Any>?) {
+
+        apiInterface.getPictures().enqueue(object : retrofit2.Callback<List<ApiInterface.Picture>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Picture>>,
+                response: Response<List<ApiInterface.Picture>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Picture>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun deletePicture(listener: Listener<Any>?, filename : String) {
+
+        apiInterface.deletePicture(filename).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getSitter(listener: Listener<Any>?) {
 
         apiInterface.getSitter(App.instance.preferences.getString("userId", "")!!).enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
@@ -447,9 +539,17 @@ class BackOffice(
 
     }
 
-    fun updatePet(listener: Listener<Any>?, id: String, pet: JsonObject) {
+    fun updatePet(listener: Listener<Any>?, id: String, pet: JsonObject, file: File?) {
 
-        apiInterface.updatePet(id, pet).enqueue(object : retrofit2.Callback<Void> {
+        val petRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), pet.toString())
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.updatePet(id, petRequestBody, filePart).enqueue(object : retrofit2.Callback<Void> {
             override fun onResponse(
                 call: Call<Void>,
                 response: Response<Void>
