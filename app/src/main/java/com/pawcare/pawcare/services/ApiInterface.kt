@@ -50,10 +50,8 @@ interface ApiInterface {
     fun getPets() : Call<List<Pet>>
 
     @Headers("Content-Type: application/json")
-    @GET("sitter/{id}")
-    fun getSitter(
-        @Path(value = "id", encoded = true) id : String,
-    ) : Call<Sitter>
+    @GET("sitter")
+    fun getSitter() : Call<Sitter>
 
     @Multipart
     @POST("user/pet/update/{id}")
@@ -98,6 +96,25 @@ interface ApiInterface {
         @Part file: MultipartBody.Part?
     ) : Call<Picture>
 
+    @Headers("Content-Type: application/json")
+    @POST("sitter/phone/sendVerification/{phoneNumber}")
+    fun sendPhoneVerification(
+        @Path(value = "phoneNumber", encoded = true) phoneNumber : String
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("sitter/phone/verify")
+    fun verifyPhone(
+        @Body jsonObject: JsonObject
+    ) : Call<Void>
+
+    @Multipart
+    @POST("sitter/update")
+    fun updateSitter(
+        @Part("sitter") user: RequestBody,
+        @Part file: MultipartBody.Part?
+    ) : Call<JsonObject>
+
 
     class Picture {
 
@@ -138,6 +155,15 @@ interface ApiInterface {
         @SerializedName("long")
         var long: String? = null
 
+        @SerializedName("phone")
+        var phone: String? = null
+
+        @SerializedName("sortcode")
+        var sortcode: String? = null
+
+        @SerializedName("accountnumber")
+        var accountnumber: String? = null
+
         constructor(parcel: Parcel) : this() {
             sitterId = parcel.readString()
             userId = parcel.readString()
@@ -146,6 +172,9 @@ interface ApiInterface {
             description = parcel.readString()
             lat = parcel.readString()
             long = parcel.readString()
+            phone = parcel.readString()
+            sortcode = parcel.readString()
+            accountnumber = parcel.readString()
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -156,6 +185,9 @@ interface ApiInterface {
             parcel.writeString(description)
             parcel.writeString(lat)
             parcel.writeString(long)
+            parcel.writeString(phone)
+            parcel.writeString(sortcode)
+            parcel.writeString(accountnumber)
         }
 
         override fun describeContents(): Int {

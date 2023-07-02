@@ -515,9 +515,65 @@ class BackOffice(
 
     }
 
+    fun sendPhoneVerification(listener: Listener<Any>?, phoneNumber: String) {
+
+        apiInterface.sendPhoneVerification(phoneNumber).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun verifyPhone(listener: Listener<Any>?, user: JsonObject) {
+
+        apiInterface.verifyPhone(user).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getSitter(listener: Listener<Any>?) {
 
-        apiInterface.getSitter(App.instance.preferences.getString("userId", "")!!).enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
+        apiInterface.getSitter().enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
             override fun onResponse(
                 call: Call<ApiInterface.Sitter>,
                 response: Response<ApiInterface.Sitter>
@@ -615,6 +671,55 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<ApiInterface.User>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun updateSitter(listener: Listener<Any>?, sitter: JsonObject, file: File?) {
+
+        val sitterRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), sitter.toString())
+
+        var filePart : MultipartBody.Part? = null
+        if (file != null) {
+            val fileRequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        }
+
+        apiInterface.updateSitter(sitterRequestBody, filePart).enqueue(object : Callback<JsonObject>() {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        val userObject = response.body()!!
+
+                        Log.d("userObject", userObject.toString())
+
+                        val editor = App.instance.preferences.edit()
+
+                        if (userObject.get("image") != null)
+                            editor.putString("image", userObject.get("image").asString)
+
+                        editor.apply()
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 clientError(t, null)
             }
 

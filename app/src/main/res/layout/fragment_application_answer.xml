@@ -205,6 +205,258 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/step3"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="To ensure safety we ask you to verify your phone number. This only needs to be done once. You need to complete this step before your message can be sent."
+                                android:textColor="@color/text_color"
+                                android:fontFamily="@font/urbanist_regular"
+                                android:textSize="13sp" />
+
+                            <FrameLayout
+                                android:layout_marginTop="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/input_background"
+                                android:paddingHorizontal="15dp">
+
+                                <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp"
+                                    app:ccp_showFullName="false"
+                                    app:ccp_showPhoneCode="true"
+                                    app:ccp_showNameCode="false"
+                                    app:ccp_showFlag="true"
+                                    app:ccp_autoFormatNumber="true"
+                                    app:ccp_showArrow="true"
+                                    android:textSize="16sp"
+                                    app:ccp_arrowSize="16sp"
+                                    app:ccp_arrowColor="@color/placeholder"
+                                    app:ccpDialog_keyboardAutoPopup="false"
+                                    app:ccp_autoDetectCountry="true"
+                                    app:ccpDialog_cornerRadius="16dp"
+                                    app:ccpDialog_textColor="@color/text_color"
+                                    style="@style/font"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start|center"/>
+
+                                <EditText
+                                    android:id="@+id/phone_form"
+                                    android:layout_marginStart="100dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="phone"
+                                    android:maxLines="1"
+                                    android:textColor="@color/text_color"
+                                    android:hint="Phone Number"
+                                    android:textColorHint="@color/placeholder"
+                                    android:backgroundTint="@android:color/transparent"
+                                    android:textCursorDrawable="@null"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"/>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/step4"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Please enter your bank account information so we can pay you for your bookings."
+                                android:textColor="@color/text_color"
+                                android:fontFamily="@font/urbanist_regular"
+                                android:textSize="13sp" />
+
+                            <RelativeLayout
+                                android:layout_marginTop="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/primaryLight2Color"
+                                android:layout_marginBottom="20dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:padding="15dp"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:src="@drawable/info"/>
+
+                                    <TextView
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="15sp"
+                                        android:text="Please note, the bank account needs to be in the same name as the PawCare account."/>
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/input_background"
+                                android:paddingHorizontal="15dp"
+                                android:layout_marginBottom="20dp">
+
+                                <EditText
+                                    android:id="@+id/sortcode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="text"
+                                    android:maxLines="1"
+                                    android:textColor="@color/text_color"
+                                    android:textColorHint="@color/placeholder"
+                                    android:backgroundTint="@android:color/transparent"
+                                    android:textCursorDrawable="@null"
+                                    android:hint="Sort Code"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"/>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/input_background"
+                                android:paddingHorizontal="15dp"
+                                android:layout_marginBottom="20dp">
+
+                                <EditText
+                                    android:id="@+id/accountnumber"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="text"
+                                    android:maxLines="1"
+                                    android:textColor="@color/text_color"
+                                    android:textColorHint="@color/placeholder"
+                                    android:backgroundTint="@android:color/transparent"
+                                    android:textCursorDrawable="@null"
+                                    android:hint="Account Number"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"/>
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/step5"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_marginTop="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/input_background"
+                                android:paddingHorizontal="5dp"
+                                android:layout_gravity="center_vertical">
+
+                                <fragment
+                                    android:id="@+id/autocomplete_fragment"
+                                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Search for a place" />
+
+                            </FrameLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/currentLocationBtn"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="@drawable/custom_button"
+                                android:backgroundTint="@color/primaryLightColor">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    android:layout_centerInParent="true">
+
+                                    <ImageView
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:src="@drawable/location2"
+                                        app:tint="@color/white" />
+
+                                    <TextView
+                                        android:layout_marginStart="10dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_bold"
+                                        android:textSize="16sp"
+                                        android:text="Use my Current Location"
+                                        android:textColor="@color/white"/>
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/cinza"/>
+
+                            <LinearLayout
+                                android:layout_marginTop="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/location"/>
+
+                                <TextView
+                                    android:id="@+id/location"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_color"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </ScrollView>

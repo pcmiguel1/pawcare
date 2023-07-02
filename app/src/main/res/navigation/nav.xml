@@ -223,5 +223,9 @@
         android:id="@+id/applicationAnswerFragment"
         android:name="com.pawcare.pawcare.fragments.sitterapplication.ApplicationAnswerFragment"
         android:label="fragment_application_answer"
-        tools:layout="@layout/fragment_application_answer" />
+        tools:layout="@layout/fragment_application_answer" >
+        <action
+            android:id="@+id/action_applicationAnswerFragment_to_progressApplicationFragment"
+            app:destination="@id/progressApplicationFragment" />
+    </fragment>
 </navigation>

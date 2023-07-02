@@ -145,7 +145,8 @@
                         android:layout_height="55dp"
                         android:background="@drawable/custom_button"
                         android:backgroundTint="@color/input_background"
-                        android:paddingHorizontal="15dp">
+                        android:paddingHorizontal="15dp"
+                        android:visibility="gone">
 
                         <com.hbb20.CountryCodePicker
                             android:id="@+id/ccp"

@@ -144,7 +144,7 @@ class RegisterFragment : Fragment() {
 
                 user.addProperty("fullname", fullName)
                 user.addProperty("dateOfBirth", formattedDate)
-                if (validPhoneNumber) user.addProperty("phoneNumber", ccp.fullNumber)
+                //if (validPhoneNumber) user.addProperty("phoneNumber", ccp.fullNumber)
                 user.addProperty("email", email)
                 user.addProperty("password", password)
 

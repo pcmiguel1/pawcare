@@ -69,6 +69,9 @@
     <string name="dialog_verify_email">Verify your Email</string>
     <string name="dialog_verify_email_desc">Enter the 4 digits code that you received on your email.</string>
 
+    <string name="dialog_verify_phone">Verify your Phone</string>
+    <string name="dialog_verify_phone_desc">Enter the 4 digits code that you received on your phone.</string>
+
     <string name="dialog_verify_code">Enter 4 Digits Code</string>
     <string name="dialog_verify_code_desc">Enter the 4 digits code that you received on your email.</string>
 

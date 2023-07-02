@@ -17,6 +17,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
+        buildConfigField "String", "MAPS_API_KEY", "\"AIzaSyDVKT53yJKAIAziwViAPKUlAlCASbD5EdE\""
+
         buildConfigField "String", "DOG_API_URL", "\"https://api.thedogapi.com/v1\""
         buildConfigField "String", "DOG_API_KEY", "\"live_hcT4zMgfPTYuWibA0BBuNcXNxJ5Qj4cDSU4l7dgFumpxSsF3U8KLfmyZGRMfqv0i\""
 
