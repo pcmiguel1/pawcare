@@ -491,9 +491,57 @@ class BackOffice(
 
     }
 
+    fun getApplication(listener: Listener<Any>?) {
+
+        apiInterface.getApplication().enqueue(object : Callback<ApiInterface.ApplicationSitter>() {
+            override fun onResponse(
+                call: Call<ApiInterface.ApplicationSitter>,
+                response: Response<ApiInterface.ApplicationSitter>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.ApplicationSitter>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun deletePicture(listener: Listener<Any>?, filename : String) {
 
         apiInterface.deletePicture(filename).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun applicationSubmit(listener: Listener<Any>?) {
+
+        apiInterface.applicationSubmit().enqueue(object : Callback<Void>() {
             override fun onResponse(
                 call: Call<Void>,
                 response: Response<Void>

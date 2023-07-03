@@ -49,4 +49,8 @@
         <item name="android:maxHeight">32dip</item>
     </style>
 
+    <style name="CustomCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/primaryColor</item>
+    </style>
+
 </resources>

@@ -31,6 +31,9 @@
         <item name="colorAccent">@color/primaryColor</item>
     </style>
 
+    <style name="CustomCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/primaryColor</item>
+    </style>
 
 
 </resources>

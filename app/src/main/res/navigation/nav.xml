@@ -218,6 +218,9 @@
         <action
             android:id="@+id/action_progressApplicationFragment_to_applicationAnswerFragment"
             app:destination="@id/applicationAnswerFragment" />
+        <action
+            android:id="@+id/action_progressApplicationFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
     </fragment>
     <fragment
         android:id="@+id/applicationAnswerFragment"

@@ -28,6 +28,7 @@ class ProfileFragment : Fragment() {
 
     private var isSitter : Boolean = false
     private var verifiedSitter : Boolean = false
+    private var applicationSubmitted : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,6 +108,25 @@ class ProfileFragment : Fragment() {
 
             }
 
+        })
+
+        App.instance.backOffice.getApplication(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
+
+                if (isAdded) {
+
+                    if (response != null && response is ApiInterface.ApplicationSitter) {
+
+                        applicationSubmitted = true
+
+                    }
+                    else {
+                        applicationSubmitted = false
+                    }
+
+                }
+
+            }
         })
 
         binding!!.logoutBtn.setOnClickListener {
@@ -206,7 +226,16 @@ class ProfileFragment : Fragment() {
 
                 } else { //navigate to the progress application
 
-                    findNavController().navigate(R.id.action_profileFragment2_to_progressApplicationFragment)
+                    if (applicationSubmitted) {
+                        val bundle = Bundle()
+                        bundle.putBoolean("SUBMITTED", true)
+                        findNavController().navigate(R.id.action_profileFragment2_to_progressApplicationFragment, bundle)
+                    }
+                    else {
+                        val bundle = Bundle()
+                        bundle.putBoolean("SUBMITTED", false)
+                        findNavController().navigate(R.id.action_profileFragment2_to_progressApplicationFragment, bundle)
+                    }
 
                 }
 

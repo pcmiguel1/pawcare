@@ -417,7 +417,177 @@ class ApplicationAnswerFragment : Fragment() {
 
             6 -> {
 
-                binding!!.step1.visibility = View.VISIBLE
+                binding!!.step6.visibility = View.VISIBLE
+
+                //services
+                val checkPetWalking = binding!!.checkPetwalking
+                val ratesPetWalking = binding!!.ratesWalk
+                val ratePetWalking = binding!!.rateWalk
+                val ratePetWalkingAddPet = binding!!.rateWalkAddPet
+
+                val checkPetBoarding = binding!!.checkPetBoarding
+                val ratesPetBoarding = binding!!.ratesPetBoarding
+                val ratePetBoarding = binding!!.ratePetBoarding
+                val ratePetBoardingAddPet = binding!!.ratePetBoardingAddPet
+
+                val checkHouseSitting = binding!!.checkHouseSitting
+                val ratesHouseSitting = binding!!.ratesHouseSitting
+                val rateHouseSitting = binding!!.rateHouseSitting
+                val rateHouseSittingAddPet = binding!!.rateHouseSittingAddPet
+
+                val checkTraining = binding!!.checkTraining
+                val ratesTraining = binding!!.ratesTraining
+                val rateTraining = binding!!.rateTraining
+                val rateTrainingAddPet = binding!!.rateTrainingAddPet
+
+                val checkGrooming = binding!!.checkGromming
+                val ratesGrooming = binding!!.ratesGromming
+                val rateGrooming = binding!!.rateGromming
+                val rateGroomingAddPet = binding!!.rateGrommingAddPet
+
+                //Adicional services
+                val checkPickupDropoff = binding!!.checkPickupdropoff
+                val checkAdmisterOralMedications = binding!!.checkAdmisterOralMedications
+                val checkAdmisterInjectMedications = binding!!.checkAdmisterInjectMedications
+
+                if (sitter!!.petwalking != null) {
+                    checkPetWalking.isChecked = sitter!!.petwalking!!
+                    if (checkPetWalking.isChecked) ratesPetWalking.visibility = View.VISIBLE
+                }
+                if (sitter!!.petboarding != null) {
+                    checkPetBoarding.isChecked = sitter!!.petboarding!!
+                    if (checkPetBoarding.isChecked) ratesPetBoarding.visibility = View.VISIBLE
+                }
+                if (sitter!!.housesitting != null) {
+                    checkHouseSitting.isChecked = sitter!!.housesitting!!
+                    if (checkHouseSitting.isChecked) ratesHouseSitting.visibility = View.VISIBLE
+                }
+                if (sitter!!.training != null) {
+                    checkTraining.isChecked = sitter!!.training!!
+                    if (checkTraining.isChecked) ratesTraining.visibility = View.VISIBLE
+                }
+                if (sitter!!.grooming != null) {
+                    checkGrooming.isChecked = sitter!!.grooming!!
+                    if (checkGrooming.isChecked) ratesGrooming.visibility = View.VISIBLE
+                }
+
+                if (sitter!!.pickupdropoff != null) checkPickupDropoff.isChecked = sitter!!.pickupdropoff!!
+                if (sitter!!.oralmedications != null) checkAdmisterOralMedications.isChecked = sitter!!.oralmedications!!
+                if (sitter!!.injectmedications != null) checkAdmisterInjectMedications.isChecked = sitter!!.injectmedications!!
+
+                if (sitter!!.ratewalking != null && sitter!!.ratewalking != "") ratePetWalking.setText(sitter!!.ratewalking)
+                if (sitter!!.ratewalkingaddpet != null && sitter!!.ratewalkingaddpet != "") ratePetWalkingAddPet.setText(sitter!!.ratewalkingaddpet)
+
+                if (sitter!!.ratepetboarding != null && sitter!!.ratepetboarding != "") ratePetBoarding.setText(sitter!!.ratepetboarding)
+                if (sitter!!.ratepetboardingaddpet != null && sitter!!.ratepetboardingaddpet != "") ratePetBoardingAddPet.setText(sitter!!.ratepetboardingaddpet)
+
+                if (sitter!!.ratehousesitting != null && sitter!!.ratehousesitting != "") rateHouseSitting.setText(sitter!!.ratehousesitting)
+                if (sitter!!.ratehousesittingaddpet != null && sitter!!.ratehousesittingaddpet != "") rateHouseSittingAddPet.setText(sitter!!.ratehousesittingaddpet)
+
+                if (sitter!!.ratetraining != null && sitter!!.ratetraining != "") rateTraining.setText(sitter!!.ratetraining)
+                if (sitter!!.ratetrainingaddpet != null && sitter!!.ratetrainingaddpet != "") rateTrainingAddPet.setText(sitter!!.ratetrainingaddpet)
+
+                if (sitter!!.rategrooming != null && sitter!!.rategrooming != "") rateGrooming.setText(sitter!!.rategrooming)
+                if (sitter!!.rategroomingaddpet != null && sitter!!.rategroomingaddpet != "") rateGroomingAddPet.setText(sitter!!.rategroomingaddpet)
+
+
+                checkPetWalking.setOnCheckedChangeListener { buttonView, isChecked ->
+                    // Perform actions based on the checkbox state
+                    if (isChecked) {
+                        ratesPetWalking.visibility = View.VISIBLE
+                    } else {
+                        ratesPetWalking.visibility = View.GONE
+                    }
+                }
+
+                checkPetBoarding.setOnCheckedChangeListener { buttonView, isChecked ->
+                    // Perform actions based on the checkbox state
+                    if (isChecked) {
+                        ratesPetBoarding.visibility = View.VISIBLE
+                    } else {
+                        ratesPetBoarding.visibility = View.GONE
+                    }
+                }
+
+                checkHouseSitting.setOnCheckedChangeListener { buttonView, isChecked ->
+                    // Perform actions based on the checkbox state
+                    if (isChecked) {
+                        ratesHouseSitting.visibility = View.VISIBLE
+                    } else {
+                        ratesHouseSitting.visibility = View.GONE
+                    }
+                }
+
+                checkTraining.setOnCheckedChangeListener { buttonView, isChecked ->
+                    // Perform actions based on the checkbox state
+                    if (isChecked) {
+                        ratesTraining.visibility = View.VISIBLE
+                    } else {
+                        ratesTraining.visibility = View.GONE
+                    }
+                }
+
+                checkGrooming.setOnCheckedChangeListener { buttonView, isChecked ->
+                    // Perform actions based on the checkbox state
+                    if (isChecked) {
+                        ratesGrooming.visibility = View.VISIBLE
+                    } else {
+                        ratesGrooming.visibility = View.GONE
+                    }
+                }
+
+
+                binding!!.saveBtn.setOnClickListener {
+
+                    val sitter = JsonObject()
+                    sitter.addProperty("petwalking", checkPetWalking.isChecked)
+                    sitter.addProperty("petboarding", checkPetBoarding.isChecked)
+                    sitter.addProperty("housesitting", checkHouseSitting.isChecked)
+                    sitter.addProperty("training", checkTraining.isChecked)
+                    sitter.addProperty("grooming", checkGrooming.isChecked)
+                    sitter.addProperty("pickupdropoff", checkPickupDropoff.isChecked)
+                    sitter.addProperty("oralmedications", checkAdmisterOralMedications.isChecked)
+                    sitter.addProperty("injectmedications", checkAdmisterInjectMedications.isChecked)
+
+                    sitter.addProperty("ratewalking", ratePetWalking.text.toString())
+                    sitter.addProperty("ratewalkingaddpet", ratePetWalkingAddPet.text.toString())
+
+                    sitter.addProperty("ratepetboarding", ratePetBoarding.text.toString())
+                    sitter.addProperty("ratepetboardingaddpet", ratePetBoardingAddPet.text.toString())
+
+                    sitter.addProperty("ratehousesitting", rateHouseSitting.text.toString())
+                    sitter.addProperty("ratehousesittingaddpet", rateHouseSittingAddPet.text.toString())
+
+                    sitter.addProperty("ratetraining", rateTraining.text.toString())
+                    sitter.addProperty("ratetrainingaddpet", rateTrainingAddPet.text.toString())
+
+                    sitter.addProperty("rategrooming", rateGrooming.text.toString())
+                    sitter.addProperty("rategroomingaddpet", rateGroomingAddPet.text.toString())
+
+                    binding!!.saveBtn.visibility = View.GONE
+                    binding!!.rlprogressave.visibility = View.VISIBLE
+
+                    App.instance.backOffice.updateSitter(object : Listener<Any> {
+                        override fun onResponse(response: Any?) {
+
+                            binding!!.saveBtn.visibility = View.VISIBLE
+                            binding!!.rlprogressave.visibility = View.GONE
+
+                            if (isAdded) {
+
+                                if (response == null) {
+
+                                    findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+
+                                }
+
+                            }
+
+                        }
+                    }, sitter, null)
+
+                }
+
 
             }
 

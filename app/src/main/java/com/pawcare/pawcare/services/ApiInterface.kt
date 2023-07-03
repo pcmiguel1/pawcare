@@ -90,6 +90,10 @@ interface ApiInterface {
     @POST("sitter/picture/delete/{filename}")
     fun deletePicture(@Path(value = "filename", encoded = true) filename : String) : Call<Void>
 
+    @Headers("Content-Type: application/json")
+    @POST("sitter/application/submit")
+    fun applicationSubmit() : Call<Void>
+
     @Multipart
     @POST("sitter/picture/add")
     fun addPicture(
@@ -115,6 +119,26 @@ interface ApiInterface {
         @Part file: MultipartBody.Part?
     ) : Call<JsonObject>
 
+    @Headers("Content-Type: application/json")
+    @GET("sitter/application")
+    fun getApplication() : Call<ApplicationSitter>
+
+
+    class ApplicationSitter {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("sitterId")
+        var sitterId: String? = null
+
+        @SerializedName("date")
+        var date: String? = null
+
+    }
 
     class Picture {
 
@@ -164,6 +188,67 @@ interface ApiInterface {
         @SerializedName("accountnumber")
         var accountnumber: String? = null
 
+
+
+        @SerializedName("petwalking")
+        var petwalking: Boolean? = false
+
+        @SerializedName("ratewalking")
+        var ratewalking: String? = null
+
+        @SerializedName("ratewalkingaddpet")
+        var ratewalkingaddpet: String? = null
+
+
+        @SerializedName("petboarding")
+        var petboarding: Boolean? = false
+
+        @SerializedName("ratepetboarding")
+        var ratepetboarding: String? = null
+
+        @SerializedName("ratepetboardingaddpet")
+        var ratepetboardingaddpet: String? = null
+
+
+        @SerializedName("housesitting")
+        var housesitting: Boolean? = false
+
+        @SerializedName("ratehousesitting")
+        var ratehousesitting: String? = null
+
+        @SerializedName("ratehousesittingaddpet")
+        var ratehousesittingaddpet: String? = null
+
+
+        @SerializedName("training")
+        var training: Boolean? = false
+
+        @SerializedName("ratetraining")
+        var ratetraining: String? = null
+
+        @SerializedName("ratetrainingaddpet")
+        var ratetrainingaddpet: String? = null
+
+
+        @SerializedName("grooming")
+        var grooming: Boolean? = false
+
+        @SerializedName("rategrooming")
+        var rategrooming: String? = null
+
+        @SerializedName("rategroomingaddpet")
+        var rategroomingaddpet: String? = null
+
+
+        @SerializedName("pickupdropoff")
+        var pickupdropoff: Boolean? = false
+
+        @SerializedName("oralmedications")
+        var oralmedications: Boolean? = false
+
+        @SerializedName("injectmedications")
+        var injectmedications: Boolean? = false
+
         constructor(parcel: Parcel) : this() {
             sitterId = parcel.readString()
             userId = parcel.readString()
@@ -175,6 +260,24 @@ interface ApiInterface {
             phone = parcel.readString()
             sortcode = parcel.readString()
             accountnumber = parcel.readString()
+            petwalking = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            ratewalking = parcel.readString()
+            ratewalkingaddpet = parcel.readString()
+            petboarding = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            ratepetboarding = parcel.readString()
+            ratepetboardingaddpet = parcel.readString()
+            housesitting = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            ratehousesitting = parcel.readString()
+            ratehousesittingaddpet = parcel.readString()
+            training = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            ratetraining = parcel.readString()
+            ratetrainingaddpet = parcel.readString()
+            grooming = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            rategrooming = parcel.readString()
+            rategroomingaddpet = parcel.readString()
+            pickupdropoff = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            oralmedications = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+            injectmedications = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -188,6 +291,24 @@ interface ApiInterface {
             parcel.writeString(phone)
             parcel.writeString(sortcode)
             parcel.writeString(accountnumber)
+            parcel.writeValue(petwalking)
+            parcel.writeString(ratewalking)
+            parcel.writeString(ratewalkingaddpet)
+            parcel.writeValue(petboarding)
+            parcel.writeString(ratepetboarding)
+            parcel.writeString(ratepetboardingaddpet)
+            parcel.writeValue(housesitting)
+            parcel.writeString(ratehousesitting)
+            parcel.writeString(ratehousesittingaddpet)
+            parcel.writeValue(training)
+            parcel.writeString(ratetraining)
+            parcel.writeString(ratetrainingaddpet)
+            parcel.writeValue(grooming)
+            parcel.writeString(rategrooming)
+            parcel.writeString(rategroomingaddpet)
+            parcel.writeValue(pickupdropoff)
+            parcel.writeValue(oralmedications)
+            parcel.writeValue(injectmedications)
         }
 
         override fun describeContents(): Int {
@@ -203,6 +324,7 @@ interface ApiInterface {
                 return arrayOfNulls(size)
             }
         }
+
 
     }
 

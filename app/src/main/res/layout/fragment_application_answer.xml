@@ -457,6 +457,680 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/step6"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Services"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="What services can I offer and what should they include?"
+                                android:textColor="@color/text_color"
+                                android:fontFamily="@font/urbanist_regular"
+                                android:textSize="13sp"
+                                android:layout_marginBottom="20dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical">
+
+                                    <CheckBox
+                                        android:id="@+id/check_petwalking"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/text_color"
+                                        style="@style/CustomCheckboxStyle"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Pet Walking"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Walking and spending time with the pet."
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/rates_walk"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_walk"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate per walk"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_walk_add_pet"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for each additional pet"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical">
+
+                                    <CheckBox
+                                        android:id="@+id/check_pet_boarding"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/text_color"
+                                        style="@style/CustomCheckboxStyle"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Pet Boarding"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Overnight pet stay at sitter's home."
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/rates_pet_boarding"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_pet_boarding"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate per night"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_pet_boarding_add_pet"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for each additional pet"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical">
+
+                                    <CheckBox
+                                        android:id="@+id/check_house_sitting"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/text_color"
+                                        style="@style/CustomCheckboxStyle"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="House Sitting"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Overnight sitter stay at the owner's home."
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/rates_house_sitting"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_house_sitting"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for house sitting - 24h care"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_house_sitting_add_pet"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for each additional pet"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical">
+
+                                    <CheckBox
+                                        android:id="@+id/check_training"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/text_color"
+                                        style="@style/CustomCheckboxStyle"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Training"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Daytime training at the sitter's home."
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/rates_training"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_training"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate per training"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_training_add_pet"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for each additional pet"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_marginTop="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical">
+
+                                    <CheckBox
+                                        android:id="@+id/check_gromming"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/text_color"
+                                        style="@style/CustomCheckboxStyle"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:layout_gravity="center_vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Grooming"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Daytime care at the sitter's home."
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/rates_gromming"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_gromming"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate per day"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                    <FrameLayout
+                                        android:layout_marginTop="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="55dp"
+                                        android:background="@drawable/custom_button"
+                                        android:backgroundTint="@color/input_background"
+                                        android:paddingHorizontal="15dp">
+
+                                        <EditText
+                                            android:id="@+id/rate_gromming_add_pet"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:inputType="text"
+                                            android:maxLines="1"
+                                            android:textColor="@color/text_color"
+                                            android:hint="Rate for each additional pet"
+                                            android:textColorHint="@color/placeholder"
+                                            android:backgroundTint="@android:color/transparent"
+                                            android:textCursorDrawable="@null"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="16sp"/>
+
+                                    </FrameLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_marginTop="20dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Additional services"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textSize="18sp"
+                                android:layout_marginBottom="20dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical">
+
+                                <CheckBox
+                                    android:id="@+id/check_pickupdropoff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_color"
+                                    style="@style/CustomCheckboxStyle"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pick up / drop off"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical">
+
+                                <CheckBox
+                                    android:id="@+id/check_admister_oral_medications"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_color"
+                                    style="@style/CustomCheckboxStyle"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Admister oral medications"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical">
+
+                                <CheckBox
+                                    android:id="@+id/check_admister_inject_medications"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/urbanist_regular"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_color"
+                                    style="@style/CustomCheckboxStyle"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Admister inject medications"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="16sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </ScrollView>
