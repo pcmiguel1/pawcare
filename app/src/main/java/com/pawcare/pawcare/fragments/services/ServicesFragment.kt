@@ -64,9 +64,9 @@ class ServicesFragment : Fragment() {
                 val item = serviceAdapter.getItem(position)
 
                 val bundle = Bundle()
-                bundle.putString("SITTER_NAME", item.name)
+                bundle.putParcelable("SITTER", item)
 
-                findNavController().navigate(R.id.action_exploreFragment2_to_sitterInfoFragment2)
+                findNavController().navigate(R.id.action_servicesFragment_to_sitterInfoFragment, bundle)
 
 
             }

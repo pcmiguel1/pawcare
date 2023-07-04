@@ -231,14 +231,13 @@ class ExploreFragment : Fragment() {
 
     private fun addCategoriesToList() {
 
-        categories.add(Category("Sitting", R.drawable.sitting_icon))
-        categories.add(Category("Walking", R.drawable.walking_icon))
-        categories.add(Category("Washing", R.drawable.washing_icon))
-        categories.add(Category("More", R.drawable.more_icon))
-        categories.add(Category("Training", R.drawable.sitting_icon))
-        categories.add(Category("Grooming", R.drawable.walking_icon))
-        categories.add(Category("Veterinary", R.drawable.washing_icon))
-        categories.add(Category("More", R.drawable.more_icon))
+        categories.clear()
+
+        categories.add(Category("Pet\nWalking", R.drawable.walking_icon))
+        categories.add(Category("Pet\nBoarding", R.drawable.petboarding))
+        categories.add(Category("House\nSitting", R.drawable.sitting_icon))
+        categories.add(Category("Pet\nTraining", R.drawable.trainning))
+        categories.add(Category("Pet\nGrooming", R.drawable.washing_icon))
 
     }
 

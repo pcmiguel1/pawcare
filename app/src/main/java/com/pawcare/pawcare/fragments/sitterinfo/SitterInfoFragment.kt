@@ -74,7 +74,7 @@ class SitterInfoFragment : Fragment() {
 
         loadingDialog.startLoading()
 
-        App.instance.backOffice.getPictures(object : Listener<Any> {
+        App.instance.backOffice.getPicturesSitter(object : Listener<Any> {
             override fun onResponse(response: Any?) {
 
                 loadingDialog.isDismiss()
@@ -108,7 +108,27 @@ class SitterInfoFragment : Fragment() {
                 }
 
             }
-        })
+        }, sitter!!.userId!!)
+
+        App.instance.backOffice.getFavourite(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
+
+                if (isAdded) {
+
+                    if (response != null && response is ApiInterface.Favourite) {
+
+                        binding!!.like.setImageResource(R.drawable.like_red)
+
+                    }
+                    else {
+                        binding!!.like.setImageResource(R.drawable.heart_icon)
+                    }
+
+                }
+
+            }
+
+        }, sitter!!.sitterId!!)
 
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         try {
@@ -123,6 +143,113 @@ class SitterInfoFragment : Fragment() {
         }
         catch (e: IOException) {
             println("Failed to retrieve address: ${e.message}")
+        }
+
+        if (sitter!!.petwalking!!) {
+
+            binding!!.petwalking.visibility = View.VISIBLE
+            binding!!.petwalkingDesc.text = "A nice walk for your pet\n${sitter!!.ratewalkingaddpet}€ for each addicional pet"
+            binding!!.petwalkingPrice.text = "${sitter!!.ratewalking}€\n/walk"
+
+        }
+
+        if (sitter!!.petboarding!!) {
+
+            binding!!.petboarding.visibility = View.VISIBLE
+            binding!!.petboardingDesc.text = "Stay with the sitter, day and night\n${sitter!!.ratewalkingaddpet}€ for each addicional pet"
+            binding!!.petboardingPrice.text = "${sitter!!.ratewalking}€\n/night"
+
+        }
+
+        if (sitter!!.housesitting!!) {
+
+            binding!!.housesitting.visibility = View.VISIBLE
+            binding!!.housesittingDesc.text = "The sitter will stay at your home\n${sitter!!.ratewalkingaddpet}€ for each addicional pet"
+            binding!!.housesittingPrice.text = "${sitter!!.ratewalking}€\n/night"
+
+        }
+
+        if (sitter!!.training!!) {
+
+            binding!!.pettraining.visibility = View.VISIBLE
+            binding!!.pettrainingDesc.text = "Stay with the sitter during the day\n${sitter!!.ratewalkingaddpet}€ for each addicional pet"
+            binding!!.pettrainingPrice.text = "${sitter!!.ratewalking}€\n/training"
+
+        }
+
+        if (sitter!!.grooming!!) {
+
+            binding!!.petgrooming.visibility = View.VISIBLE
+            binding!!.petgroomingDesc.text = "Stay with the sitter during the day\n${sitter!!.ratewalkingaddpet}€ for each addicional pet"
+            binding!!.petgroomingPrice.text = "${sitter!!.ratewalking}€\n/day"
+
+        }
+
+        binding!!.like.setOnClickListener {
+
+            loadingDialog.startLoading()
+
+            App.instance.backOffice.getFavourite(object : Listener<Any> {
+                override fun onResponse(response: Any?) {
+
+                    if (isAdded) {
+
+                        if (response != null && response is ApiInterface.Favourite) {
+
+                            //if exists so will remove
+
+                            App.instance.backOffice.deleteFavourite(object: Listener<Any> {
+                                override fun onResponse(response: Any?) {
+
+                                    loadingDialog.isDismiss()
+
+                                    if (isAdded) {
+
+                                        if (response == null) {
+
+                                            binding!!.like.setImageResource(R.drawable.heart_icon)
+
+                                        }
+
+                                    }
+
+                                }
+
+                            }, sitter!!.sitterId!!)
+
+
+                        }
+                        else {
+
+                            // if exists will add
+
+                            App.instance.backOffice.addFavourite(object: Listener<Any> {
+                                override fun onResponse(response: Any?) {
+
+                                    loadingDialog.isDismiss()
+
+                                    if (isAdded) {
+
+                                        if (response == null) {
+
+                                            binding!!.like.setImageResource(R.drawable.like_red)
+
+                                        }
+
+                                    }
+
+                                }
+
+                            }, sitter!!.sitterId!!)
+
+
+                        }
+
+                    }
+
+                }
+            }, sitter!!.sitterId!!)
+
         }
 
         binding!!.aboutme.text = sitter!!.description ?: ""
