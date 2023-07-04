@@ -155,6 +155,12 @@ interface ApiInterface {
         @Path(value = "id", encoded = true) id : String
     ) : Call<Favourite>
 
+    @Headers("Content-Type: application/json")
+    @POST("user/booking/add")
+    fun addBooking(
+        @Body jsonObject: JsonObject
+    ) : Call<Void>
+
 
     class Favourite() {
 

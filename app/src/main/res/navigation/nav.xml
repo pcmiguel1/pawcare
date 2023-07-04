@@ -153,7 +153,11 @@
         android:id="@+id/bookingDetailsFragment"
         android:name="com.pawcare.pawcare.fragments.bookingsdetails.BookingDetailsFragment"
         android:label="fragment_booking_details"
-        tools:layout="@layout/fragment_booking_details" />
+        tools:layout="@layout/fragment_booking_details" >
+        <action
+            android:id="@+id/action_bookingDetailsFragment_to_sitterInfoFragment"
+            app:destination="@id/sitterInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myPetsFragment"
         android:name="com.pawcare.pawcare.fragments.mypets.MyPetsFragment"

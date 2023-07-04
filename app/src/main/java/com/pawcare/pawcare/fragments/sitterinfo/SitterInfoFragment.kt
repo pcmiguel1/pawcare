@@ -267,7 +267,10 @@ class SitterInfoFragment : Fragment() {
 
         binding!!.booknowBtn.setOnClickListener {
 
-            findNavController().navigate(R.id.action_sitterInfoFragment_to_bookingDetailsFragment)
+            val bundle = Bundle()
+            bundle.putParcelable("SITTER", sitter)
+
+            findNavController().navigate(R.id.action_sitterInfoFragment_to_bookingDetailsFragment, bundle)
 
         }
 

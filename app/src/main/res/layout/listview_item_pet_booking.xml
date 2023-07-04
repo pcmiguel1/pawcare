@@ -5,12 +5,12 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:layout_marginBottom="15dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:cardCornerRadius="16dp">
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="100dp">
 
         <ImageView
             android:id="@+id/image"
@@ -39,27 +39,20 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:fontFamily="@font/urbanist_bold"
                 android:textColor="@color/text_color" />
 
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:fontFamily="@font/urbanist_regular"
-                android:textColor="@color/grey" />
-
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@drawable/arrow_right"
-            app:tint="@color/grey"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"/>
+        <Switch
+            android:id="@+id/active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            android:trackTint="@color/switch_track_selector"
+            android:thumbTint="@color/switch_thumb_selector"/>
 
     </LinearLayout>
 

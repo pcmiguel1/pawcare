@@ -327,6 +327,36 @@ class BackOffice(
         })
     }
 
+    fun addBooking(listener: Listener<Any>?, booking: JsonObject) {
+
+        apiInterface.addBooking(booking).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun startApplication(listener: Listener<Any>?) {
 
         apiInterface.startApplication().enqueue(object : Callback<Void>() {
