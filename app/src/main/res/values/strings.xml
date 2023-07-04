@@ -46,10 +46,12 @@
 
     <string name="special_offers">Special Offers</string>
     <string name="nearby_services">Nearby Services</string>
+    <string name="nearby_pet_sitters">Nearby Pet Sitters</string>
     <string name="see_all">See All</string>
 
     <string name="notifications">Notifications</string>
     <string name="liked_services">Liked Services</string>
+    <string name="liked_petsitters">Liked Pet Sitters</string>
 
     <string name="switchsitter">Switch to Sitter</string>
     <string name="income_per_service">Income Per Service</string>

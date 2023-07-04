@@ -1,6 +1,8 @@
 package com.pawcare.pawcare
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,9 +13,13 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.pawcare.pawcare.fragments.bookings.BookingsFragment
@@ -28,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private var isTimerRunning = false
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         val graph = inflater.inflate(R.navigation.nav)
 
         if (App.instance.preferences.getBoolean("stayLoggedIn", false)) {
+            getMyLocation()
             graph.setStartDestination(R.id.exploreFragment2)
         }
         else {
@@ -178,6 +186,75 @@ class MainActivity : AppCompatActivity() {
         animate.duration = 500
         animate.fillAfter = true
         view.startAnimation(animate)
+    }
+
+    private fun getMyLocation() {
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        // Check for location permission
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission granted, fetch the location
+            fetchLocation()
+        } else {
+            // Request location permission
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_REQUEST_CODE
+            )
+        }
+
+    }
+
+    private fun fetchLocation() {
+        try {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        val latitude = location.latitude
+                        val longitude = location.longitude
+
+                        App.instance.preferences.edit()
+
+                            .putString("Latitude", latitude.toString())
+                            .putString("Longitude", longitude.toString())
+
+                            .apply()
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // Handle any errors that occurred during location retrieval
+                    println("Failed to retrieve location: ${exception.message}")
+                }
+        } catch (e: SecurityException) {
+            // Handle the case when the permission is not granted
+            println("Location permission not granted: ${e.message}")
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Location permission granted, fetch the location
+                fetchLocation()
+            } else {
+                // Location permission denied, handle it accordingly
+                println("Location permission denied.")
+            }
+        }
+    }
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 123
     }
 
 }

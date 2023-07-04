@@ -70,9 +70,9 @@
                             android:gravity="center_vertical">
 
                             <TextView
+                                android:id="@+id/name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Senna Lucy"
                                 android:textColor="@color/primaryColor"
                                 android:textSize="20sp"
                                 android:fontFamily="@font/urbanist_semibold"
@@ -158,10 +158,10 @@
                                 android:layout_marginStart="10dp"/>
 
                             <TextView
+                                android:id="@+id/address"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2899 Summer Drive Taylor, PC 48180"
                                 android:textColor="@color/text_color"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/urbanist_regular" />
@@ -212,13 +212,13 @@
                         android:fontFamily="@font/urbanist_semibold" />
 
                     <TextView
+                        android:id="@+id/aboutme"
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:fontFamily="@font/urbanist_regular"
-                        android:textColor="@color/text_color"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore..." />
+                        android:textColor="@color/text_color"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

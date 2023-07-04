@@ -21,9 +21,10 @@
             app:cardCornerRadius="16dp">
 
             <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/person"
+                android:src="@drawable/profile_template"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"/>
 

@@ -297,6 +297,36 @@ class BackOffice(
         })
     }
 
+    fun addFavourite(listener: Listener<Any>?, id: String) {
+
+        apiInterface.addFavourite(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun startApplication(listener: Listener<Any>?) {
 
         apiInterface.startApplication().enqueue(object : Callback<Void>() {
@@ -491,6 +521,78 @@ class BackOffice(
 
     }
 
+    fun getFavourites(listener: Listener<Any>?) {
+
+        apiInterface.getFavourites().enqueue(object : retrofit2.Callback<List<ApiInterface.Sitter>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Sitter>>,
+                response: Response<List<ApiInterface.Sitter>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Sitter>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getPicturesSitter(listener: Listener<Any>?, id: String) {
+
+        apiInterface.getPicturesSitter(id).enqueue(object : retrofit2.Callback<List<ApiInterface.Picture>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Picture>>,
+                response: Response<List<ApiInterface.Picture>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Picture>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getSitters(listener: Listener<Any>?) {
+
+        apiInterface.getSitters().enqueue(object : retrofit2.Callback<List<ApiInterface.Sitter>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Sitter>>,
+                response: Response<List<ApiInterface.Sitter>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Sitter>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getApplication(listener: Listener<Any>?) {
 
         apiInterface.getApplication().enqueue(object : Callback<ApiInterface.ApplicationSitter>() {
@@ -515,9 +617,57 @@ class BackOffice(
 
     }
 
+    fun getFavourite(listener: Listener<Any>?, id: String) {
+
+        apiInterface.getFavourite(id).enqueue(object : Callback<ApiInterface.Favourite>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Favourite>,
+                response: Response<ApiInterface.Favourite>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Favourite>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun deletePicture(listener: Listener<Any>?, filename : String) {
 
         apiInterface.deletePicture(filename).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun deleteFavourite(listener: Listener<Any>?, id : String) {
+
+        apiInterface.deleteFavourite(id).enqueue(object : Callback<Void>() {
             override fun onResponse(
                 call: Call<Void>,
                 response: Response<Void>

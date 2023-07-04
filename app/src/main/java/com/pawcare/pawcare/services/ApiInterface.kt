@@ -83,8 +83,18 @@ interface ApiInterface {
     ) : Call<List<CatBreed>>
 
     @Headers("Content-Type: application/json")
+    @GET("sitter/pictures/{id}")
+    fun getPicturesSitter(
+        @Path(value = "id", encoded = true) id : String,
+    ) : Call<List<Picture>>
+
+    @Headers("Content-Type: application/json")
     @GET("sitter/pictures")
     fun getPictures() : Call<List<Picture>>
+
+    @Headers("Content-Type: application/json")
+    @GET("sitter/list")
+    fun getSitters() : Call<List<Sitter>>
 
     @Headers("Content-Type: application/json")
     @POST("sitter/picture/delete/{filename}")
@@ -123,6 +133,41 @@ interface ApiInterface {
     @GET("sitter/application")
     fun getApplication() : Call<ApplicationSitter>
 
+    @Headers("Content-Type: application/json")
+    @GET("user/favourites")
+    fun getFavourites() : Call<List<Sitter>>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/favourite/add/{id}")
+    fun addFavourite(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/favourite/delete/{id}")
+    fun deleteFavourite(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/favourite/{id}")
+    fun getFavourite(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Favourite>
+
+
+    class Favourite() {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("sitterId")
+        var sitterId: String? = null
+
+    }
 
     class ApplicationSitter {
 
@@ -187,6 +232,12 @@ interface ApiInterface {
 
         @SerializedName("accountnumber")
         var accountnumber: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+        @SerializedName("image")
+        var image: String? = null
 
 
 

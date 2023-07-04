@@ -178,7 +178,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="@string/nearby_services"
+                        android:text="@string/nearby_pet_sitters"
                         android:textColor="@color/black"
                         android:fontFamily="@font/urbanist_bold"
                         android:textSize="20sp" />
@@ -200,6 +200,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="No content available!"
+                    android:fontFamily="@font/urbanist_regular"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

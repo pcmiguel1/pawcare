@@ -1,8 +1,12 @@
 package com.pawcare.pawcare.fragments.login
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Selection
@@ -11,7 +15,12 @@ import android.text.method.PasswordTransformationMethod
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
@@ -21,6 +30,8 @@ import com.pawcare.pawcare.databinding.FragmentLoginBinding
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.Listener
 import org.json.JSONException
+import java.io.IOException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class LoginFragment : Fragment() {
@@ -33,6 +44,8 @@ class LoginFragment : Fragment() {
     var userId = ""
 
     private var timerActive = false
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -507,6 +520,8 @@ class LoginFragment : Fragment() {
 
                         if (response != null && response is JsonObject && response.getAsJsonObject("user") != null) {
 
+                            getMyLocation()
+
                             App.instance.preferences.edit().putBoolean("stayLoggedIn", checkboxRemember.isChecked).apply()
 
                             //findNavController().navigate(R.id.action_loginFragment_to_exploreFragment2)
@@ -543,6 +558,74 @@ class LoginFragment : Fragment() {
 
         }
 
+    }
+
+    private fun getMyLocation() {
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        // Check for location permission
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission granted, fetch the location
+            fetchLocation()
+        } else {
+            // Request location permission
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSION_REQUEST_CODE
+            )
+        }
+
+    }
+
+    private fun fetchLocation() {
+        try {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        val latitude = location.latitude
+                        val longitude = location.longitude
+
+                        App.instance.preferences.edit()
+
+                            .putString("Latitude", latitude.toString())
+                            .putString("Longitude", longitude.toString())
+
+                            .apply()
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    // Handle any errors that occurred during location retrieval
+                    println("Failed to retrieve location: ${exception.message}")
+                }
+        } catch (e: SecurityException) {
+            // Handle the case when the permission is not granted
+            println("Location permission not granted: ${e.message}")
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Location permission granted, fetch the location
+                fetchLocation()
+            } else {
+                // Location permission denied, handle it accordingly
+                println("Location permission denied.")
+            }
+        }
+    }
+
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 123
     }
 
 }
