@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentProfileBinding
+import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener
 import com.squareup.picasso.Callback
@@ -29,6 +30,8 @@ class ProfileFragment : Fragment() {
     private var isSitter : Boolean = false
     private var verifiedSitter : Boolean = false
     private var applicationSubmitted : Boolean = false
+
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +49,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadingDialog = LoadingDialog(requireContext())
 
         binding!!.name.text = App.instance.preferences.getString("fullname", "")
         binding!!.email.text = App.instance.preferences.getString("email", "")
@@ -71,6 +76,8 @@ class ProfileFragment : Fragment() {
                 })
 
         }
+
+        loadingDialog.startLoading()
 
         App.instance.backOffice.getSitter(object : Listener<Any> {
             override fun onResponse(response: Any?) {
@@ -112,6 +119,8 @@ class ProfileFragment : Fragment() {
 
         App.instance.backOffice.getApplication(object : Listener<Any> {
             override fun onResponse(response: Any?) {
+
+                loadingDialog.isDismiss()
 
                 if (isAdded) {
 

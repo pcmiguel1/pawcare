@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentExploreBinding
@@ -279,7 +280,7 @@ class ExploreFragment : Fragment() {
                 }
 
             }
-        })
+        }, App.instance.preferences.getString("Latitude", "")!!, App.instance.preferences.getString("Longitude", "")!!)
 
     }
 

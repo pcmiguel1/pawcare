@@ -53,6 +53,12 @@ interface ApiInterface {
     @GET("sitter")
     fun getSitter() : Call<Sitter>
 
+    @Headers("Content-Type: application/json")
+    @GET("sitter/{id}")
+    fun getSitterById(
+        @Path(value = "id", encoded = true) id : String,
+    ) : Call<Sitter>
+
     @Multipart
     @POST("user/pet/update/{id}")
     fun updatePet(
@@ -93,8 +99,11 @@ interface ApiInterface {
     fun getPictures() : Call<List<Picture>>
 
     @Headers("Content-Type: application/json")
-    @GET("sitter/list")
-    fun getSitters() : Call<List<Sitter>>
+    @GET("sitter/list/{latitude}/{longitude}")
+    fun getSitters(
+        @Path(value = "latitude", encoded = true) latitude : String,
+        @Path(value = "longitude", encoded = true) longitude : String
+    ) : Call<List<Sitter>>
 
     @Headers("Content-Type: application/json")
     @POST("sitter/picture/delete/{filename}")
@@ -161,6 +170,50 @@ interface ApiInterface {
         @Body jsonObject: JsonObject
     ) : Call<Void>
 
+    @Headers("Content-Type: application/json")
+    @GET("user/bookings/active")
+    fun getBookingsActive() : Call<List<Booking>>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/bookings/completed")
+    fun getBookingsCompleted() : Call<List<Booking>>
+
+    class Booking() {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("sitterId")
+        var sitterId: String? = null
+
+        @SerializedName("startDate")
+        var startDate: String? = null
+
+        @SerializedName("endDate")
+        var endDate: String? = null
+
+        @SerializedName("serviceType")
+        var serviceType: String? = null
+
+        @SerializedName("status")
+        var status: String? = null
+
+        @SerializedName("location")
+        var location: String? = null
+
+        @SerializedName("message")
+        var message: String? = null
+
+        @SerializedName("image")
+        var image: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+    }
 
     class Favourite() {
 

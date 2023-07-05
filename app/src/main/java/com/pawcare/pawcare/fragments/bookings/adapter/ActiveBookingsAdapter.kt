@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.pawcare.pawcare.R
-import com.pawcare.pawcare.fragments.bookings.model.Bookings
-import com.pawcare.pawcare.fragments.explore.model.Service
-import com.pawcare.pawcare.fragments.notifications.model.Notification
+import com.pawcare.pawcare.services.ApiInterface
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ActiveBookingsAdapter(
-    private val list: List<Bookings>
+    private val list: List<ApiInterface.Booking>
     ) :
     RecyclerView.Adapter<ActiveBookingsAdapter.ItemViewHolder>() {
 
@@ -35,6 +36,8 @@ class ActiveBookingsAdapter(
         val chat: View = itemView.findViewById(R.id.chat)
         val moreDetails: ImageView = itemView.findViewById(R.id.more_details)
         val status: View = itemView.findViewById(R.id.status)
+        val image : ImageView = itemView.findViewById(R.id.image)
+        val pending : View = itemView.findViewById(R.id.pending)
 
         init {
             chat.setOnClickListener {
@@ -63,11 +66,48 @@ class ActiveBookingsAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
-        holder.name.text = item.sitter
-        holder.service.text = item.service
+        holder.name.text = item.name
+
+        holder.service.text = when (item.serviceType) {
+
+            "petwalking" -> "Pet Walking"
+
+            "petboarding" -> "Pet Boarding"
+
+            "housesitting" -> "House Sitting"
+
+            "pettraning" -> "Pet Traning"
+
+            "petgrooming" -> "Pet Grooming"
+
+            else -> ""
+        }
+
+        if (item.status == "pending") holder.pending.visibility = View.VISIBLE
+        else holder.pending.visibility = View.GONE
+
+        if (item.image != null && item.image != "") {
+
+            Picasso.get()
+                .load(item.image)
+                .placeholder(R.drawable.pet_template)
+                .error(R.drawable.pet_template)
+                .into(holder.image, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+
+                })
+
+        }
+
     }
 
-    fun getItem(position: Int): Bookings {
+    fun getItem(position: Int): ApiInterface.Booking {
         return list[position]
     }
 

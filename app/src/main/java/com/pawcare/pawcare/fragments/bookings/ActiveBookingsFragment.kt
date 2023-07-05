@@ -9,12 +9,14 @@ import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentActiveBookingsBinding
 import com.pawcare.pawcare.fragments.bookings.adapter.ActiveBookingsAdapter
-import com.pawcare.pawcare.fragments.bookings.model.Bookings
-import com.pawcare.pawcare.fragments.inbox.adapter.InboxAdapter
+import com.pawcare.pawcare.libraries.LoadingDialog
+import com.pawcare.pawcare.services.ApiInterface
+import com.pawcare.pawcare.services.Listener
 
 
 class ActiveBookingsFragment : Fragment() {
@@ -22,8 +24,11 @@ class ActiveBookingsFragment : Fragment() {
     private var binding: FragmentActiveBookingsBinding? = null
 
     private lateinit var recyclerBookings: RecyclerView
-    private var bookings: MutableList<Bookings> = mutableListOf()
+    private lateinit var swipeRefresh: SwipeRefreshLayout
+    private var bookings: MutableList<ApiInterface.Booking> = mutableListOf()
     private lateinit var activeBookingsAdapter: ActiveBookingsAdapter
+
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +47,14 @@ class ActiveBookingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val empty = binding!!.empty
+        loadingDialog = LoadingDialog(requireContext())
+
+        swipeRefresh = binding!!.swipeRefresh
 
         recyclerBookings = binding!!.bookings
         recyclerBookings.setHasFixedSize(true)
 
         recyclerBookings.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        addBookingsToList(empty)
 
         activeBookingsAdapter = ActiveBookingsAdapter(bookings)
         recyclerBookings.adapter = activeBookingsAdapter
@@ -60,7 +65,7 @@ class ActiveBookingsFragment : Fragment() {
                 val item = activeBookingsAdapter.getItem(position)
 
                 val bundle = Bundle()
-                bundle.putString("SITTER_NAME", item.sitter)
+                bundle.putString("SITTERID", item.sitterId)
 
                 findNavController().navigate(R.id.action_bookingsFragment2_to_chatFragment2, bundle)
 
@@ -68,24 +73,63 @@ class ActiveBookingsFragment : Fragment() {
 
         })
 
+        addBookingsToList()
+        setSwipeRefresh()
+
 
     }
 
-    private fun addBookingsToList(empty: View) {
+    private fun setSwipeRefresh() {
+
+        swipeRefresh.setOnRefreshListener {
+
+            addBookingsToList()
+            swipeRefresh.isRefreshing = false
+
+        }
+
+    }
+
+    private fun addBookingsToList() {
 
         bookings.clear()
 
-        bookings.add(Bookings("Steven Segal", "Pet Walking"))
-        bookings.add(Bookings("Steven Segal", "Training"))
+        loadingDialog.startLoading()
 
-        if (bookings.isNotEmpty()) {
-            empty.visibility = View.GONE
-            recyclerBookings.visibility = View.VISIBLE
-           // activeBookingsAdapter.notifyDataSetChanged()
-        } else {
-            recyclerBookings.visibility = View.GONE
-            empty.visibility = View.VISIBLE
-        }
+        App.instance.backOffice.getBookingsActive(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
+
+                loadingDialog.isDismiss()
+
+                if (isAdded) {
+
+                    if (response != null && response is List<*>) {
+
+                        val list = response as List<ApiInterface.Booking>
+
+                        if (list.isNotEmpty()) {
+
+                            recyclerBookings.visibility = View.VISIBLE
+                            binding!!.empty.visibility = View.GONE
+                            bookings.addAll(list)
+                            activeBookingsAdapter.notifyDataSetChanged()
+
+                        }
+                        else {
+                            recyclerBookings.visibility = View.GONE
+                            binding!!.empty.visibility = View.VISIBLE
+                        }
+
+                    }
+                    else {
+                        recyclerBookings.visibility = View.GONE
+                        binding!!.empty.visibility = View.VISIBLE
+                    }
+
+                }
+
+            }
+        })
 
     }
 

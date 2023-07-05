@@ -277,7 +277,7 @@ class SitterInfoFragment : Fragment() {
         binding!!.messageBtn.setOnClickListener {
 
             val bundle = Bundle()
-            bundle.putString("SITTER_NAME", "sddd")
+            bundle.putString("SITTERID", sitter!!.sitterId)
 
             findNavController().navigate(R.id.action_sitterInfoFragment_to_chatFragment, bundle)
 

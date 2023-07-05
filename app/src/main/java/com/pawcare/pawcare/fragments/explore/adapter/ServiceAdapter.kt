@@ -13,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
-import com.pawcare.pawcare.fragments.bookings.model.Bookings
 import com.pawcare.pawcare.fragments.explore.model.Service
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener

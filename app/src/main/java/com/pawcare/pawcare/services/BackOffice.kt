@@ -575,6 +575,54 @@ class BackOffice(
 
     }
 
+    fun getBookingsActive(listener: Listener<Any>?) {
+
+        apiInterface.getBookingsActive().enqueue(object : retrofit2.Callback<List<ApiInterface.Booking>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Booking>>,
+                response: Response<List<ApiInterface.Booking>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Booking>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getBookingsCompleted(listener: Listener<Any>?) {
+
+        apiInterface.getBookingsCompleted().enqueue(object : retrofit2.Callback<List<ApiInterface.Booking>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Booking>>,
+                response: Response<List<ApiInterface.Booking>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Booking>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getPicturesSitter(listener: Listener<Any>?, id: String) {
 
         apiInterface.getPicturesSitter(id).enqueue(object : retrofit2.Callback<List<ApiInterface.Picture>> {
@@ -599,9 +647,9 @@ class BackOffice(
 
     }
 
-    fun getSitters(listener: Listener<Any>?) {
+    fun getSitters(listener: Listener<Any>?, latitude: String, longitude: String) {
 
-        apiInterface.getSitters().enqueue(object : retrofit2.Callback<List<ApiInterface.Sitter>> {
+        apiInterface.getSitters(latitude, longitude).enqueue(object : retrofit2.Callback<List<ApiInterface.Sitter>> {
             override fun onResponse(
                 call: Call<List<ApiInterface.Sitter>>,
                 response: Response<List<ApiInterface.Sitter>>
@@ -802,6 +850,30 @@ class BackOffice(
     fun getSitter(listener: Listener<Any>?) {
 
         apiInterface.getSitter().enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
+            override fun onResponse(
+                call: Call<ApiInterface.Sitter>,
+                response: Response<ApiInterface.Sitter>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Sitter>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getSitterById(listener: Listener<Any>?, id: String) {
+
+        apiInterface.getSitterById(id).enqueue(object : retrofit2.Callback<ApiInterface.Sitter> {
             override fun onResponse(
                 call: Call<ApiInterface.Sitter>,
                 response: Response<ApiInterface.Sitter>
