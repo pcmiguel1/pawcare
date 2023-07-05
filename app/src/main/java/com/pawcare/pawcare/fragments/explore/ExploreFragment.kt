@@ -123,6 +123,20 @@ class ExploreFragment : Fragment() {
         categoryAdapter = CategoryAdapter(categories)
         recyclerViewCategories.adapter = categoryAdapter
 
+        categoryAdapter.setOnItemClickListener(object : CategoryAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+
+                val item = categoryAdapter.getItem(position)
+
+                val bundle = Bundle()
+                bundle.putString("SERVICE", item.name)
+
+                findNavController().navigate(R.id.action_exploreFragment2_to_servicesFragment, bundle)
+
+            }
+
+        })
+
         //Services
         recyclerViewServices = binding!!.services
         recyclerViewServices.setHasFixedSize(true)

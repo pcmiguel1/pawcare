@@ -8,19 +8,41 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.fragments.explore.model.Category
+import com.pawcare.pawcare.services.ApiInterface
 
 class CategoryAdapter(
     private val list: List<Category>
 ): RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private lateinit var mListener : onItemClickListener
+
+    interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
+    }
+
+    class ItemViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
         val name : TextView = itemView.findViewById(R.id.name)
         val icon : ImageView = itemView.findViewById(R.id.icon)
+
+        init {
+
+            itemView.setOnClickListener {
+
+                listener.onItemClick(absoluteAdapterPosition)
+
+            }
+
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
-        return ItemViewHolder(view)
+        return ItemViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -33,6 +55,10 @@ class CategoryAdapter(
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun getItem(position: Int): Category {
+        return list[position]
     }
 
 }

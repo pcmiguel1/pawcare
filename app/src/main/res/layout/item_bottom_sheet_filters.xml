@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:background="@android:color/transparent">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:backgroundTint="@color/grey"
+        android:background="@drawable/top_bottomsheet"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filters"
+            android:textColor="@color/text_color"
+            android:textSize="20sp"
+            android:fontFamily="@font/urbanist_bold"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/resetFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:textColor="@color/primaryColor"
+            android:textSize="15sp"
+            android:fontFamily="@font/urbanist_bold"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cinza"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@color/text_color"
+            android:textSize="20sp"
+            android:fontFamily="@font/urbanist_bold" />
+
+        <TextView
+            android:id="@+id/prices"
+            android:layout_marginStart="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_regular"
+            android:textColor="@color/text_color2"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/priceRangeSeekBar"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/primaryColor"
+        android:progressTint="@color/primaryLightColor"/>
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cinza"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service"
+        android:textColor="@color/text_color"
+        android:textSize="20sp"
+        android:fontFamily="@font/urbanist_bold" />
+
+    <CheckBox
+        android:id="@+id/check_petwalking"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:textSize="16sp"
+        android:text="Pet Walking"
+        android:textColor="@color/text_color"
+        style="@style/CustomCheckboxStyle"/>
+
+    <CheckBox
+        android:id="@+id/check_petboarding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:textSize="16sp"
+        android:text="Pet Boarding"
+        android:textColor="@color/text_color"
+        style="@style/CustomCheckboxStyle"/>
+
+    <CheckBox
+        android:id="@+id/check_housesitting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:textSize="16sp"
+        android:text="House Sitting"
+        android:textColor="@color/text_color"
+        style="@style/CustomCheckboxStyle"/>
+
+    <CheckBox
+        android:id="@+id/check_pettraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:textSize="16sp"
+        android:text="Pet Training"
+        android:textColor="@color/text_color"
+        style="@style/CustomCheckboxStyle"/>
+
+    <CheckBox
+        android:id="@+id/check_petgrooming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:textSize="16sp"
+        android:text="Pet Grooming"
+        android:textColor="@color/text_color"
+        style="@style/CustomCheckboxStyle"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cinza"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submit_btn"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="@color/primaryColor"
+            android:fontFamily="@font/urbanist_bold"
+            android:textSize="16sp"
+            android:text="Apply"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

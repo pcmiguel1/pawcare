@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +49,8 @@ import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.slider.RangeSlider
 
 class ServicesFragment : Fragment(), OnMapReadyCallback {
 
@@ -67,6 +71,8 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
     private var mapActive = false
 
+    private var serviceFilter = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,6 +83,14 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
         App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
+        val bundle = arguments
+        if (bundle != null) {
+
+            if (bundle.containsKey("SERVICE"))
+                serviceFilter = bundle.getString("SERVICE")!!
+
+        }
+
         return fragmentBinding.root
 
     }
@@ -86,6 +100,78 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
         loadingDialog = LoadingDialog(requireContext())
         Utils.navigationBar(view, "Pet Sitters", requireActivity())
+
+        binding!!.filter.setOnClickListener {
+
+            //Bottom sheet leave filters
+
+            val view: View = layoutInflater.inflate(R.layout.item_bottom_sheet_filters, null)
+            val dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
+            dialog.setContentView(view)
+            //dialog.setCancelable(false)
+
+            val submitBtn = dialog.findViewById<View>(R.id.submit_btn)
+            val priceRangeSeekBar = dialog.findViewById<RangeSlider>(R.id.priceRangeSeekBar)
+            val pricesText = dialog.findViewById<TextView>(R.id.prices)
+            val resetFilter = dialog.findViewById<View>(R.id.resetFilter)
+
+            val check_petwalking = dialog.findViewById<CheckBox>(R.id.check_petwalking)
+            val check_petboarding = dialog.findViewById<CheckBox>(R.id.check_petboarding)
+            val check_housesitting = dialog.findViewById<CheckBox>(R.id.check_housesitting)
+            val check_pettraining = dialog.findViewById<CheckBox>(R.id.check_pettraining)
+            val check_petgrooming = dialog.findViewById<CheckBox>(R.id.check_petgrooming)
+
+            when (serviceFilter) {
+
+                "Pet\nWalking" -> check_petwalking!!.isChecked = true
+
+                "Pet\nBoarding" -> check_petboarding!!.isChecked = true
+
+                "House\nSitting" -> check_housesitting!!.isChecked = true
+
+                "Pet\nTraining" -> check_pettraining!!.isChecked = true
+
+                "Pet\nGrooming" -> check_petgrooming!!.isChecked = true
+
+                else -> {}
+
+            }
+
+            priceRangeSeekBar!!.valueFrom = 0f
+            priceRangeSeekBar!!.stepSize = 1f
+            priceRangeSeekBar!!.valueTo = 100f
+            priceRangeSeekBar!!.values = listOf(0f, 20f)
+
+            pricesText!!.text = "0€ to 20€"
+
+            priceRangeSeekBar.addOnChangeListener { slider, _, _ ->
+                val rangeStart = slider.values[0].toInt()
+                val rangeEnd = slider.values[1].toInt()
+
+                pricesText!!.text = rangeStart.toString() + "€ to " + rangeEnd.toString() + "€"
+
+            }
+
+            resetFilter!!.setOnClickListener {
+
+                check_petwalking!!.isChecked = false
+                check_petboarding!!.isChecked = false
+                check_housesitting!!.isChecked = false
+                check_pettraining!!.isChecked = false
+                check_petgrooming!!.isChecked = false
+
+                priceRangeSeekBar!!.values = listOf(0f, 20f)
+
+            }
+
+            submitBtn!!.setOnClickListener {
+
+
+            }
+
+            dialog.show()
+
+        }
 
         binding!!.mapBtn.setOnClickListener {
 
@@ -135,8 +221,6 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
                         val snapPosition = layoutManager!!.getPosition(snapView)
 
                         val item = serviceAdapter.getItem(snapPosition)
-
-                        Log.d("locationfjfaj1", item.lat.toString() + " " + item.long.toString())
 
                         mMap.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(
@@ -335,7 +419,7 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
                             for (item in list) {
 
-                                createCircularMarkerWithPhoto(mMap, LatLng(item.lat!!.toDouble(), item.long!!.toDouble()), item.image!!)
+                                createCircularMarkerWithPhoto(mMap, LatLng(item.lat!!.toDouble(), item.long!!.toDouble()), item)
 
                             }
 
@@ -391,13 +475,13 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    fun createCircularMarkerWithPhoto(googleMap: GoogleMap, position: LatLng, photoUrl: String) {
+    fun createCircularMarkerWithPhoto(googleMap: GoogleMap, position: LatLng, item: ApiInterface.Sitter) {
         val markerOptions = MarkerOptions().position(position)
 
         // Load the user photo asynchronously using Glide
         Glide.with(requireContext())
             .asBitmap()
-            .load(photoUrl)
+            .load(item.image)
             .apply(RequestOptions().override(150, 150)) // Set the desired width and height
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -411,7 +495,25 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
                     markerOptions.icon(BitmapDescriptorFactory.fromBitmap(circularBitmap))
 
                     // Add the marker to the map
-                    googleMap.addMarker(markerOptions)
+                    val marker = googleMap.addMarker(markerOptions)
+                    marker?.tag = item
+
+                    googleMap.setOnMarkerClickListener { clickedMarker ->
+
+                        val clickedItem = clickedMarker.tag as? ApiInterface.Sitter
+
+                        if (clickedItem != null) {
+
+                            val bundle = Bundle()
+                            bundle.putParcelable("SITTER", clickedItem)
+
+                            findNavController().navigate(R.id.action_servicesFragment_to_sitterInfoFragment, bundle)
+
+                        }
+
+                        true
+                    }
+
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {

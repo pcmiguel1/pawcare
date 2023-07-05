@@ -35,5 +35,4 @@
         <item name="android:buttonTint">@color/primaryColor</item>
     </style>
 
-
 </resources>
