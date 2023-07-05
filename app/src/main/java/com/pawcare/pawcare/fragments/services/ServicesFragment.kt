@@ -73,6 +73,8 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
     private var serviceFilter = ""
 
+    private var servicesFilter = arrayListOf<String>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -123,15 +125,15 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
             when (serviceFilter) {
 
-                "Pet\nWalking" -> check_petwalking!!.isChecked = true
+                "petwalking" -> check_petwalking!!.isChecked = true
 
-                "Pet\nBoarding" -> check_petboarding!!.isChecked = true
+                "petboarding" -> check_petboarding!!.isChecked = true
 
-                "House\nSitting" -> check_housesitting!!.isChecked = true
+                "housesitting" -> check_housesitting!!.isChecked = true
 
-                "Pet\nTraining" -> check_pettraining!!.isChecked = true
+                "training" -> check_pettraining!!.isChecked = true
 
-                "Pet\nGrooming" -> check_petgrooming!!.isChecked = true
+                "grooming" -> check_petgrooming!!.isChecked = true
 
                 else -> {}
 
@@ -166,6 +168,17 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
             submitBtn!!.setOnClickListener {
 
+                servicesFilter.clear()
+
+                if (check_petwalking!!.isChecked) servicesFilter.add("petwalking")
+                if (check_petboarding!!.isChecked) servicesFilter.add("petboarding")
+                if (check_housesitting!!.isChecked) servicesFilter.add("housesitting")
+                if (check_pettraining!!.isChecked) servicesFilter.add("training")
+                if (check_petgrooming!!.isChecked) servicesFilter.add("grooming")
+
+                addServicesToList()
+
+                dialog.dismiss()
 
             }
 
@@ -336,6 +349,8 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
 
         loadingDialog.startLoading()
 
+        if (serviceFilter != "") servicesFilter.add(serviceFilter)
+
         App.instance.backOffice.getSitters(object : Listener<Any> {
             override fun onResponse(response: Any?) {
 
@@ -368,7 +383,7 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
                 }
 
             }
-        }, "0", "0")
+        }, "0", "0", servicesFilter.distinct())
 
     }
 
@@ -403,6 +418,9 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
         }*/
 
         //services.clear()
+
+        if (serviceFilter != "") servicesFilter.add(serviceFilter)
+
         App.instance.backOffice.getSitters(object : Listener<Any> {
             override fun onResponse(response: Any?) {
 
@@ -430,7 +448,7 @@ class ServicesFragment : Fragment(), OnMapReadyCallback {
                 }
 
             }
-        }, "0", "0")
+        }, "0", "0", servicesFilter.distinct())
 
     }
 

@@ -129,7 +129,7 @@ class ExploreFragment : Fragment() {
                 val item = categoryAdapter.getItem(position)
 
                 val bundle = Bundle()
-                bundle.putString("SERVICE", item.name)
+                bundle.putString("SERVICE", item.label)
 
                 findNavController().navigate(R.id.action_exploreFragment2_to_servicesFragment, bundle)
 
@@ -248,11 +248,11 @@ class ExploreFragment : Fragment() {
 
         categories.clear()
 
-        categories.add(Category("Pet\nWalking", R.drawable.walking_icon))
-        categories.add(Category("Pet\nBoarding", R.drawable.petboarding))
-        categories.add(Category("House\nSitting", R.drawable.sitting_icon))
-        categories.add(Category("Pet\nTraining", R.drawable.trainning))
-        categories.add(Category("Pet\nGrooming", R.drawable.washing_icon))
+        categories.add(Category("Pet\nWalking", R.drawable.walking_icon, "petwalking"))
+        categories.add(Category("Pet\nBoarding", R.drawable.petboarding, "petboarding"))
+        categories.add(Category("House\nSitting", R.drawable.sitting_icon, "housesitting"))
+        categories.add(Category("Pet\nTraining", R.drawable.trainning, "training"))
+        categories.add(Category("Pet\nGrooming", R.drawable.washing_icon, "grooming"))
 
     }
 
@@ -294,7 +294,7 @@ class ExploreFragment : Fragment() {
                 }
 
             }
-        }, App.instance.preferences.getString("Latitude", "")!!, App.instance.preferences.getString("Longitude", "")!!)
+        }, App.instance.preferences.getString("Latitude", "")!!, App.instance.preferences.getString("Longitude", "")!!, listOf())
 
     }
 

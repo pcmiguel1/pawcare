@@ -180,7 +180,11 @@
         android:id="@+id/dashboardFragment"
         android:name="com.pawcare.pawcare.fragments.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.pawcare.pawcare.fragments.about.AboutFragment"
@@ -239,4 +243,9 @@
             android:id="@+id/action_applicationAnswerFragment_to_progressApplicationFragment"
             app:destination="@id/progressApplicationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.pawcare.pawcare.fragments.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 </navigation>

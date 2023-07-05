@@ -15,6 +15,9 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentDashboardBinding
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 
 class DashboardFragment : Fragment() {
@@ -42,6 +45,30 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding!!.username.text = App.instance.preferences.getString("fullname", "")
+
+        val userPhoto = binding!!.userPhoto
+        val photoUrl = App.instance.preferences.getString("image", "")
+
+        if (photoUrl != "") {
+
+            Picasso.get()
+                .load(photoUrl)
+                .placeholder(R.drawable.profile_template)
+                .error(R.drawable.profile_template)
+                .into(userPhoto, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError(e: Exception?) {
+
+                    }
+
+                })
+
+        }
 
         pieChart = binding!!.chart
 

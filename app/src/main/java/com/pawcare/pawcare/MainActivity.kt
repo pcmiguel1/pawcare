@@ -53,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         if (App.instance.preferences.getBoolean("stayLoggedIn", false)) {
             getMyLocation()
-            graph.setStartDestination(R.id.exploreFragment2)
+            if (App.instance.preferences.getBoolean("SITTER", false)) {
+                graph.setStartDestination(R.id.dashboardFragment)
+            }
+            else graph.setStartDestination(R.id.exploreFragment2)
         }
         else {
             graph.setStartDestination(R.id.onBoardingFragment)
@@ -88,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.bookingsFragment -> {
 
-                    if (App.instance.preferences.getBoolean("SITTER", false)) navController.navigate(R.id.bookingsFragment2)
+                    if (App.instance.preferences.getBoolean("SITTER", false)) navController.navigate(R.id.calendarFragment)
                     else navController.navigate(R.id.bookingsFragment2)
 
                 }

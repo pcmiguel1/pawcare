@@ -81,7 +81,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/urbanist_bold"
-                            android:text="Miguel Amaro"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:layout_marginTop="3dp"/>
@@ -215,7 +214,7 @@
                                 android:textSize="14sp"
                                 android:fontFamily="@font/urbanist_semibold"
                                 android:textColor="@color/text_color2"
-                                android:text="Walking"
+                                android:text="Pet Walking"
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
@@ -224,11 +223,69 @@
                                 android:textSize="18sp"
                                 android:fontFamily="@font/urbanist_bold"
                                 android:textColor="@color/text_color"
-                                android:text="$240" />
+                                android:text="0€" />
 
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="@color/redLight3">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/boarding2"
+                                android:layout_gravity="center"/>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_marginStart="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/urbanist_semibold"
+                                android:textColor="@color/text_color2"
+                                android:text="Pet Boarding"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="@color/text_color"
+                                android:text="0€" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="1">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -263,7 +320,7 @@
                                 android:textSize="14sp"
                                 android:fontFamily="@font/urbanist_semibold"
                                 android:textColor="@color/text_color2"
-                                android:text="Sitting"
+                                android:text="House Sitting"
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
@@ -272,7 +329,55 @@
                                 android:textSize="18sp"
                                 android:fontFamily="@font/urbanist_bold"
                                 android:textColor="@color/text_color"
-                                android:text="$240" />
+                                android:text="0€" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardBackgroundColor="@color/redLight3">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/training2"
+                                android:layout_gravity="center"/>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_marginStart="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/urbanist_semibold"
+                                android:textColor="@color/text_color2"
+                                android:text="Pet Training"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/urbanist_bold"
+                                android:textColor="@color/text_color"
+                                android:text="0€" />
 
                         </LinearLayout>
 
@@ -321,7 +426,7 @@
                                 android:textSize="14sp"
                                 android:fontFamily="@font/urbanist_semibold"
                                 android:textColor="@color/text_color2"
-                                android:text="Washing"
+                                android:text="Pet Grooming"
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
@@ -330,55 +435,7 @@
                                 android:textSize="18sp"
                                 android:fontFamily="@font/urbanist_bold"
                                 android:textColor="@color/text_color"
-                                android:text="$240" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:cardCornerRadius="16dp"
-                            app:cardBackgroundColor="@color/redLight3">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:src="@drawable/paw2"
-                                android:layout_gravity="center"/>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <LinearLayout
-                            android:layout_marginStart="15dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:fontFamily="@font/urbanist_semibold"
-                                android:textColor="@color/text_color2"
-                                android:text="More"
-                                android:layout_marginBottom="5dp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="18sp"
-                                android:fontFamily="@font/urbanist_bold"
-                                android:textColor="@color/text_color"
-                                android:text="$240" />
+                                android:text="0€" />
 
                         </LinearLayout>
 
@@ -464,7 +521,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="5"
+                                        android:text="0"
                                         android:fontFamily="@font/urbanist_bold"
                                         android:textColor="@color/text_color"
                                         android:textSize="13sp"/>
@@ -504,7 +561,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="5"
+                                        android:text="0"
                                         android:fontFamily="@font/urbanist_bold"
                                         android:textColor="@color/text_color"
                                         android:textSize="13sp"/>
@@ -544,7 +601,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="5"
+                                        android:text="0"
                                         android:fontFamily="@font/urbanist_bold"
                                         android:textColor="@color/text_color"
                                         android:textSize="13sp"/>

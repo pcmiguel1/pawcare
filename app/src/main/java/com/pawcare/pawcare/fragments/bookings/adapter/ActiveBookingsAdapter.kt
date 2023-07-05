@@ -22,7 +22,19 @@ class ActiveBookingsAdapter(
 
     private lateinit var mListener : onItemClickListener
 
+    private lateinit var mListener2 : onItemClickListener2
+
+    private lateinit var mListener3 : onItemClickListener3
+
     interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    interface onItemClickListener2 {
+        fun onItemClick(position: Int)
+    }
+
+    interface onItemClickListener3 {
         fun onItemClick(position: Int)
     }
 
@@ -30,7 +42,15 @@ class ActiveBookingsAdapter(
         mListener = listener
     }
 
-    class ItemViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
+    fun setOnItemClickListener2(listener: onItemClickListener2) {
+        mListener2 = listener
+    }
+
+    fun setOnItemClickListener3(listener: onItemClickListener3) {
+        mListener3 = listener
+    }
+
+    class ItemViewHolder(itemView: View, listener: onItemClickListener, listener2: onItemClickListener2, listener3: onItemClickListener3) : RecyclerView.ViewHolder(itemView) {
         val name : TextView = itemView.findViewById(R.id.name)
         val service : TextView = itemView.findViewById(R.id.service)
         val chat: View = itemView.findViewById(R.id.chat)
@@ -38,6 +58,9 @@ class ActiveBookingsAdapter(
         val status: View = itemView.findViewById(R.id.status)
         val image : ImageView = itemView.findViewById(R.id.image)
         val pending : View = itemView.findViewById(R.id.pending)
+
+        val cancel : View = itemView.findViewById(R.id.cancel_btn)
+        val info : View = itemView.findViewById(R.id.info_btn)
 
         init {
             chat.setOnClickListener {
@@ -55,13 +78,22 @@ class ActiveBookingsAdapter(
                 }
 
             }
+
+            cancel.setOnClickListener {
+                listener2.onItemClick(absoluteAdapterPosition)
+            }
+
+            info.setOnClickListener {
+                listener3.onItemClick(absoluteAdapterPosition)
+            }
+
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.listview_item_booking_active, parent, false)
-        return ItemViewHolder(view, mListener)
+        return ItemViewHolder(view, mListener, mListener2, mListener3)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

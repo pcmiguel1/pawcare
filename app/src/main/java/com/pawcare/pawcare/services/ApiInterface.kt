@@ -99,10 +99,11 @@ interface ApiInterface {
     fun getPictures() : Call<List<Picture>>
 
     @Headers("Content-Type: application/json")
-    @GET("sitter/list/{latitude}/{longitude}")
+    @GET("sitter/list")
     fun getSitters(
-        @Path(value = "latitude", encoded = true) latitude : String,
-        @Path(value = "longitude", encoded = true) longitude : String
+        @Query("latitude") latitude: String,
+        @Query("longitude") longitude: String,
+        @Query("service") service: List<String>
     ) : Call<List<Sitter>>
 
     @Headers("Content-Type: application/json")
@@ -177,6 +178,10 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @GET("user/bookings/completed")
     fun getBookingsCompleted() : Call<List<Booking>>
+
+    @Headers("Content-Type: application/json")
+    @GET("sitter/bookings")
+    fun getBookings() : Call<List<Booking>>
 
     class Booking() {
 

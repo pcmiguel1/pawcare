@@ -1,10 +1,14 @@
 package com.pawcare.pawcare.fragments.bookings
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,6 +72,47 @@ class ActiveBookingsFragment : Fragment() {
                 bundle.putString("SITTERID", item.sitterId)
 
                 findNavController().navigate(R.id.action_bookingsFragment2_to_chatFragment2, bundle)
+
+            }
+
+        })
+
+        activeBookingsAdapter.setOnItemClickListener2(object : ActiveBookingsAdapter.onItemClickListener2 {
+            override fun onItemClick(position: Int) {
+
+                val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_cancel_booking, null)
+
+                val builder = AlertDialog.Builder(requireContext())
+                    .setView(mDialogView)
+                    .setCancelable(false)
+
+                val dialog = builder.create()
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                val cancelBtn = mDialogView.findViewById<Button>(R.id.cancel_btn)
+                val sendBtn = mDialogView.findViewById<Button>(R.id.continue_btn)
+
+                cancelBtn.setOnClickListener {
+
+                    dialog.dismiss()
+
+                }
+
+                sendBtn.setOnClickListener {
+
+
+                }
+
+                dialog.show()
+
+            }
+
+        })
+
+        activeBookingsAdapter.setOnItemClickListener3(object : ActiveBookingsAdapter.onItemClickListener3 {
+            override fun onItemClick(position: Int) {
+
+
 
             }
 
