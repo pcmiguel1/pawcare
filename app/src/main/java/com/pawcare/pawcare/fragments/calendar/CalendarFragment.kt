@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -79,6 +82,7 @@ class CalendarFragment : Fragment() {
 
             selectedDate = selectedDate.minusMonths(1)
             setMonthView()
+            addEventsToList()
         }
 
         nextMonth!!.setOnClickListener {
@@ -87,6 +91,7 @@ class CalendarFragment : Fragment() {
 
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
+            addEventsToList()
         }
 
         recyclerViewEvents = binding!!.events
@@ -96,6 +101,36 @@ class CalendarFragment : Fragment() {
 
         calendarEventsAdapter = CalendarEventsAdapter(events)
         recyclerViewEvents.adapter = calendarEventsAdapter
+
+        calendarEventsAdapter.setOnItemClickListener(object : CalendarEventsAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+
+                val item = calendarEventsAdapter.getItem(position)
+
+                loadingDialog.startLoading()
+
+                App.instance.backOffice.updateStateBooking(object: Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        loadingDialog.isDismiss()
+
+                        if (isAdded) {
+
+                            if (response == null) {
+
+                                addEventsToList()
+
+                            }
+
+                        }
+
+                    }
+
+                }, item.id!!)
+
+
+            }
+        })
 
         addEventsToList()
 
@@ -145,7 +180,7 @@ class CalendarFragment : Fragment() {
                 }
 
             }
-        })
+        }, selectedDate.monthValue, selectedDate.year)
 
     }
 

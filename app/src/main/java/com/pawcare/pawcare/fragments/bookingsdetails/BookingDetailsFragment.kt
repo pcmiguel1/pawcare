@@ -253,6 +253,34 @@ class BookingDetailsFragment : Fragment(), PetAdapter.PetAdapterCallback {
 
                 booking.add("pets", petsArray)
 
+                var total = 0.0
+
+                when (serviceSelected) {
+
+                    "petwalking" -> {
+                        total += sitter!!.ratewalking!!.toDouble() + (sitter!!.ratewalkingaddpet!!.toDouble() * petsArray.size())
+                    }
+
+                    "petboarding" -> {
+                        total += sitter!!.ratepetboarding!!.toDouble() + (sitter!!.ratepetboardingaddpet!!.toDouble() * petsArray.size())
+                    }
+
+                    "housesitting" -> {
+                        total += sitter!!.ratehousesitting!!.toDouble() + (sitter!!.ratehousesittingaddpet!!.toDouble() * petsArray.size())
+                    }
+
+                    "pettraning" -> {
+                        total += sitter!!.ratetraining!!.toDouble() + (sitter!!.ratetrainingaddpet!!.toDouble() * petsArray.size())
+                    }
+
+                    "petgrooming" -> {
+                        total += sitter!!.rategrooming!!.toDouble() + (sitter!!.rategroomingaddpet!!.toDouble() * petsArray.size())
+                    }
+
+                }
+
+                booking.addProperty("total", total.toString())
+
 
                 continueBtn.visibility = View.GONE
                 rlprogressave.visibility = View.VISIBLE

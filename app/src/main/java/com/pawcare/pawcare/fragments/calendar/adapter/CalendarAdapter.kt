@@ -71,7 +71,7 @@ class CalendarAdapter(
                 val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
                 val bookingDate: LocalDate = LocalDate.parse(bdate, formatter)
 
-                if (bookingDate.year == LocalDate.now().year && bookingDate.monthValue == currentShowing.monthValue) {
+                if (bookingDate.year == currentShowing.year && bookingDate.monthValue == currentShowing.monthValue) {
                     if (item.toInt() == bookingDate.dayOfMonth) {
                         holder.cardView.backgroundTintList = ColorStateList.valueOf(
                             ContextCompat.getColor(frag.requireContext(), R.color.primaryLightColor))

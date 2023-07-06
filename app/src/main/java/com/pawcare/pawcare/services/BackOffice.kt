@@ -357,6 +357,36 @@ class BackOffice(
         })
     }
 
+    fun updateStateBooking(listener: Listener<Any>?, id: String) {
+
+        apiInterface.updateStateBooking(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun startApplication(listener: Listener<Any>?) {
 
         apiInterface.startApplication().enqueue(object : Callback<Void>() {
@@ -623,9 +653,9 @@ class BackOffice(
 
     }
 
-    fun getBookings(listener: Listener<Any>?) {
+    fun getBookings(listener: Listener<Any>?, month: Int, year: Int) {
 
-        apiInterface.getBookings().enqueue(object : retrofit2.Callback<List<ApiInterface.Booking>> {
+        apiInterface.getBookings(month, year).enqueue(object : retrofit2.Callback<List<ApiInterface.Booking>> {
             override fun onResponse(
                 call: Call<List<ApiInterface.Booking>>,
                 response: Response<List<ApiInterface.Booking>>

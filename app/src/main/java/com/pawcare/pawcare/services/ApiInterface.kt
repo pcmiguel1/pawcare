@@ -181,7 +181,16 @@ interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @GET("sitter/bookings")
-    fun getBookings() : Call<List<Booking>>
+    fun getBookings(
+        @Query("month") month: Int,
+        @Query("year") year: Int,
+    ) : Call<List<Booking>>
+
+    @Headers("Content-Type: application/json")
+    @POST("sitter//booking/update/{id}")
+    fun updateStateBooking(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
 
     class Booking() {
 
@@ -211,6 +220,36 @@ interface ApiInterface {
 
         @SerializedName("message")
         var message: String? = null
+
+
+        @SerializedName("petpicketup")
+        var petpicketup: Boolean = false
+
+        @SerializedName("timepetpicketup")
+        var timepetpicketup: String? = null
+
+        @SerializedName("inprogress")
+        var inprogress: Boolean = false
+
+        @SerializedName("timeinprogress")
+        var timeinprogress: String? = null
+
+        @SerializedName("returning")
+        var returning: Boolean = false
+
+        @SerializedName("timereturning")
+        var timereturning: String? = null
+
+        @SerializedName("completed")
+        var completed: Boolean = false
+
+        @SerializedName("timecompleted")
+        var timecompleted: String? = null
+
+
+        @SerializedName("total")
+        var total: String? = null
+
 
         @SerializedName("image")
         var image: String? = null

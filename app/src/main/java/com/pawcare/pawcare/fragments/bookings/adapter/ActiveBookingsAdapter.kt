@@ -1,11 +1,13 @@
 package com.pawcare.pawcare.fragments.bookings.adapter
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +64,15 @@ class ActiveBookingsAdapter(
         val cancel : View = itemView.findViewById(R.id.cancel_btn)
         val info : View = itemView.findViewById(R.id.info_btn)
 
+        val statePicketup : ImageView = itemView.findViewById(R.id.state_picketup)
+        val timePicketup : TextView = itemView.findViewById(R.id.time_picketup)
+
+        val stateInProgress : ImageView = itemView.findViewById(R.id.state_inprogress)
+        val timeInProgress : TextView = itemView.findViewById(R.id.time_inprogress)
+
+        val stateReturning : ImageView = itemView.findViewById(R.id.state_returning)
+        val timeReturning : TextView = itemView.findViewById(R.id.time_returning)
+
         init {
             chat.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
@@ -100,6 +111,33 @@ class ActiveBookingsAdapter(
         val item = list[position]
         holder.name.text = item.name
 
+        if (item.petpicketup) {
+
+            holder.statePicketup.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.statePicketup.context, R.color.primaryColor))
+
+            holder.timePicketup.text = item.timepetpicketup
+
+        }
+
+        if (item.inprogress) {
+
+            holder.stateInProgress.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.stateInProgress.context, R.color.primaryColor))
+
+            holder.timeInProgress.text = item.timeinprogress
+
+        }
+
+        if (item.returning) {
+
+            holder.stateReturning.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(holder.stateReturning.context, R.color.primaryColor))
+
+            holder.timeReturning.text = item.timereturning
+
+        }
+
         holder.service.text = when (item.serviceType) {
 
             "petwalking" -> "Pet Walking"
@@ -116,7 +154,14 @@ class ActiveBookingsAdapter(
         }
 
         if (item.status == "pending") holder.pending.visibility = View.VISIBLE
-        else holder.pending.visibility = View.GONE
+        else {
+            holder.cancel.visibility = View.GONE
+
+            val layoutParams = holder.info.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.marginStart = 0
+
+            holder.pending.visibility = View.GONE
+        }
 
         if (item.image != null && item.image != "") {
 
