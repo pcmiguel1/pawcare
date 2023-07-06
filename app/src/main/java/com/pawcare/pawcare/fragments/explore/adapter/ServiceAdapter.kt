@@ -19,6 +19,7 @@ import com.pawcare.pawcare.services.Listener
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
+import java.lang.Math.*
 
 class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
     RecyclerView.Adapter<ServiceAdapter.ItemViewHolder>() {
@@ -47,6 +48,7 @@ class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
         val name : TextView = itemView.findViewById(R.id.name)
         val image : ImageView = itemView.findViewById(R.id.image)
         val like : ImageView = itemView.findViewById(R.id.like)
+        val distance : TextView = itemView.findViewById(R.id.distance)
 
         init {
 
@@ -74,6 +76,17 @@ class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
         holder.name.text = item.name
+
+        val userLatitude = App.instance.preferences.getString("Latitude", "")!!.toDouble()
+        val userLongitude = App.instance.preferences.getString("Longitude", "")!!.toDouble()
+
+        val sitterLatitude = item.lat!!.toDouble()
+        val sitterLongitude = item.long!!.toDouble()
+
+        val distance = calculateDistance(userLatitude, userLongitude, sitterLatitude, sitterLongitude)
+        val formattedDistance = String.format("%.2f", distance)
+
+        holder.distance.text = "${formattedDistance} km"
 
         if (item.image != null && item.image != "") {
 
@@ -121,5 +134,23 @@ class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
         return list.size
     }
 
+    private fun calculateDistance(
+        lat1: Double,
+        lon1: Double,
+        lat2: Double,
+        lon2: Double
+    ): Double {
+        val R = 6371 // Radius of the Earth in kilometers
+
+        val latDistance = Math.toRadians(lat2 - lat1)
+        val lonDistance = Math.toRadians(lon2 - lon1)
+        val a = sin(latDistance / 2) * sin(latDistance / 2) +
+                cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2)) *
+                sin(lonDistance / 2) * sin(lonDistance / 2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        val distance = R * c
+
+        return distance
+    }
 
 }

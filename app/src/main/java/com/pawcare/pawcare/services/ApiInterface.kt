@@ -8,6 +8,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.Date
 
 interface ApiInterface {
 
@@ -58,6 +59,12 @@ interface ApiInterface {
     fun getSitterById(
         @Path(value = "id", encoded = true) id : String,
     ) : Call<Sitter>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/{id}")
+    fun getUserById(
+        @Path(value = "id", encoded = true) id : String,
+    ) : Call<User>
 
     @Multipart
     @POST("user/pet/update/{id}")
@@ -187,10 +194,112 @@ interface ApiInterface {
     ) : Call<List<Booking>>
 
     @Headers("Content-Type: application/json")
-    @POST("sitter//booking/update/{id}")
+    @POST("sitter/booking/update/{id}")
     fun updateStateBooking(
         @Path(value = "id", encoded = true) id : String
     ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/booking/cancel/{id}")
+    fun cancelBooking(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/contacts/add/{id}")
+    fun addContact(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/contacts")
+    fun listContacts() : Call<List<Contact>>
+
+    @Headers("Content-Type: application/json")
+    @GET("sitter/contacts")
+    fun listContactsSitter() : Call<List<Contact>>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/chat/send")
+    fun sendMessage(
+        @Body jsonObject: JsonObject
+    ) : Call<Message>
+
+    @Headers("Content-Type: application/json")
+    @GET("user/chat/messages/{id}")
+    fun chatMessages(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<List<Message>>
+
+    @Headers("Content-Type: application/json")
+    @POST("sitter/chat/send")
+    fun sendMessageSitter(
+        @Body jsonObject: JsonObject
+    ) : Call<Message>
+
+    @Headers("Content-Type: application/json")
+    @GET("sitter/chat/messages/{id}")
+    fun chatMessagesSitter(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<List<Message>>
+
+    class Message {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("message")
+        var message: String? = null
+
+        @SerializedName("sender")
+        var sender: Sender? = null
+
+        @SerializedName("receiver")
+        var receiver: Receiver? = null
+
+        @SerializedName("createdat")
+        var createdat: Date? = null
+
+    }
+
+    class Sender {
+
+        @SerializedName("id")
+        var id: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+    }
+
+    class Receiver {
+
+        @SerializedName("id")
+        var id: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+    }
+
+    class Contact {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userId: String? = null
+
+        @SerializedName("sitterId")
+        var sitterId: String? = null
+
+        @SerializedName("image")
+        var image: String? = null
+
+        @SerializedName("name")
+        var name: String? = null
+
+    }
 
     class Booking() {
 

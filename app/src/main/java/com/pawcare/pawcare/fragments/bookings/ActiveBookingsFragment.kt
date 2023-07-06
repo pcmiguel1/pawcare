@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -80,6 +81,8 @@ class ActiveBookingsFragment : Fragment() {
         activeBookingsAdapter.setOnItemClickListener2(object : ActiveBookingsAdapter.onItemClickListener2 {
             override fun onItemClick(position: Int) {
 
+                val item = activeBookingsAdapter.getItem(position)
+
                 val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_cancel_booking, null)
 
                 val builder = AlertDialog.Builder(requireContext())
@@ -100,6 +103,28 @@ class ActiveBookingsFragment : Fragment() {
 
                 sendBtn.setOnClickListener {
 
+                    loadingDialog.startLoading()
+
+                    App.instance.backOffice.cancelBooking(object: Listener<Any> {
+                        override fun onResponse(response: Any?) {
+
+                            loadingDialog.isDismiss()
+
+                            if (isAdded) {
+
+                                if (response == null) {
+
+                                    dialog.dismiss()
+                                    Toast.makeText(activity, "Booking canceled!", Toast.LENGTH_SHORT).show()
+                                    addBookingsToList()
+
+                                }
+
+                            }
+
+                        }
+
+                    }, item.id!!)
 
                 }
 

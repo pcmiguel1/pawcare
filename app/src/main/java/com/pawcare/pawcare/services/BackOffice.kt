@@ -115,6 +115,8 @@ class BackOffice(
 
                         if (user.get("_id") != null)
                             editor.putString("userId", user.get("_id").asString)
+                        if (user.get("sitterId") != null)
+                            editor.putString("sitterId", user.get("sitterId").asString)
                         if (user.get("fullname") != null)
                             editor.putString("fullname", user.get("fullname").asString)
                         if (user.get("dateOfBirth") != null)
@@ -360,6 +362,222 @@ class BackOffice(
     fun updateStateBooking(listener: Listener<Any>?, id: String) {
 
         apiInterface.updateStateBooking(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun listContacts(listener: Listener<Any>?) {
+
+        apiInterface.listContacts().enqueue(object : retrofit2.Callback<List<ApiInterface.Contact>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Contact>>,
+                response: Response<List<ApiInterface.Contact>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Contact>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun chatMessages(listener: Listener<Any>?, id: String) {
+
+        apiInterface.chatMessages(id).enqueue(object : retrofit2.Callback<List<ApiInterface.Message>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Message>>,
+                response: Response<List<ApiInterface.Message>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Message>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun chatMessagesSitter(listener: Listener<Any>?, id: String) {
+
+        apiInterface.chatMessagesSitter(id).enqueue(object : retrofit2.Callback<List<ApiInterface.Message>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Message>>,
+                response: Response<List<ApiInterface.Message>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Message>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun listContactsSitter(listener: Listener<Any>?) {
+
+        apiInterface.listContactsSitter().enqueue(object : retrofit2.Callback<List<ApiInterface.Contact>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Contact>>,
+                response: Response<List<ApiInterface.Contact>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Contact>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun addContact(listener: Listener<Any>?, id: String) {
+
+        apiInterface.addContact(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun sendMessage(listener: Listener<Any>?, message: JsonObject) {
+
+        apiInterface.sendMessage(message).enqueue(object : Callback<ApiInterface.Message>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Message>,
+                response: Response<ApiInterface.Message>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(response.body())
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Message>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun sendMessageSitter(listener: Listener<Any>?, message: JsonObject) {
+
+        apiInterface.sendMessageSitter(message).enqueue(object : Callback<ApiInterface.Message>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Message>,
+                response: Response<ApiInterface.Message>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(response.body())
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Message>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun cancelBooking(listener: Listener<Any>?, id: String) {
+
+        apiInterface.cancelBooking(id).enqueue(object : Callback<Void>() {
             override fun onResponse(
                 call: Call<Void>,
                 response: Response<Void>
@@ -942,6 +1160,30 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<ApiInterface.Sitter>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getUserById(listener: Listener<Any>?, id: String) {
+
+        apiInterface.getUserById(id).enqueue(object : retrofit2.Callback<ApiInterface.User> {
+            override fun onResponse(
+                call: Call<ApiInterface.User>,
+                response: Response<ApiInterface.User>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.User>, t: Throwable) {
                 clientError(t, null)
             }
 

@@ -114,6 +114,13 @@ class CalendarEventsAdapter(private val list: List<ApiInterface.Booking>) :
 
             }
 
+            "canceled" -> {
+                holder.status.text = item.status!!.replaceFirstChar { it.uppercaseChar() }
+                holder.updateState.visibility = View.GONE
+                holder.cancel.visibility = View.GONE
+
+            }
+
 
 
             else -> {

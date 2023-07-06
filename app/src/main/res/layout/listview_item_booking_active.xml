@@ -57,7 +57,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         app:cardBackgroundColor="@color/redligth"
-                        app:cardCornerRadius="8dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp">
 
                         <TextView
                             android:id="@+id/service"

@@ -76,13 +76,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/price"
+                    android:id="@+id/distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/urbanist_bold"
-                    android:textColor="@color/primaryColor"
-                    android:text="$15/h" />
+                    android:textSize="15sp"
+                    android:fontFamily="@font/urbanist_regular"
+                    android:textColor="@color/text_color3" />
 
 
             </LinearLayout>

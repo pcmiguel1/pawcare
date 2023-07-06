@@ -150,6 +150,7 @@ class ProfileFragment : Fragment() {
                 remove("TOKEN")
                 remove("SITTER")
                 remove("userId")
+                remove("sitterId")
                 remove("email")
                 apply()
             }

@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/toolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -51,6 +52,22 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_below="@id/toolbarLayout"
+            android:layout_above="@id/btns"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="inherit"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btns"
             android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -85,6 +102,7 @@
                     android:textSize="16sp"/>
 
                 <ImageView
+                    android:id="@+id/pickImage"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/gallery"/>
@@ -92,6 +110,7 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/sendBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -104,7 +123,29 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/voice" />
+                    android:src="@drawable/location2"
+                    android:rotation="45"
+                    app:tint="@color/white"
+                    android:layout_marginStart="-2dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/loading"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/primaryColor"
+                android:elevation="0dp"
+                app:cardCornerRadius="100dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progress_login"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"/>
 
             </androidx.cardview.widget.CardView>
 

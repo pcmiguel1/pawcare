@@ -30,6 +30,7 @@ class CompletedBookingsAdapter(private val list: List<ApiInterface.Booking>) :
         val service : TextView = itemView.findViewById(R.id.service)
         val leaveReview : View = itemView.findViewById(R.id.leave_review)
         val image : ImageView = itemView.findViewById(R.id.image)
+        val canceled : View = itemView.findViewById(R.id.canceled)
 
         init {
             leaveReview.setOnClickListener {
@@ -47,6 +48,12 @@ class CompletedBookingsAdapter(private val list: List<ApiInterface.Booking>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
         holder.name.text = item.name
+
+        if (item.status == "canceled") {
+            holder.canceled.visibility = View.VISIBLE
+            holder.leaveReview.visibility = View.GONE
+        }
+        else holder.canceled.visibility = View.GONE
 
         holder.service.text = when (item.serviceType) {
 
