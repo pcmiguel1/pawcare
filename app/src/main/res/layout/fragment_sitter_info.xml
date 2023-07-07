@@ -48,7 +48,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
                 <LinearLayout
                     android:layout_margin="20dp"
@@ -91,10 +92,11 @@
                                     android:src="@drawable/star"/>
 
                                 <TextView
+                                    android:id="@+id/profile_info_reviews"
                                     android:layout_marginStart="5dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="4.8 (86 reviews)"
+                                    android:text="0 (0 reviews)"
                                     android:textColor="@color/text_color2"
                                     android:textSize="11sp"
                                     android:fontFamily="@font/urbanist_regular" />
@@ -504,10 +506,11 @@
                                 android:src="@drawable/star"/>
 
                             <TextView
+                                android:id="@+id/info_reviews"
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4.8 (86 reviews)"
+                                android:text="0 (0 reviews)"
                                 android:textColor="@color/text_color"
                                 android:textSize="20sp"
                                 android:fontFamily="@font/urbanist_semibold" />

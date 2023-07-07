@@ -70,7 +70,7 @@
                         android:textSize="13sp"
                         android:fontFamily="@font/urbanist_regular"
                         android:textColor="@color/grey"
-                        android:text="4.8"
+                        android:text="0"
                         android:layout_marginStart="5dp"/>
 
                 </LinearLayout>

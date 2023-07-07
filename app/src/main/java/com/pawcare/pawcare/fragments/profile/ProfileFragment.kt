@@ -11,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
+import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentProfileBinding
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
@@ -272,6 +274,7 @@ class ProfileFragment : Fragment() {
 
             val cancelBtn = mDialogView.findViewById<Button>(R.id.cancel_btn)
             val sendBtn = mDialogView.findViewById<Button>(R.id.continue_btn)
+            val rlprogresscontinue = mDialogView.findViewById<View>(R.id.rlprogresscontinue)
 
             cancelBtn.setOnClickListener {
 
@@ -281,6 +284,49 @@ class ProfileFragment : Fragment() {
 
             sendBtn.setOnClickListener {
 
+                sendBtn.visibility = View.GONE
+                rlprogresscontinue.visibility = View.VISIBLE
+
+                App.instance.backOffice.deleteUser(object : Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        sendBtn.visibility = View.VISIBLE
+                        rlprogresscontinue.visibility = View.GONE
+
+                        if (isAdded) {
+
+                            if (response == null) {
+
+                                dialog.dismiss()
+                                with(App.instance.preferences.edit()) {
+                                    remove("phoneNumber")
+                                    remove("stayLoggedIn")
+                                    remove("TOKEN_DATE")
+                                    remove("dateOfBirth")
+                                    remove("fullname")
+                                    remove("phoneNumber")
+                                    remove("TOKEN")
+                                    remove("SITTER")
+                                    remove("userId")
+                                    remove("sitterId")
+                                    remove("email")
+                                    remove("Latitude")
+                                    remove("Longitude")
+                                    apply()
+                                }
+                                // Remove the back stack and navigate to the specified destination
+                                findNavController().apply {
+                                    popBackStack(R.id.onBoardingFragment, true)
+                                    navigate(R.id.onBoardingFragment)
+                                }
+                                Toast.makeText(activity, "Account deleted successfully!", Toast.LENGTH_SHORT).show()
+
+                            }
+
+                        }
+
+                    }
+                })
 
             }
 

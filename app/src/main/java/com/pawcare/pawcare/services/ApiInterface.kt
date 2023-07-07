@@ -257,6 +257,10 @@ interface ApiInterface {
         @Body jsonObject: JsonObject
     ) : Call<Review>
 
+    @Headers("Content-Type: application/json")
+    @POST("user/delete")
+    fun deleteUser() : Call<Void>
+
 
     class Review {
 
@@ -277,6 +281,12 @@ interface ApiInterface {
 
         @SerializedName("message")
         var message: String? = null
+
+        @SerializedName("createdat")
+        var createdat: Date? = null
+
+        @SerializedName("user")
+        var user: User? = null
 
     }
 
@@ -491,6 +501,8 @@ interface ApiInterface {
         @SerializedName("image")
         var image: String? = null
 
+        @SerializedName("reviews")
+        var reviews: List<Review>? = null
 
 
         @SerializedName("petwalking")
@@ -563,6 +575,8 @@ interface ApiInterface {
             phone = parcel.readString()
             sortcode = parcel.readString()
             accountnumber = parcel.readString()
+            name = parcel.readString()
+            image = parcel.readString()
             petwalking = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
             ratewalking = parcel.readString()
             ratewalkingaddpet = parcel.readString()
@@ -594,6 +608,8 @@ interface ApiInterface {
             parcel.writeString(phone)
             parcel.writeString(sortcode)
             parcel.writeString(accountnumber)
+            parcel.writeString(name)
+            parcel.writeString(image)
             parcel.writeValue(petwalking)
             parcel.writeString(ratewalking)
             parcel.writeString(ratewalkingaddpet)

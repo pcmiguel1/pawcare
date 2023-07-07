@@ -87,6 +87,7 @@
         android:text="My cat loves her she is just perfect!" />
 
     <TextView
+        android:id="@+id/date"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

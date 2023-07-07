@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/custom_button"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="@color/red"
         android:visibility="gone">
 
         <ProgressBar

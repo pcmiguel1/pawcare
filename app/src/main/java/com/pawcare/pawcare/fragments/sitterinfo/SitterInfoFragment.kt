@@ -19,7 +19,6 @@ import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentSitterInfoBinding
 import com.pawcare.pawcare.fragments.sitterinfo.adapter.ReviewAdapter
-import com.pawcare.pawcare.fragments.sitterinfo.model.Review
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener
@@ -33,7 +32,7 @@ class SitterInfoFragment : Fragment() {
     private lateinit var loadingDialog: LoadingDialog
 
     private lateinit var recyclerViewReviews: RecyclerView
-    private var reviews: MutableList<Review> = mutableListOf()
+    private var reviews: MutableList<ApiInterface.Review> = mutableListOf()
     private lateinit var reviewAdapter: ReviewAdapter
 
     private var sitter : ApiInterface.Sitter? = null
@@ -259,8 +258,6 @@ class SitterInfoFragment : Fragment() {
         recyclerViewReviews.setHasFixedSize(true)
         recyclerViewReviews.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
-        addReviewsToList()
-
         reviewAdapter = ReviewAdapter(reviews)
         recyclerViewReviews.adapter = reviewAdapter
 
@@ -283,15 +280,55 @@ class SitterInfoFragment : Fragment() {
 
         }
 
+        addReviewsToList()
+
     }
 
     private fun addReviewsToList() {
 
         reviews.clear()
 
-        reviews.add(Review("Darlene Robertson", "My cat loves her she is just perfect !!", 4))
-        reviews.add(Review("Darlene Robertson", "My cat loves her she is just perfect !!", 4))
-        reviews.add(Review("Darlene Robertson", "My cat loves her she is just perfect !!", 4))
+        App.instance.backOffice.getReviews(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
+
+                if (isAdded) {
+
+                    if (response != null && response is List<*>) {
+
+                        val list = response as List<ApiInterface.Review>
+
+                        if (list.isNotEmpty()) {
+
+                            var total = 0.0
+                            for (review in list) {
+                                total += review.rate!!.toDouble().toInt()
+                            }
+                            var average = (total / list.size)
+
+                            binding!!.infoReviews.text = "${average} (${list.size} reviews)"
+                            binding!!.profileInfoReviews.text = "${average} (${list.size} reviews)"
+                            binding!!.reviews.visibility = View.VISIBLE
+                            //binding!!.empty.visibility = View.GONE
+                            reviews.addAll(list)
+                            reviewAdapter.notifyDataSetChanged()
+
+                        }
+                        else {
+                            //binding!!.reviews.visibility = View.GONE
+                            //binding!!.empty.visibility = View.VISIBLE
+                        }
+
+                    }
+                    else {
+                        //binding!!.reviews.visibility = View.GONE
+                        //binding!!.empty.visibility = View.GONE
+                    }
+
+                }
+
+            }
+
+        }, sitter!!.sitterId!!)
 
     }
 

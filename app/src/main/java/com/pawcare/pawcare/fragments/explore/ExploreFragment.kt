@@ -1,7 +1,6 @@
 package com.pawcare.pawcare.fragments.explore
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +8,16 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentExploreBinding
 import com.pawcare.pawcare.fragments.explore.adapter.CategoryAdapter
 import com.pawcare.pawcare.fragments.explore.adapter.ServiceAdapter
 import com.pawcare.pawcare.fragments.explore.model.Category
-import com.pawcare.pawcare.fragments.explore.model.Service
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener

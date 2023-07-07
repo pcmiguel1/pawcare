@@ -10,7 +10,6 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.CustomTarget
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -34,17 +32,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentServicesBinding
 import com.pawcare.pawcare.fragments.explore.adapter.ServiceAdapter
-import com.pawcare.pawcare.fragments.explore.model.Service
-import com.pawcare.pawcare.libraries.BitmapHelper
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener

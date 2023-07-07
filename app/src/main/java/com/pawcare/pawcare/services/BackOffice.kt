@@ -15,6 +15,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
@@ -180,12 +181,29 @@ class BackOffice(
 
                 } else {
 
-                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    val errorBody = response.errorBody()?.charStream()?.readText()
+                    if (errorBody != null) {
+                        try {
+                            val jsonObj = JSONObject(errorBody)
+                            if (jsonObj.has("message") && jsonObj.getString("message").isNotEmpty()) {
+                                listener?.onResponse(jsonObj.getString("message"))
+                            } else {
+                                serverError(call, response, listener)
+                            }
+                        } catch (e: JSONException) {
+                            serverError(call, response, listener)
+                        }
+                    }
+                    else {
+                        serverError(call, response, listener)
+                    }
+
+                    /*val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
                     if (jsonObj.getString("message").isNotEmpty()) {
                         listener?.onResponse(jsonObj.getString("message"))
                     }
                     else
-                        serverError(call, response, listener)
+                        serverError(call, response, listener)*/
                 }
             }
 
@@ -545,6 +563,36 @@ class BackOffice(
     fun addContact(listener: Listener<Any>?, id: String) {
 
         apiInterface.addContact(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun deleteUser(listener: Listener<Any>?) {
+
+        apiInterface.deleteUser().enqueue(object : Callback<Void>() {
             override fun onResponse(
                 call: Call<Void>,
                 response: Response<Void>

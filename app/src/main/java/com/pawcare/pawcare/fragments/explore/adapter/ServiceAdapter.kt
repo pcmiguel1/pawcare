@@ -1,19 +1,14 @@
 package com.pawcare.pawcare.fragments.explore.adapter
 
-import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
-import com.pawcare.pawcare.fragments.explore.model.Service
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener
 import com.squareup.picasso.Callback
@@ -49,6 +44,7 @@ class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
         val image : ImageView = itemView.findViewById(R.id.image)
         val like : ImageView = itemView.findViewById(R.id.like)
         val distance : TextView = itemView.findViewById(R.id.distance)
+        val rating : TextView = itemView.findViewById(R.id.rating)
 
         init {
 
@@ -76,6 +72,16 @@ class ServiceAdapter(private val list: List<ApiInterface.Sitter>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
         holder.name.text = item.name
+
+        if (item.reviews != null && item.reviews!!.isNotEmpty()) {
+            var total = 0.0
+            for (review in item.reviews!!) {
+                total += review.rate!!.toDouble().toInt()
+            }
+            var average = (total / item.reviews!!.size)
+            holder.rating.text = average.toString()
+
+        }
 
         val userLatitude = App.instance.preferences.getString("Latitude", "")!!.toDouble()
         val userLongitude = App.instance.preferences.getString("Longitude", "")!!.toDouble()

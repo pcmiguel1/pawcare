@@ -14,7 +14,6 @@ import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.databinding.FragmentLikedServicesBinding
 import com.pawcare.pawcare.fragments.explore.adapter.ServiceAdapter
-import com.pawcare.pawcare.fragments.explore.model.Service
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
 import com.pawcare.pawcare.services.Listener
