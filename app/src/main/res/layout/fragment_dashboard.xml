@@ -124,13 +124,14 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/total"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$2000.50"
                 android:textColor="@color/white"
                 android:fontFamily="@font/urbanist_bold"
                 android:textAlignment="center"
+                android:text="0€"
                 android:textSize="50dp"/>
 
         </LinearLayout>
@@ -218,6 +219,7 @@
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
+                                android:id="@+id/petwalking"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -266,6 +268,7 @@
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
+                                android:id="@+id/petboarding"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -324,6 +327,7 @@
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
+                                android:id="@+id/housesitting"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -372,6 +376,7 @@
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
+                                android:id="@+id/pettraining"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -430,6 +435,7 @@
                                 android:layout_marginBottom="5dp"/>
 
                             <TextView
+                                android:id="@+id/petgrooming"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
@@ -455,7 +461,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Today's Orders"
+                        android:text="Orders"
                         android:textColor="@color/black"
                         android:fontFamily="@font/urbanist_bold"
                         android:textSize="20sp" />
@@ -519,6 +525,7 @@
                                     android:layout_marginStart="10dp">
 
                                     <TextView
+                                        android:id="@+id/active"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
@@ -559,6 +566,7 @@
                                     android:layout_marginStart="10dp">
 
                                     <TextView
+                                        android:id="@+id/finished"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
@@ -599,6 +607,7 @@
                                     android:layout_marginStart="10dp">
 
                                     <TextView
+                                        android:id="@+id/canceled"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"

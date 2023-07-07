@@ -261,6 +261,40 @@ interface ApiInterface {
     @POST("user/delete")
     fun deleteUser() : Call<Void>
 
+    @Headers("Content-Type: application/json")
+    @GET("sitter/income")
+    fun income() : Call<Income>
+
+    class Income {
+
+        @SerializedName("totalWalking")
+        var totalWalking: String? = null
+
+        @SerializedName("totalBoarding")
+        var totalBoarding: String? = null
+
+        @SerializedName("totalHouseSitting")
+        var totalHouseSitting: String? = null
+
+        @SerializedName("totalTraining")
+        var totalTraining: String? = null
+
+        @SerializedName("totalGrooming")
+        var totalGrooming: String? = null
+
+        @SerializedName("active")
+        var active: String? = null
+
+        @SerializedName("finished")
+        var finished: String? = null
+
+        @SerializedName("canceled")
+        var canceled: String? = null
+
+        @SerializedName("total")
+        var total: String? = null
+
+    }
 
     class Review {
 

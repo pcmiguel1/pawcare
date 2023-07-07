@@ -536,6 +536,30 @@ class BackOffice(
 
     }
 
+    fun income(listener: Listener<Any>?) {
+
+        apiInterface.income().enqueue(object : Callback<ApiInterface.Income>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Income>,
+                response: Response<ApiInterface.Income>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Income>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun listContactsSitter(listener: Listener<Any>?) {
 
         apiInterface.listContactsSitter().enqueue(object : retrofit2.Callback<List<ApiInterface.Contact>> {
