@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
         val fragmentBinding = FragmentProfileBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
 
         return fragmentBinding.root
 
@@ -152,6 +152,8 @@ class ProfileFragment : Fragment() {
                 remove("userId")
                 remove("sitterId")
                 remove("email")
+                remove("Latitude")
+                remove("Longitude")
                 apply()
             }
 
@@ -201,7 +203,7 @@ class ProfileFragment : Fragment() {
 
                 if (verifiedSitter) { // already approved and submited the application
 
-                    val bottomNavigationView = App.instance.mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+                    val bottomNavigationView = App.instance.mainActivity!!.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
 
                     if (App.instance.preferences.getBoolean("SITTER", false)) {
 

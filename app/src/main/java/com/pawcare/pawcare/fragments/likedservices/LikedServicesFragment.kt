@@ -37,7 +37,7 @@ class LikedServicesFragment : Fragment() {
         val fragmentBinding = FragmentLikedServicesBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         return fragmentBinding.root
 
@@ -66,7 +66,11 @@ class LikedServicesFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putParcelable("SITTER", item)
 
-                findNavController().navigate(R.id.action_likedServicesFragment_to_sitterInfoFragment, bundle)
+                //findNavController().navigate(R.id.action_likedServicesFragment_to_sitterInfoFragment, bundle)
+                findNavController().apply {
+                    popBackStack(R.id.likedServicesFragment, false)
+                    navigate(R.id.sitterInfoFragment, bundle)
+                }
 
 
             }

@@ -401,7 +401,7 @@ class LoginFragment : Fragment() {
                                                                                     Toast.makeText(activity, getString(R.string.password_reset_success), Toast.LENGTH_SHORT).show()
                                                                                 }
                                                                                 else {
-                                                                                    App.instance.mainActivity.popupError(response.toString())
+                                                                                    App.instance.mainActivity!!.popupError(response.toString())
                                                                                 }
                                                                             }
 
@@ -536,7 +536,7 @@ class LoginFragment : Fragment() {
 
                         }
                         else {
-                            App.instance.mainActivity.popupError(response.toString())
+                            App.instance.mainActivity!!.popupError(response.toString())
                         }
 
                     }
@@ -554,7 +554,7 @@ class LoginFragment : Fragment() {
             if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
             else if (!validEmail) erro = getString(R.string.invalid_email)
 
-            App.instance.mainActivity.popupError(erro)
+            App.instance.mainActivity!!.popupError(erro)
 
         }
 

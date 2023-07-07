@@ -37,7 +37,7 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        App.instance.mainActivity.findViewById<View>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<View>(R.id.bottombar).visibility = View.GONE
 
         postToList()
 

@@ -37,7 +37,7 @@ class InboxFragment : Fragment() {
         val fragmentBinding = FragmentInboxBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
 
         return fragmentBinding.root
 

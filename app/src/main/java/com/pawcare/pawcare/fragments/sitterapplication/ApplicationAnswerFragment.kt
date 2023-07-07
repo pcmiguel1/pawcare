@@ -87,7 +87,7 @@ class ApplicationAnswerFragment : Fragment() {
         binding = fragmentBinding
 
         Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         val bundle = arguments
         if (bundle != null) {
@@ -274,7 +274,7 @@ class ApplicationAnswerFragment : Fragment() {
                                     }
                                     else {
 
-                                        App.instance.mainActivity.popupError(response.toString())
+                                        App.instance.mainActivity!!.popupError(response.toString())
 
                                     }
                                 }
@@ -285,7 +285,7 @@ class ApplicationAnswerFragment : Fragment() {
 
                     } else {
 
-                        App.instance.mainActivity.popupError("Phone number is not valid!")
+                        App.instance.mainActivity!!.popupError("Phone number is not valid!")
 
                     }
 

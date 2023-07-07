@@ -51,7 +51,7 @@ class ExploreFragment : Fragment() {
         val fragmentBinding = FragmentExploreBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
 
         return fragmentBinding.root
     }
@@ -294,7 +294,7 @@ class ExploreFragment : Fragment() {
                 }
 
             }
-        }, App.instance.preferences.getString("Latitude", "")!!, App.instance.preferences.getString("Longitude", "")!!, listOf())
+        }, App.instance.preferences.getString("Latitude", "0")!!, App.instance.preferences.getString("Longitude", "0")!!, listOf())
 
     }
 

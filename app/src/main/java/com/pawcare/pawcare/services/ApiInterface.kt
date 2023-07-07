@@ -243,6 +243,43 @@ interface ApiInterface {
         @Path(value = "id", encoded = true) id : String
     ) : Call<List<Message>>
 
+    @Headers("Content-Type: application/json")
+    @GET("sitter/{id}/reviews")
+    fun getReviews(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<List<Review>>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("sitter/{id}/reviews/add")
+    fun addReview(
+        @Path(value = "id", encoded = true) id : String,
+        @Body jsonObject: JsonObject
+    ) : Call<Review>
+
+
+    class Review {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("user_id")
+        var userdId: String? = null
+
+        @SerializedName("sitterId")
+        var sitterId: String? = null
+
+        @SerializedName("bookingId")
+        var bookingId: String? = null
+
+        @SerializedName("rate")
+        var rate: String? = null
+
+        @SerializedName("message")
+        var message: String? = null
+
+    }
+
     class Message {
 
         @SerializedName("_id")
@@ -365,6 +402,9 @@ interface ApiInterface {
 
         @SerializedName("name")
         var name: String? = null
+
+        @SerializedName("review")
+        var review: Review? = null
 
     }
 

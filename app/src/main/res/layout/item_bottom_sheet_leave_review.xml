@@ -45,6 +45,7 @@
             app:cardCornerRadius="16dp">
 
             <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/person"
@@ -125,6 +126,7 @@
         android:layout_gravity="center" />
 
     <RatingBar
+        android:id="@+id/rating"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -213,7 +215,27 @@
             android:text="Submit"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/rlprogress"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="55dp"
+            android:background="@drawable/custom_button"
+            android:backgroundTint="@color/primaryColor"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progress_login"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

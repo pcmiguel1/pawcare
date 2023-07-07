@@ -66,7 +66,7 @@ class BookingDetailsFragment : Fragment(), PetAdapter.PetAdapterCallback {
         val fragmentBinding = FragmentBookingDetailsBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         val bundle = arguments
         if (bundle != null) {
@@ -323,7 +323,7 @@ class BookingDetailsFragment : Fragment(), PetAdapter.PetAdapterCallback {
                 else if (endDate.isEmpty()) erro = "Select end date!"
                 else if (petsAtive.isEmpty()) erro = "Select at least one pet!"
 
-                App.instance.mainActivity.popupError(erro)
+                App.instance.mainActivity!!.popupError(erro)
 
             }
 

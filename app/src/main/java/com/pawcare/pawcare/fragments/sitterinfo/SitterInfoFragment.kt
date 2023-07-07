@@ -46,7 +46,7 @@ class SitterInfoFragment : Fragment() {
         val fragmentBinding = FragmentSitterInfoBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         val bundle = arguments
         if (bundle != null) {

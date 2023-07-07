@@ -69,7 +69,7 @@ class AddPetFragment : Fragment() {
         val fragmentBinding = FragmentAddPetBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         val bundle = arguments
         if (bundle != null) {
@@ -407,7 +407,7 @@ class AddPetFragment : Fragment() {
 
                             }
                             else {
-                                App.instance.mainActivity.popupError(response.toString())
+                                App.instance.mainActivity!!.popupError(response.toString())
                             }
 
                         }
@@ -426,7 +426,7 @@ class AddPetFragment : Fragment() {
             var erro = ""
             if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
 
-            App.instance.mainActivity.popupError(erro)
+            App.instance.mainActivity!!.popupError(erro)
 
         }
 
@@ -452,7 +452,7 @@ class AddPetFragment : Fragment() {
             if (specieSelected == "Dog" || specieSelected == "Cat") {
                 if (breedSelected.isEmpty()) {
                     val erro = "Select breed of your pet."
-                    App.instance.mainActivity.popupError(erro)
+                    App.instance.mainActivity!!.popupError(erro)
                     return
                 }
 
@@ -506,7 +506,7 @@ class AddPetFragment : Fragment() {
                                 findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
                             }
                             else {
-                                App.instance.mainActivity.popupError(response.toString())
+                                App.instance.mainActivity!!.popupError(response.toString())
                             }
 
                         }
@@ -529,7 +529,7 @@ class AddPetFragment : Fragment() {
             else if (genderSelected.isEmpty()) erro = "Select gender of your pet."
             else if (dateOfBirth.isEmpty()) erro = "Insert date of birth."
 
-            App.instance.mainActivity.popupError(erro)
+            App.instance.mainActivity!!.popupError(erro)
         }
 
     }

@@ -1,5 +1,6 @@
 package com.pawcare.pawcare.services
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import com.auth0.jwt.JWT
@@ -7,6 +8,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.BuildConfig
+import com.pawcare.pawcare.LoadingActivity
 import com.pawcare.pawcare.Utils
 import com.pawcare.pawcare.services.Callback
 import okhttp3.*
@@ -84,7 +86,7 @@ class BackOffice(
         val algorithm = Algorithm.HMAC256(secretKey)
 
         val now = Date()
-        val expiresAt = Date(now.time + 2 * 60 * 60 * 1000) //2h from now
+        val expiresAt = Date(now.time + 20 * 60 * 60 * 1000) //20h from now
 
         val token = JWT.create()
             .withIssuer(issuer)
@@ -95,6 +97,37 @@ class BackOffice(
         editor.putString("TOKEN", token)
         editor.putLong("TOKEN_DATE", expiresAt.time)
         editor.apply()
+
+        val mainActivity = App.instance.mainActivity
+
+        if (App.instance.preferences.getString("userId", "") != "") {
+
+            with(App.instance.preferences.edit()) {
+                remove("phoneNumber")
+                remove("stayLoggedIn")
+                remove("TOKEN_DATE")
+                remove("dateOfBirth")
+                remove("fullname")
+                remove("phoneNumber")
+                remove("TOKEN")
+                remove("SITTER")
+                remove("userId")
+                remove("sitterId")
+                remove("email")
+                remove("Latitude")
+                remove("Longitude")
+                apply()
+            }
+
+            if (mainActivity != null) {
+
+                val intent = Intent(mainActivity, LoadingActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                mainActivity.startActivity(intent)
+
+            }
+
+        }
 
     }
 
@@ -461,6 +494,30 @@ class BackOffice(
 
     }
 
+    fun getReviews(listener: Listener<Any>?, id: String) {
+
+        apiInterface.getReviews(id).enqueue(object : retrofit2.Callback<List<ApiInterface.Review>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Review>>,
+                response: Response<List<ApiInterface.Review>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Review>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun listContactsSitter(listener: Listener<Any>?) {
 
         apiInterface.listContactsSitter().enqueue(object : retrofit2.Callback<List<ApiInterface.Contact>> {
@@ -569,6 +626,36 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<ApiInterface.Message>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
+    fun addReview(listener: Listener<Any>?, id: String, review: JsonObject) {
+
+        apiInterface.addReview(id, review).enqueue(object : Callback<ApiInterface.Review>() {
+            override fun onResponse(
+                call: Call<ApiInterface.Review>,
+                response: Response<ApiInterface.Review>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(response.body())
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Review>, t: Throwable) {
                 clientError(t, null)
             }
 

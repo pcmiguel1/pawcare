@@ -173,7 +173,7 @@ class RegisterFragment : Fragment() {
                             }
                             else {
 
-                                App.instance.mainActivity.popupError(response.toString())
+                                App.instance.mainActivity!!.popupError(response.toString())
 
                             }
 
@@ -198,7 +198,7 @@ class RegisterFragment : Fragment() {
             else if (!validEmail) erro = getString(R.string.invalid_email)
             else if (!validPassword) erro = getString(R.string.password_minimum)
 
-            App.instance.mainActivity.popupError(erro)
+            App.instance.mainActivity!!.popupError(erro)
 
         }
 

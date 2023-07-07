@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnItemSelectedListener {
 
+            val shouldClearBackStack = true
+
             when (it.itemId) {
 
                 R.id.exploreFragment -> {
@@ -105,6 +107,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+
+            /*if (shouldClearBackStack) {
+                val backStackEntryCount = navController.backQueue.size
+                for (i in 0 until backStackEntryCount) {
+                    navController.popBackStack()
+                }
+            }*/
+
             true
 
         }

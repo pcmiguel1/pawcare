@@ -25,7 +25,7 @@ class AboutFragment : Fragment() {
         val fragmentBinding = FragmentAboutBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         return fragmentBinding.root
 

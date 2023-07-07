@@ -13,7 +13,7 @@ class App : MultiDexApplication(), DefaultLifecycleObserver {
 
     private lateinit var requests: Backend
     lateinit var preferences: SharedPreferences
-    lateinit var mainActivity: MainActivity
+    var mainActivity: MainActivity? = null
 
     val backOffice: BackOffice
         get() = requests.backOffice

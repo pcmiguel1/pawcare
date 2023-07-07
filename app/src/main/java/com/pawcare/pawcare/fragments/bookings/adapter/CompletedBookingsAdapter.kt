@@ -55,6 +55,8 @@ class CompletedBookingsAdapter(private val list: List<ApiInterface.Booking>) :
         }
         else holder.canceled.visibility = View.GONE
 
+        if (item.review!!.id != null && item.review!!.id != "") holder.leaveReview.visibility = View.GONE
+
         holder.service.text = when (item.serviceType) {
 
             "petwalking" -> "Pet Walking"

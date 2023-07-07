@@ -55,7 +55,7 @@ class EditProfileFragment : Fragment() {
         val fragmentBinding = FragmentEditProfileBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.GONE
 
         return fragmentBinding.root
 
@@ -217,7 +217,7 @@ class EditProfileFragment : Fragment() {
                     }
                     else {
 
-                        App.instance.mainActivity.popupError("The current password is wrong!")
+                        App.instance.mainActivity!!.popupError("The current password is wrong!")
                         return
 
                     }
@@ -247,7 +247,7 @@ class EditProfileFragment : Fragment() {
 
                             }
                             else {
-                                App.instance.mainActivity.popupError(response.toString())
+                                App.instance.mainActivity!!.popupError(response.toString())
                             }
 
                         }
@@ -266,7 +266,7 @@ class EditProfileFragment : Fragment() {
             var erro = ""
             if (!Utils.isOnline(requireContext())) erro = getString(R.string.no_internet)
 
-            App.instance.mainActivity.popupError(erro)
+            App.instance.mainActivity!!.popupError(erro)
 
         }
 

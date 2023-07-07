@@ -24,7 +24,7 @@ class BookingsFragment : Fragment() {
         val fragmentBinding = FragmentBookingsBinding.inflate(inflater, container, false)
         binding = fragmentBinding
 
-        App.instance.mainActivity.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
+        App.instance.mainActivity!!.findViewById<LinearLayout>(R.id.bottombar).visibility = View.VISIBLE
 
         return fragmentBinding.root
 
