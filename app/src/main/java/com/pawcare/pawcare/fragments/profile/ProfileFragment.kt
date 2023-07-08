@@ -156,6 +156,7 @@ class ProfileFragment : Fragment() {
                 remove("email")
                 remove("Latitude")
                 remove("Longitude")
+                remove("image")
                 apply()
             }
 
@@ -312,6 +313,7 @@ class ProfileFragment : Fragment() {
                                     remove("email")
                                     remove("Latitude")
                                     remove("Longitude")
+                                    remove("image")
                                     apply()
                                 }
                                 // Remove the back stack and navigate to the specified destination

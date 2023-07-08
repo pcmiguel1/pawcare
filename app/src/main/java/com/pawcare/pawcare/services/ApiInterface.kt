@@ -35,6 +35,14 @@ interface ApiInterface {
     @POST("auth/resetPassword")
     fun resetPassword(@Body jsonObject: JsonObject) : Call<JsonObject>
 
+    @Headers("Content-Type: application/json")
+    @GET("auth/verify/{userId}/{code}")
+    fun verifyCodeEmail(@Path("userId") userId: String, @Path("code") code: String): Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("auth/resend/{userId}")
+    fun resendCodeEmail(@Path("userId") userId: String): Call<Void>
+
     @Multipart
     @POST("user/pet/add")
     fun addPet(

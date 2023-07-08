@@ -13,6 +13,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="register_success">Successful registration.</string>
+
     <string name="onboarding_1_title">Welcome to Paw Care</string>
     <string name="onboarding_1_desc">The best app to find the right persons to take care of your pet.</string>
 

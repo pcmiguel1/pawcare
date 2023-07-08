@@ -117,6 +117,7 @@ class BackOffice(
                 remove("email")
                 remove("Latitude")
                 remove("Longitude")
+                remove("image")
                 apply()
             }
 
@@ -1214,6 +1215,53 @@ class BackOffice(
                 }
             }
 
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun verifyCodeEmail(listener: Listener<Any>?, userId: String, code: String) {
+
+        apiInterface.verifyCodeEmail(userId, code).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                    if (jsonObj.getString("message").isNotEmpty()) {
+                        listener?.onResponse(jsonObj.getString("message"))
+                    }
+                    else
+                        serverError(call, response, listener)
+                }
+            }
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun resendCodeEmail(listener: Listener<Any>?, userId: String) {
+
+        apiInterface.resendCodeEmail(userId).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(null)
+
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 clientError(t, null)
             }

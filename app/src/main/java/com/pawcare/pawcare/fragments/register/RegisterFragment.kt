@@ -5,18 +5,21 @@ import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
 import android.text.Selection
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
@@ -28,6 +31,7 @@ import com.pawcare.pawcare.App
 import com.pawcare.pawcare.BuildConfig
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.Utils
+import com.pawcare.pawcare.Utils.hideKeyboard
 import com.pawcare.pawcare.databinding.FragmentRegisterBinding
 import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.services.ApiInterface
@@ -36,6 +40,7 @@ import org.json.JSONException
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class RegisterFragment : Fragment() {
 
@@ -44,6 +49,9 @@ class RegisterFragment : Fragment() {
 
     private lateinit var fotoUser: Bitmap
     private var updatePhoto = false
+
+    private lateinit var dialog: AlertDialog
+    private var timerActive = false
 
     private lateinit var ccp : CountryCodePicker
 
@@ -170,6 +178,8 @@ class RegisterFragment : Fragment() {
 
                             if (response != null && response is ApiInterface.User) {
 
+                                showDialogVerifyEmail(response.id!!)
+
                             }
                             else {
 
@@ -201,6 +211,200 @@ class RegisterFragment : Fragment() {
             App.instance.mainActivity!!.popupError(erro)
 
         }
+
+    }
+
+    private fun showDialogVerifyEmail(id: String) {
+
+        val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_verify_email, null)
+
+        val builder = AlertDialog.Builder(requireContext())
+            .setView(mDialogView)
+            .setCancelable(false)
+
+        dialog = builder.create()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val timer = mDialogView.findViewById<TextView>(R.id.timer)
+        val resendCodeBtn = mDialogView.findViewById<TextView>(R.id.resendCode_btn)
+        val cancelBtn = mDialogView.findViewById<View>(R.id.cancel_btn)
+        val rlprogresverify = mDialogView.findViewById<View>(R.id.rlprogresverify)
+
+        val otpNumber1 = mDialogView.findViewById<EditText>(R.id.otp_number_1)
+        val otpNumber2 = mDialogView.findViewById<EditText>(R.id.otp_number_2)
+        val otpNumber3 = mDialogView.findViewById<EditText>(R.id.otp_number_3)
+        val otpNumber4 = mDialogView.findViewById<EditText>(R.id.otp_number_4)
+
+        otpNumber1.requestFocus()
+
+        otpNumber1.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber1.setText("")
+
+                return@setOnKeyListener true
+            }
+            if (Utils.isKeyCodeNumber(keyCode) && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber2.requestFocus()
+
+            }
+            return@setOnKeyListener false
+        }
+
+        otpNumber2.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber2.setText("")
+                otpNumber1.requestFocus()
+
+                return@setOnKeyListener true
+            }
+            if (Utils.isKeyCodeNumber(keyCode) && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber3.requestFocus()
+
+            }
+            return@setOnKeyListener false
+        }
+
+        otpNumber3.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber3.setText("")
+                otpNumber2.requestFocus()
+
+                return@setOnKeyListener true
+            }
+            if (Utils.isKeyCodeNumber(keyCode) && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber4.requestFocus()
+
+            }
+            return@setOnKeyListener false
+        }
+
+        otpNumber4.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber4.setText("")
+                otpNumber3.requestFocus()
+
+                return@setOnKeyListener true
+            }
+            if (Utils.isKeyCodeNumber(keyCode) && event.action == KeyEvent.ACTION_UP) {
+
+                otpNumber4.clearFocus()
+                otpNumber4.hideKeyboard()
+
+            }
+            return@setOnKeyListener false
+        }
+
+        val countDownTimer = object : CountDownTimer(120000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                //timer.text = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60).toString()
+                timer.text = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
+            }
+
+            override fun onFinish() {
+                timerActive = false
+                timer.visibility = View.GONE
+                resendCodeBtn.visibility = View.VISIBLE
+            }
+
+        }
+
+        resendCodeBtn.setOnClickListener {
+
+            resendCodeBtn.visibility = View.GONE
+            rlprogresverify.visibility = View.VISIBLE
+
+            App.instance.backOffice.resendCodeEmail(object : Listener<Any> {
+                override fun onResponse(response: Any?) {
+
+                    resendCodeBtn.visibility = View.VISIBLE
+                    rlprogresverify.visibility = View.GONE
+
+                    resendCodeBtn.visibility = View.GONE
+
+                    if (isAdded) {
+                        if (response == null) {
+
+                            countDownTimer.start()
+                            timerActive = true
+                            timer.visibility = View.VISIBLE
+
+                        }
+                        else {
+
+                            resendCodeBtn.visibility = View.VISIBLE
+
+                        }
+                    }
+
+                }
+
+            }, id)
+
+        }
+
+        val errorMessage = mDialogView.findViewById<TextView>(R.id.error)
+
+        val continueButton = mDialogView.findViewById<View>(R.id.continue_btn)
+        continueButton.setOnClickListener {
+
+            val code = otpNumber1.text.toString()+otpNumber2.text.toString()+otpNumber3.text.toString()+otpNumber4.text.toString()
+
+            val validCode = Utils.validCode(code)
+
+            if (validCode) {
+
+                loadingDialog.startLoading()
+                App.instance.backOffice.verifyCodeEmail(object : Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        loadingDialog.isDismiss()
+
+                        if (isAdded) {
+                            if (response == null) {
+                                errorMessage.visibility = View.INVISIBLE
+                                dialog.dismiss()
+                                Toast.makeText(activity, getString(R.string.register_success), Toast.LENGTH_SHORT).show()
+                                requireActivity().onBackPressed()
+                            }
+                            else {
+                                errorMessage.text = response.toString()
+                                errorMessage.visibility = View.VISIBLE
+                                //App.instance.mainActivity.popupError(response.toString())
+                            }
+                        }
+
+                    }
+
+                }, id, code)
+
+            }
+            else {
+
+                errorMessage.text = getString(R.string.invalid_code)
+                errorMessage.visibility = View.VISIBLE
+
+            }
+
+        }
+
+        cancelBtn.setOnClickListener {
+            if (timerActive) countDownTimer.cancel()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        countDownTimer.start()
+        timerActive = true
 
     }
 
