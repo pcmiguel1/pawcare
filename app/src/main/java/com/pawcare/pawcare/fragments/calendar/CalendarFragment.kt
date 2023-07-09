@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentCalendarBinding
@@ -116,9 +117,48 @@ class CalendarFragment : Fragment() {
 
                         if (isAdded) {
 
-                            if (response == null) {
+                            if (response != null && response is ApiInterface.Booking) {
 
                                 addEventsToList()
+
+                                val notification = JsonObject()
+                                notification.addProperty("userId", item.userId)
+                                notification.addProperty("title", "Booking status change")
+
+                                if (!response.petpicketup && !response.inprogress && !response.returning && !response.completed) {
+                                    notification.addProperty("body", "The booking status has changed to ${response.status}")
+                                }
+                                else {
+
+                                    if (response.petpicketup && !response.inprogress && !response.returning && !response.completed) {
+                                        notification.addProperty("body", "The booking status has changed to pet picketup")
+                                    }
+                                    else if (response.petpicketup && response.inprogress && !response.returning && !response.completed) {
+                                        notification.addProperty("body", "The booking status has changed to in progress")
+                                    }
+                                    else if (response.petpicketup && response.inprogress && response.returning && !response.completed) {
+                                        notification.addProperty("body", "The booking status has changed to returning")
+                                    }
+                                    else if (response.petpicketup && response.inprogress && response.returning && response.completed) {
+                                        notification.addProperty("body", "The booking status has changed to completed")
+                                    }
+
+                                }
+
+                                App.instance.backOffice.sendNotification(object : Listener<Any> {
+                                    override fun onResponse(response: Any?) {
+
+                                        if (isAdded) {
+
+                                            if (response != null && response is ApiInterface.Notification) {
+
+                                            }
+
+                                        }
+
+                                    }
+
+                                }, notification)
 
                             }
 

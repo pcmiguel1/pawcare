@@ -200,7 +200,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/empty"
@@ -209,9 +210,9 @@
                     android:text="No content available!"
                     android:fontFamily="@font/urbanist_regular"
                     android:textSize="15sp"
+                    android:layout_marginTop="15dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:visibility="gone"/>
 
             </LinearLayout>

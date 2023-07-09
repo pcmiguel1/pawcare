@@ -23,7 +23,7 @@ class App : MultiDexApplication(), DefaultLifecycleObserver {
         instance = this
         preferences = this.getSharedPreferences("pawcare", Context.MODE_PRIVATE)
 
-        //initFirebase()
+        initFirebase()
 
         initBackend()
 

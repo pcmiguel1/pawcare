@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
@@ -519,6 +520,17 @@ class LoginFragment : Fragment() {
                         checkboxRemember.isEnabled = true
 
                         if (response != null && response is JsonObject && response.getAsJsonObject("user") != null) {
+
+                            if (FirebaseMessaging.getInstance() != null) {
+                                FirebaseMessaging.getInstance().getToken().addOnSuccessListener(requireActivity()) { instanceIdResult ->
+                                    val newToken = instanceIdResult
+
+                                    if (newToken != null) {
+                                        //App.instance.preferences.edit().putString("NotificationCode", newToken).apply()
+                                        App.instance.backOffice.postNotificationToken(newToken)
+                                    }
+                                }
+                            }
 
                             getMyLocation()
 

@@ -413,16 +413,16 @@ class BackOffice(
 
     fun updateStateBooking(listener: Listener<Any>?, id: String) {
 
-        apiInterface.updateStateBooking(id).enqueue(object : Callback<Void>() {
+        apiInterface.updateStateBooking(id).enqueue(object : Callback<ApiInterface.Booking>() {
             override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>
+                call: Call<ApiInterface.Booking>,
+                response: Response<ApiInterface.Booking>
             ) {
                 if (response.isSuccessful) {
 
                     try {
 
-                        listener?.onResponse(null)
+                        listener?.onResponse(response.body())
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -434,7 +434,7 @@ class BackOffice(
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<ApiInterface.Booking>, t: Throwable) {
                 clientError(t, null)
             }
 
@@ -891,6 +891,28 @@ class BackOffice(
         })
     }
 
+    fun postNotificationToken(token: String) {
+
+        val jsonObject = JsonObject()
+
+        jsonObject.addProperty("token", token)
+
+        apiInterface.postNotificationToken(jsonObject).enqueue(object : Callback<Void>() {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("postNotCode", "notification code sent")
+                } else
+                    serverError(call, response, null)
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
     fun getServices(listener: Listener<Any>?) {
 
         apiInterface.getServices().enqueue(object : Callback<Void>() {
@@ -1319,6 +1341,30 @@ class BackOffice(
 
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun sendNotification(listener: Listener<Any>?, notification: JsonObject) {
+
+        apiInterface.sendNotification(notification).enqueue(object : retrofit2.Callback<ApiInterface.Notification> {
+            override fun onResponse(
+                call: Call<ApiInterface.Notification>,
+                response: Response<ApiInterface.Notification>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiInterface.Notification>, t: Throwable) {
                 clientError(t, null)
             }
 

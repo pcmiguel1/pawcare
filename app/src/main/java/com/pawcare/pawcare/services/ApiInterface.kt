@@ -12,6 +12,14 @@ import java.util.Date
 
 interface ApiInterface {
 
+    @Headers("Content-Type: application/json")
+    @POST("notification/postToken")
+    fun postNotificationToken(@Body jsonObject: JsonObject) : Call<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("notification/send")
+    fun sendNotification(@Body jsonObject: JsonObject) : Call<Notification>
+
     @GET("auth/services")
     fun getServices() : Call<Void>
 
@@ -205,7 +213,7 @@ interface ApiInterface {
     @POST("sitter/booking/update/{id}")
     fun updateStateBooking(
         @Path(value = "id", encoded = true) id : String
-    ) : Call<Void>
+    ) : Call<Booking>
 
     @Headers("Content-Type: application/json")
     @POST("user/booking/cancel/{id}")
@@ -272,6 +280,22 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @GET("sitter/income")
     fun income() : Call<Income>
+
+    class Notification {
+
+        @SerializedName("_id")
+        var id: String? = null
+
+        @SerializedName("userId")
+        var userId: String? = null
+
+        @SerializedName("title")
+        var title: String? = null
+
+        @SerializedName("body")
+        var body: String? = null
+
+    }
 
     class Income {
 

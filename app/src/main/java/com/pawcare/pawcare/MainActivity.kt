@@ -3,6 +3,7 @@ package com.pawcare.pawcare
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -22,6 +23,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.pawcare.pawcare.fragments.bookings.BookingsFragment
 import com.pawcare.pawcare.fragments.explore.ExploreFragment
 import com.pawcare.pawcare.fragments.inbox.ChatFragment
@@ -51,7 +53,23 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav)
 
+        if (!checkNotificationPermission()) {
+            requestNotificationPermission()
+        }
+
         if (App.instance.preferences.getBoolean("stayLoggedIn", false)) {
+
+            if (FirebaseMessaging.getInstance() != null) {
+                FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this) { instanceIdResult ->
+                    val newToken = instanceIdResult
+
+                    if (newToken != null) {
+                        //App.instance.preferences.edit().putString("NotificationCode", newToken).apply()
+                        App.instance.backOffice.postNotificationToken(newToken)
+                    }
+                }
+            }
+
             getMyLocation()
             if (App.instance.preferences.getBoolean("SITTER", false)) {
                 graph.setStartDestination(R.id.dashboardFragment)
@@ -268,6 +286,19 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 123
+    }
+
+    private fun checkNotificationPermission(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val result = ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.POST_NOTIFICATIONS)
+            result == PackageManager.PERMISSION_GRANTED
+        } else true
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 2)
+        }
     }
 
 }

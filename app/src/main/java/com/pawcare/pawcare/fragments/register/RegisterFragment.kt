@@ -229,6 +229,7 @@ class RegisterFragment : Fragment() {
         val resendCodeBtn = mDialogView.findViewById<TextView>(R.id.resendCode_btn)
         val cancelBtn = mDialogView.findViewById<View>(R.id.cancel_btn)
         val rlprogresverify = mDialogView.findViewById<View>(R.id.rlprogresverify)
+        val continueButton = mDialogView.findViewById<View>(R.id.continue_btn)
 
         val otpNumber1 = mDialogView.findViewById<EditText>(R.id.otp_number_1)
         val otpNumber2 = mDialogView.findViewById<EditText>(R.id.otp_number_2)
@@ -321,15 +322,9 @@ class RegisterFragment : Fragment() {
         resendCodeBtn.setOnClickListener {
 
             resendCodeBtn.visibility = View.GONE
-            rlprogresverify.visibility = View.VISIBLE
 
             App.instance.backOffice.resendCodeEmail(object : Listener<Any> {
                 override fun onResponse(response: Any?) {
-
-                    resendCodeBtn.visibility = View.VISIBLE
-                    rlprogresverify.visibility = View.GONE
-
-                    resendCodeBtn.visibility = View.GONE
 
                     if (isAdded) {
                         if (response == null) {
@@ -340,8 +335,6 @@ class RegisterFragment : Fragment() {
 
                         }
                         else {
-
-                            resendCodeBtn.visibility = View.VISIBLE
 
                         }
                     }
@@ -354,7 +347,6 @@ class RegisterFragment : Fragment() {
 
         val errorMessage = mDialogView.findViewById<TextView>(R.id.error)
 
-        val continueButton = mDialogView.findViewById<View>(R.id.continue_btn)
         continueButton.setOnClickListener {
 
             val code = otpNumber1.text.toString()+otpNumber2.text.toString()+otpNumber3.text.toString()+otpNumber4.text.toString()
@@ -363,11 +355,14 @@ class RegisterFragment : Fragment() {
 
             if (validCode) {
 
-                loadingDialog.startLoading()
+                continueButton.visibility = View.GONE
+                rlprogresverify.visibility = View.VISIBLE
+
                 App.instance.backOffice.verifyCodeEmail(object : Listener<Any> {
                     override fun onResponse(response: Any?) {
 
-                        loadingDialog.isDismiss()
+                        continueButton.visibility = View.VISIBLE
+                        rlprogresverify.visibility = View.GONE
 
                         if (isAdded) {
                             if (response == null) {
