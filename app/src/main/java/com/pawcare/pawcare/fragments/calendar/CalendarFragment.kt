@@ -103,6 +103,71 @@ class CalendarFragment : Fragment() {
         calendarEventsAdapter = CalendarEventsAdapter(events)
         recyclerViewEvents.adapter = calendarEventsAdapter
 
+        calendarEventsAdapter.setOnItemClickListener3(object : CalendarEventsAdapter.onItemClickListener3 {
+            override fun onItemClick(position: Int) {
+
+                val item = calendarEventsAdapter.getItem(position)
+
+                val bundle = Bundle()
+                bundle.putParcelable("BOOKING", item)
+                findNavController().navigate(R.id.action_calendarFragment_to_bookingDetailsSitterFragment, bundle)
+
+
+
+            }
+        })
+
+        calendarEventsAdapter.setOnItemClickListener2(object : CalendarEventsAdapter.onItemClickListener2 {
+            override fun onItemClick(position: Int) {
+
+                val item = calendarEventsAdapter.getItem(position)
+
+                loadingDialog.startLoading()
+
+                App.instance.backOffice.cancelBooking(object: Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        loadingDialog.isDismiss()
+
+                        if (isAdded) {
+
+                            if (response == null) {
+
+                                //Toast.makeText(activity, "Booking canceled!", Toast.LENGTH_SHORT).show()
+                                addEventsToList()
+
+                                val notification = JsonObject()
+                                notification.addProperty("userId", item.userId)
+                                notification.addProperty("title", "Booking status change")
+                                notification.addProperty("body", "The booking status has changed to canceled")
+
+                                App.instance.backOffice.sendNotification(object : Listener<Any> {
+                                    override fun onResponse(response: Any?) {
+
+                                        if (isAdded) {
+
+                                            if (response != null && response is ApiInterface.Notification) {
+
+                                            }
+
+                                        }
+
+                                    }
+
+                                }, notification)
+
+                            }
+
+                        }
+
+                    }
+
+                }, item.id!!)
+
+            }
+
+        })
+
         calendarEventsAdapter.setOnItemClickListener(object : CalendarEventsAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
 

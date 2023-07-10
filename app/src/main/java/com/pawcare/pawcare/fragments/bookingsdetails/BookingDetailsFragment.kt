@@ -298,7 +298,7 @@ class BookingDetailsFragment : Fragment(), PetAdapter.PetAdapterCallback {
                                 Toast.makeText(activity, "Booking submitted successfully!", Toast.LENGTH_SHORT).show()
 
                                 val navOptions = NavOptions.Builder()
-                                    .setPopUpTo(R.id.bookingDetailsFragment, true)
+                                    .setPopUpTo(R.id.bookingDetailsFragment, false)
                                     .build()
 
                                 val bundle = Bundle()

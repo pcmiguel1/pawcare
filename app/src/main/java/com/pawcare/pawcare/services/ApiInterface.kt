@@ -281,6 +281,16 @@ interface ApiInterface {
     @GET("sitter/income")
     fun income() : Call<Income>
 
+    @Headers("Content-Type: application/json")
+    @GET("user/notifications")
+    fun getNotifications() : Call<List<Notification>>
+
+    @Headers("Content-Type: application/json")
+    @POST("notification/delete/{id}")
+    fun deleteNotification(
+        @Path(value = "id", encoded = true) id : String
+    ) : Call<Void>
+
     class Notification {
 
         @SerializedName("_id")
@@ -294,6 +304,9 @@ interface ApiInterface {
 
         @SerializedName("body")
         var body: String? = null
+
+        @SerializedName("date")
+        var date: Date? = null
 
     }
 
@@ -414,7 +427,7 @@ interface ApiInterface {
 
     }
 
-    class Booking() {
+    class Booking() : Parcelable {
 
         @SerializedName("_id")
         var id: String? = null
@@ -481,6 +494,74 @@ interface ApiInterface {
 
         @SerializedName("review")
         var review: Review? = null
+
+        @SerializedName("user")
+        var user: User? = null
+
+        @SerializedName("pets")
+        var pets: List<Pet>? = null
+
+        constructor(parcel: Parcel) : this() {
+            id = parcel.readString()
+            userId = parcel.readString()
+            sitterId = parcel.readString()
+            startDate = parcel.readString()
+            endDate = parcel.readString()
+            serviceType = parcel.readString()
+            status = parcel.readString()
+            location = parcel.readString()
+            message = parcel.readString()
+            petpicketup = parcel.readByte() != 0.toByte()
+            timepetpicketup = parcel.readString()
+            inprogress = parcel.readByte() != 0.toByte()
+            timeinprogress = parcel.readString()
+            returning = parcel.readByte() != 0.toByte()
+            timereturning = parcel.readString()
+            completed = parcel.readByte() != 0.toByte()
+            timecompleted = parcel.readString()
+            total = parcel.readString()
+            image = parcel.readString()
+            name = parcel.readString()
+            pets = parcel.createTypedArrayList(Pet)
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(id)
+            parcel.writeString(userId)
+            parcel.writeString(sitterId)
+            parcel.writeString(startDate)
+            parcel.writeString(endDate)
+            parcel.writeString(serviceType)
+            parcel.writeString(status)
+            parcel.writeString(location)
+            parcel.writeString(message)
+            parcel.writeByte(if (petpicketup) 1 else 0)
+            parcel.writeString(timepetpicketup)
+            parcel.writeByte(if (inprogress) 1 else 0)
+            parcel.writeString(timeinprogress)
+            parcel.writeByte(if (returning) 1 else 0)
+            parcel.writeString(timereturning)
+            parcel.writeByte(if (completed) 1 else 0)
+            parcel.writeString(timecompleted)
+            parcel.writeString(total)
+            parcel.writeString(image)
+            parcel.writeString(name)
+            parcel.writeTypedList(pets)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Booking> {
+            override fun createFromParcel(parcel: Parcel): Booking {
+                return Booking(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Booking?> {
+                return arrayOfNulls(size)
+            }
+        }
 
     }
 

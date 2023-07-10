@@ -645,6 +645,36 @@ class BackOffice(
         })
     }
 
+    fun deleteNotification(listener: Listener<Any>?, id: String) {
+
+        apiInterface.deleteNotification(id).enqueue(object : Callback<Void>() {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+
+                    try {
+
+                        listener?.onResponse(null)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        serverError(call, response, listener)
+                    }
+
+                } else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+    }
+
     fun sendMessage(listener: Listener<Any>?, message: JsonObject) {
 
         apiInterface.sendMessage(message).enqueue(object : Callback<ApiInterface.Message>() {
@@ -1022,6 +1052,30 @@ class BackOffice(
             }
 
             override fun onFailure(call: Call<List<ApiInterface.Booking>>, t: Throwable) {
+                clientError(t, null)
+            }
+
+        })
+
+    }
+
+    fun getNotifications(listener: Listener<Any>?) {
+
+        apiInterface.getNotifications().enqueue(object : retrofit2.Callback<List<ApiInterface.Notification>> {
+            override fun onResponse(
+                call: Call<List<ApiInterface.Notification>>,
+                response: Response<List<ApiInterface.Notification>>
+            ) {
+                if (response.isSuccessful) {
+
+                    listener?.onResponse(response.body())
+                }
+                else {
+                    serverError(call, response, listener)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiInterface.Notification>>, t: Throwable) {
                 clientError(t, null)
             }
 

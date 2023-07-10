@@ -247,5 +247,14 @@
         android:id="@+id/calendarFragment"
         android:name="com.pawcare.pawcare.fragments.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_bookingDetailsSitterFragment"
+            app:destination="@id/bookingDetailsSitterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingDetailsSitterFragment"
+        android:name="com.pawcare.pawcare.fragments.bookingsdetails.BookingDetailsSitterFragment"
+        android:label="fragment_booking_details_sitter"
+        tools:layout="@layout/fragment_booking_details_sitter" />
 </navigation>

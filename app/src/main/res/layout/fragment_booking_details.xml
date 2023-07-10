@@ -11,538 +11,546 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_above="@id/continue_btn"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <include
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"
+                android:layout_height="wrap_content" />
 
-                <include
-                    android:layout_width="match_parent"
-                    android:id="@+id/toolbar"
-                    layout="@layout/toolbar"
-                    android:layout_height="wrap_content" />
+            <ScrollView
+                android:layout_above="@id/continue_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:id="@+id/form"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Service"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/urbanist_semibold"
-                        android:textSize="20sp" />
-
                     <LinearLayout
-                        android:id="@+id/petwalking"
-                        android:visibility="gone"
-                        android:layout_marginTop="15dp"
+                        android:id="@+id/form"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/walking_dashboard"/>
-
-                        <LinearLayout
+                        <TextView
+                            android:layout_marginTop="20dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:text="Service"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/urbanist_semibold"
+                            android:textSize="20sp" />
 
-                            <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pet Walking"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_semibold"
-                                    android:textSize="15sp"/>
-
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="A nice walk for your pet"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/petwalking"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
 
                             <ImageView
-                                android:id="@+id/petwalking_check"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_round_check_24"
-                                android:visibility="gone"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/petboarding"
-                        android:visibility="gone"
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/boarding2"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/walking_dashboard"/>
 
                             <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pet Boarding"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_semibold"
-                                    android:textSize="15sp"/>
-
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Stay with the sitter, day and night"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/petboarding_check"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_round_check_24"
-                                android:visibility="gone"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/housesitting"
-                        android:visibility="gone"
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/adoption"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="House Sitting"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_semibold"
-                                    android:textSize="15sp"/>
-
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="The sitter will stay at your home"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/housesitting_check"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_round_check_24"
-                                android:visibility="gone"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/pettraining"
-                        android:visibility="gone"
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/training2"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pet Training"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_semibold"
-                                    android:textSize="15sp"/>
-
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Stay with the sitter during the day"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/pettraining_check"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_round_check_24"
-                                android:visibility="gone"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/petgrooming"
-                        android:visibility="gone"
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/grooming"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pet Grooming"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_semibold"
-                                    android:textSize="15sp"/>
-
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Stay with the sitter during the day"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/petgrooming_check"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_round_check_24"
-                                android:visibility="gone"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/cinza"/>
-
-                    <LinearLayout
-                        android:id="@+id/dateBtn"
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/calendar"
-                            app:tint="@color/primaryColor" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
+                                android:orientation="horizontal">
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Dates"
+                                        android:text="Pet Walking"
                                         android:textColor="@color/text_color"
                                         android:fontFamily="@font/urbanist_semibold"
                                         android:textSize="15sp"/>
 
                                     <TextView
-                                        android:id="@+id/dates"
-                                        android:layout_marginStart="15dp"
+                                        android:layout_marginTop="5dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/text_color2"
+                                        android:text="A nice walk for your pet"
+                                        android:textColor="@color/text_color"
                                         android:fontFamily="@font/urbanist_regular"
-                                        android:textSize="13sp"/>
+                                        android:textSize="12sp"/>
 
                                 </LinearLayout>
 
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="You can't book more than 180 days in advance"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
+                                <ImageView
+                                    android:id="@+id/petwalking_check"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_round_check_24"
+                                    android:visibility="gone"/>
 
                             </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/arrow_right" />
-
                         </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/cinza"/>
-
-                    <LinearLayout
-                        android:layout_marginTop="15dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/location"
-                            app:tint="@color/primaryColor" />
 
                         <LinearLayout
+                            android:id="@+id/petboarding"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/boarding2"/>
 
                             <LinearLayout
-                                android:layout_marginStart="15dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/location"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/text_color"
-                                    android:fontFamily="@font/urbanist_regular"
-                                    android:textSize="12sp"/>
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pet Boarding"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_semibold"
+                                        android:textSize="15sp"/>
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Stay with the sitter, day and night"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/petboarding_check"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_round_check_24"
+                                    android:visibility="gone"/>
 
                             </LinearLayout>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/housesitting"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
                             <ImageView
-                                android:id="@+id/myLocationBtn"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/location2"
-                                app:tint="@color/primaryLightColor" />
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/adoption"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="House Sitting"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_semibold"
+                                        android:textSize="15sp"/>
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="The sitter will stay at your home"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/housesitting_check"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_round_check_24"
+                                    android:visibility="gone"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/pettraining"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pets"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/urbanist_semibold"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="5dp"/>
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/training2"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="15dp"
-                        android:id="@+id/pets"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/empty"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="No content available!"
-                        android:fontFamily="@font/urbanist_regular"
-                        android:textSize="15sp"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:gravity="center"/>
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Message"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/urbanist_semibold"
-                        android:textSize="20sp"
-                        android:layout_marginBottom="5dp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pet Training"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_semibold"
+                                        android:textSize="15sp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Share some info about your pet(s) if necessary!"
-                        android:textColor="@color/text_color"
-                        android:fontFamily="@font/urbanist_regular"
-                        android:textSize="13sp" />
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Stay with the sitter during the day"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
 
-                    <FrameLayout
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:background="@drawable/custom_button"
-                        android:backgroundTint="@color/input_background"
-                        android:paddingHorizontal="15dp"
-                        android:layout_marginBottom="20dp">
+                                </LinearLayout>
 
-                        <EditText
-                            android:id="@+id/message"
+                                <ImageView
+                                    android:id="@+id/pettraining_check"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_round_check_24"
+                                    android:visibility="gone"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/petgrooming"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/grooming"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pet Grooming"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_semibold"
+                                        android:textSize="15sp"/>
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Stay with the sitter during the day"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/petgrooming_check"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_round_check_24"
+                                    android:visibility="gone"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/cinza"/>
+
+                        <LinearLayout
+                            android:id="@+id/dateBtn"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/calendar"
+                                app:tint="@color/primaryColor" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Dates"
+                                            android:textColor="@color/text_color"
+                                            android:fontFamily="@font/urbanist_semibold"
+                                            android:textSize="15sp"/>
+
+                                        <TextView
+                                            android:id="@+id/dates"
+                                            android:layout_marginStart="15dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/text_color2"
+                                            android:fontFamily="@font/urbanist_regular"
+                                            android:textSize="13sp"/>
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="You can't book more than 180 days in advance"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/arrow_right" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/cinza"/>
+
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/location"
+                                app:tint="@color/primaryColor" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_marginStart="15dp"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/location"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/text_color"
+                                        android:fontFamily="@font/urbanist_regular"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/myLocationBtn"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/location2"
+                                    app:tint="@color/primaryLightColor" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pets"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/urbanist_semibold"
+                            android:textSize="20sp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="15dp"
+                            android:id="@+id/pets"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"/>
+
+                        <TextView
+                            android:id="@+id/empty"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine"
-                            android:textColor="@color/text_color"
-                            android:textColorHint="@color/placeholder"
-                            android:backgroundTint="@android:color/transparent"
-                            android:textCursorDrawable="@null"
+                            android:text="No content available!"
                             android:fontFamily="@font/urbanist_regular"
-                            android:textSize="16sp"
-                            android:gravity="start"/>
+                            android:textSize="15sp"
+                            android:textAlignment="center"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
 
-                    </FrameLayout>
+                        <TextView
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Message"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/urbanist_semibold"
+                            android:textSize="20sp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Share some info about your pet(s) if necessary!"
+                            android:textColor="@color/text_color"
+                            android:fontFamily="@font/urbanist_regular"
+                            android:textSize="13sp" />
+
+                        <FrameLayout
+                            android:layout_marginTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:background="@drawable/custom_button"
+                            android:backgroundTint="@color/input_background"
+                            android:paddingHorizontal="15dp"
+                            android:layout_marginBottom="20dp">
+
+                            <EditText
+                                android:id="@+id/message"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="textMultiLine"
+                                android:textColor="@color/text_color"
+                                android:textColorHint="@color/placeholder"
+                                android:backgroundTint="@android:color/transparent"
+                                android:textCursorDrawable="@null"
+                                android:fontFamily="@font/urbanist_regular"
+                                android:textSize="16sp"
+                                android:gravity="start"/>
+
+                        </FrameLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
 
-        </ScrollView>
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/continue_btn"

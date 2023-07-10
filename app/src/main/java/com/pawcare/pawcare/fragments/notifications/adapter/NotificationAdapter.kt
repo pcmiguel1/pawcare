@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.pawcare.pawcare.R
-import com.pawcare.pawcare.fragments.notifications.model.Notification
+import com.pawcare.pawcare.services.ApiInterface
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationAdapter(
     private val frag: Fragment,
-    private val dataset: MutableList<Notification>
+    private val dataset: MutableList<ApiInterface.Notification>
 ): RecyclerView.Adapter<NotificationAdapter.ItemViewHolder>() {
 
     private lateinit var mListener : onItemClickListener
@@ -24,7 +26,7 @@ class NotificationAdapter(
         mListener = listener
     }
 
-    class ItemViewHolder(itemView: View, listener: onItemClickListener, dataset: List<Notification>): RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(itemView: View, listener: onItemClickListener, dataset: List<ApiInterface.Notification>): RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title)
         val desc: TextView = itemView.findViewById(R.id.desc)
         val time: TextView = itemView.findViewById(R.id.time)
@@ -52,8 +54,13 @@ class NotificationAdapter(
         val item = dataset[position]
 
         holder.title.text = item.title
-        holder.desc.text = item.desc
-        holder.time.text = item.time
+        holder.desc.text = item.body
+
+        val dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
+        val date = item.date
+        val formattedDate = dateFormat.format(date)
+
+        holder.time.text = formattedDate
 
     }
 
@@ -62,7 +69,7 @@ class NotificationAdapter(
         notifyItemRemoved(position)
     }
 
-    fun getItem(position: Int): Notification {
+    fun getItem(position: Int): ApiInterface.Notification {
         return dataset[position]
     }
 

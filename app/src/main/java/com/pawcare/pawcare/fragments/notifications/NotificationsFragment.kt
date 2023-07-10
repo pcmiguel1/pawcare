@@ -16,17 +16,21 @@ import com.pawcare.pawcare.App
 import com.pawcare.pawcare.R
 import com.pawcare.pawcare.databinding.FragmentNotificationsBinding
 import com.pawcare.pawcare.fragments.notifications.adapter.NotificationAdapter
-import com.pawcare.pawcare.fragments.notifications.model.Notification
+import com.pawcare.pawcare.libraries.LoadingDialog
 import com.pawcare.pawcare.libraries.SwipeToDeleteCallback
+import com.pawcare.pawcare.services.ApiInterface
+import com.pawcare.pawcare.services.Listener
 
 
 class NotificationsFragment : Fragment() {
 
     private var binding: FragmentNotificationsBinding? = null
 
-    private var notifications: MutableList<Notification> = mutableListOf()
+    private var notifications: MutableList<ApiInterface.Notification> = mutableListOf()
     private lateinit var recyclerView: RecyclerView
     private lateinit var notificationAdapter: NotificationAdapter
+
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +48,8 @@ class NotificationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadingDialog = LoadingDialog(requireContext())
 
         binding!!.toolbar.title.text = getString(R.string.notifications)
 
@@ -74,7 +80,25 @@ class NotificationsFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-                notificationAdapter.removeAt(viewHolder.adapterPosition)
+                val item = notificationAdapter.getItem(viewHolder.absoluteAdapterPosition)
+
+                App.instance.backOffice.deleteNotification(object : Listener<Any> {
+                    override fun onResponse(response: Any?) {
+
+                        if (isAdded) {
+
+                            if (response == null) {
+
+
+
+                            }
+
+                        }
+
+                    }
+                }, item.id!!)
+
+                notificationAdapter.removeAt(viewHolder.absoluteAdapterPosition)
 
             }
 
@@ -102,22 +126,43 @@ class NotificationsFragment : Fragment() {
 
         notifications.clear()
 
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
-        notifications.add(Notification("ffffffff", "dafaffa", "18/05/2023 10:00"))
+        loadingDialog.startLoading()
 
-        if (notifications.isNotEmpty()) {
-            recyclerView.visibility = View.VISIBLE
-            notificationAdapter.notifyDataSetChanged()
-        } else {
-            Toast.makeText(requireContext(), "No Notifications!", Toast.LENGTH_SHORT).show()
-        }
+        App.instance.backOffice.getNotifications(object : Listener<Any> {
+            override fun onResponse(response: Any?) {
 
+                loadingDialog.isDismiss()
+
+                if (isAdded) {
+
+                    if (response != null && response is List<*>) {
+
+                        val list = response as List<ApiInterface.Notification>
+
+                        if (list.isNotEmpty()) {
+
+                            binding!!.notificationsList.visibility = View.VISIBLE
+                            binding!!.empty.visibility = View.GONE
+                            notifications.addAll(list)
+                            notificationAdapter.notifyDataSetChanged()
+
+                        }
+                        else {
+                            binding!!.notificationsList.visibility = View.GONE
+                            binding!!.empty.visibility = View.VISIBLE
+                        }
+
+                    }
+                    else {
+                        binding!!.notificationsList.visibility = View.GONE
+                        binding!!.empty.visibility = View.VISIBLE
+                    }
+
+                }
+
+            }
+
+        })
 
     }
 

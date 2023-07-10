@@ -25,8 +25,18 @@ class CalendarEventsAdapter(private val list: List<ApiInterface.Booking>) :
     RecyclerView.Adapter<CalendarEventsAdapter.ItemViewHolder>() {
 
     private lateinit var mListener : onItemClickListener
+    private lateinit var mListener2 : onItemClickListener2
+    private lateinit var mListener3 : onItemClickListener3
 
     interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    interface onItemClickListener2 {
+        fun onItemClick(position: Int)
+    }
+
+    interface onItemClickListener3 {
         fun onItemClick(position: Int)
     }
 
@@ -34,7 +44,15 @@ class CalendarEventsAdapter(private val list: List<ApiInterface.Booking>) :
         mListener = listener
     }
 
-    class ItemViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
+    fun setOnItemClickListener2(listener: onItemClickListener2) {
+        mListener2 = listener
+    }
+
+    fun setOnItemClickListener3(listener: onItemClickListener3) {
+        mListener3 = listener
+    }
+
+    class ItemViewHolder(itemView: View, listener: onItemClickListener, listener2: onItemClickListener2, listener3: onItemClickListener3) : RecyclerView.ViewHolder(itemView) {
         val serviceType : TextView = itemView.findViewById(R.id.servicetype)
         val address : TextView = itemView.findViewById(R.id.address)
         val day : TextView = itemView.findViewById(R.id.day)
@@ -44,10 +62,17 @@ class CalendarEventsAdapter(private val list: List<ApiInterface.Booking>) :
         val status : TextView = itemView.findViewById(R.id.status)
         val updateState : AppCompatButton = itemView.findViewById(R.id.update_state)
         val cancel : View = itemView.findViewById(R.id.cancel_btn)
+        val detailsBtn : View = itemView.findViewById(R.id.detailsBtn)
 
         init {
             updateState.setOnClickListener {
                 listener.onItemClick(absoluteAdapterPosition)
+            }
+            cancel.setOnClickListener {
+                listener2.onItemClick(absoluteAdapterPosition)
+            }
+            detailsBtn.setOnClickListener {
+                listener3.onItemClick(absoluteAdapterPosition)
             }
         }
 
@@ -55,7 +80,7 @@ class CalendarEventsAdapter(private val list: List<ApiInterface.Booking>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_event_calendar, parent, false)
-        return ItemViewHolder(view, mListener)
+        return ItemViewHolder(view, mListener, mListener2, mListener3)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
