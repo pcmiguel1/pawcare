@@ -174,8 +174,8 @@ class ApplicationAnswerFragment : Fragment() {
 
                                 if (response == null) {
 
-                                    findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
-
+                                    //findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+                                    findNavController().popBackStack()
                                 }
 
                             }
@@ -319,8 +319,8 @@ class ApplicationAnswerFragment : Fragment() {
 
                                 if (response == null) {
 
-                                    findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
-
+                                    //findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+                                    findNavController().popBackStack()
                                 }
 
                             }
@@ -403,8 +403,8 @@ class ApplicationAnswerFragment : Fragment() {
 
                                 if (response == null) {
 
-                                    findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
-
+                                    //findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+                                    findNavController().popBackStack()
                                 }
 
                             }
@@ -578,8 +578,8 @@ class ApplicationAnswerFragment : Fragment() {
 
                                 if (response == null) {
 
-                                    findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
-
+                                    //findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+                                    findNavController().popBackStack()
                                 }
 
                             }
@@ -928,8 +928,9 @@ class ApplicationAnswerFragment : Fragment() {
                                 errorMessage.visibility = View.INVISIBLE
                                 dialog.dismiss()
                                 Toast.makeText(activity, "Phone Number verified successfully!", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
+                                //findNavController().navigate(R.id.action_applicationAnswerFragment_to_progressApplicationFragment)
                                 //requireActivity().onBackPressed()
+                                findNavController().popBackStack()
                             }
                             else {
                                 errorMessage.text = response.toString()

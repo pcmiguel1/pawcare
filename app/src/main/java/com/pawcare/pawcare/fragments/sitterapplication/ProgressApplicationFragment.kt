@@ -293,8 +293,8 @@ class ProgressApplicationFragment : Fragment() {
                             if (response == null) {
 
                                 Toast.makeText(requireContext(), "Successfully submitted!", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_progressApplicationFragment_to_profileFragment2)
-
+                                //findNavController().navigate(R.id.action_progressApplicationFragment_to_profileFragment2)
+                                findNavController().popBackStack()
                             }
 
                         }

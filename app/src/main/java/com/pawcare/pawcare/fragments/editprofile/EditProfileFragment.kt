@@ -243,7 +243,8 @@ class EditProfileFragment : Fragment() {
                             if (response == null) {
 
                                 Toast.makeText(activity, "Profile updated!", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment2)
+                                //findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment2)
+                                findNavController().popBackStack()
 
                             }
                             else {

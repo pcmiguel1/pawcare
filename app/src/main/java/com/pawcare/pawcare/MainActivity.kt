@@ -14,10 +14,13 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,10 +28,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import com.pawcare.pawcare.fragments.bookings.BookingsFragment
+import com.pawcare.pawcare.fragments.bookingsdetails.BookingDetailsFragment
 import com.pawcare.pawcare.fragments.explore.ExploreFragment
 import com.pawcare.pawcare.fragments.inbox.ChatFragment
+import com.pawcare.pawcare.fragments.sitterinfo.SitterInfoFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private val TIME_INTERVAL = 2000 // # milliseconds, desired time passed between two back presses.
+    private var mBackPressed: Long = 0
 
     private lateinit var navController: NavController
     private lateinit var navigationView: NavigationView
@@ -157,6 +165,41 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+    }
+
+    override fun onBackPressed() {
+
+        Utils.hideKeyboard(this)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val navController = navHostFragment?.findNavController()
+
+        val currentFragment = navController?.currentDestination?.id
+
+        if (currentFragment == R.id.exploreFragment2 || currentFragment == R.id.bookingsFragment2 || currentFragment == R.id.inboxFragment2 || currentFragment == R.id.profileFragment2) {
+
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+                super.onBackPressed()
+            else {
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show()
+                mBackPressed = System.currentTimeMillis()
+            }
+
+        }
+        else navController!!.popBackStack()
+
+
+       /* if (navController?.currentDestination?.id == R.id.yourFragment) {
+            navController!!.popBackStack()
+        } else {
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+                super.onBackPressed()
+            else {
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show()
+                mBackPressed = System.currentTimeMillis()
+            }
+        }*/
 
     }
 

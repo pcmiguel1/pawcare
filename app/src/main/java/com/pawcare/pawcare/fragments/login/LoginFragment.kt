@@ -488,6 +488,8 @@ class LoginFragment : Fragment() {
 
         Utils.hideKeyboard(requireActivity())
 
+        App.instance.preferences.edit().putBoolean("SITTER", false).apply()
+
         val email = binding!!.emailForm.text.toString()
         val password = binding!!.passwordForm.text.toString()
 

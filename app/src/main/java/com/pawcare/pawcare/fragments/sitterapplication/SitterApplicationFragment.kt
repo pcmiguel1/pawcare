@@ -59,7 +59,6 @@ class SitterApplicationFragment : Fragment() {
 
                         }
 
-
                     }
 
                 }

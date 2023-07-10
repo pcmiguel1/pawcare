@@ -403,7 +403,8 @@ class AddPetFragment : Fragment() {
                             if (response == null) {
 
                                 Toast.makeText(activity, "Pet updated!", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
+                                //findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
+                                findNavController().popBackStack()
 
                             }
                             else {
@@ -503,7 +504,8 @@ class AddPetFragment : Fragment() {
                                 //val fragmentManager = requireActivity().supportFragmentManager
                                 //fragmentManager.popBackStack()
                                 Toast.makeText(activity, "Pet added!", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
+                                //findNavController().navigate(R.id.action_addPetFragment_to_myPetsFragment)
+                                findNavController().popBackStack()
                             }
                             else {
                                 App.instance.mainActivity!!.popupError(response.toString())
