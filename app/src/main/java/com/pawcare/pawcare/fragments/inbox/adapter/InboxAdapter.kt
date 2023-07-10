@@ -11,6 +11,8 @@ import com.pawcare.pawcare.services.ApiInterface
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InboxAdapter(
     private val list: List<ApiInterface.Contact>
@@ -48,8 +50,14 @@ class InboxAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
         holder.name.text = item.name
-        holder.message.text = ""
-        holder.time.text = ""
+        holder.message.text = item.lastMessage ?: ""
+
+        if (item.date != null) {
+            val dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
+            val date = item.date
+            val formattedDate = dateFormat.format(date)
+            holder.time.text = formattedDate
+        }
 
         if (item.image != null && item.image != "") {
 

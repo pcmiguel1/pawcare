@@ -369,6 +369,16 @@ interface ApiInterface {
 
     }
 
+    class LastMessage {
+
+        @SerializedName("message")
+        var message: String? = null
+
+        @SerializedName("date")
+        var date: Date? = null
+
+    }
+
     class Message {
 
         @SerializedName("_id")
@@ -424,6 +434,12 @@ interface ApiInterface {
 
         @SerializedName("name")
         var name: String? = null
+
+        @SerializedName("lastMessage")
+        var lastMessage: String? = null
+
+        @SerializedName("date")
+        var date: Date? = null
 
     }
 
